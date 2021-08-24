@@ -54,7 +54,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5890745595575709635
@@ -96,15 +96,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5890745595575709638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af37f2a80dd68845a10d501a1fe02f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b6ebd97df7719a24980a7df4d57d51c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingDistanceRange: {x: 0, y: 0}
-  minTurningAngle: 0
-  dwellingTime: 0
-  maxDelayToReachDestination: 0
-  minDistanceToPlayer: 0
-  escapeSpeed: 0
+  walkingDistanceRange: {x: 8, y: 30}
+  minTurningAngle: 60
+  dwellingTime: 1
+  maxDelayToReachDestination: 2
+  minDistanceToPlayer: 5
+  escapeSpeed: 7
 --- !u!1 &5890745596721024379
 GameObject:
   m_ObjectHideFlags: 0

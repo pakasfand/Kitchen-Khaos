@@ -19,10 +19,12 @@ public class AIBehaviour : MonoBehaviour
     private int timeSinceNewDestination;
     GameObject player;
     Vector3 vectorToPlayer;
+    Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -47,6 +49,11 @@ public class AIBehaviour : MonoBehaviour
         }
         if (wandering != null) return;
         wandering = StartCoroutine(Wander());
+    }
+
+    private void LateUpdate()
+    {
+        animator.SetBool("Idle", Mathf.Approximately(agent.velocity.sqrMagnitude, 0));
     }
 
     private void RunAway()

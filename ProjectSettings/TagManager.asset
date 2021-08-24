@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Plate
+    uniqueID: 1733432789
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

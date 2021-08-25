@@ -8,16 +8,11 @@ using UnityEngine.UI;
 public class Shift : MonoBehaviour
 {
 
-    public enum CharacterType
-    {
-        Plate,
-        Cup,
-    }
 
     [System.Serializable]
     struct Goal
     {
-        public CharacterType characterType;
+        public DishTypes characterType;
         public int objective;
     }
 
@@ -94,10 +89,10 @@ public class Shift : MonoBehaviour
         }
     }
 
-    private RectTransform CreateGoal(CharacterType characterType, int objective)
+    private RectTransform CreateGoal(DishTypes characterType, int objective)
     {
         RectTransform goal = Instantiate(goalPrefab, goalContainer);
-        Sprite sprite = Resources.Load<Sprite>(Enum.GetName(typeof(CharacterType), characterType));
+        Sprite sprite = Resources.Load<Sprite>(Enum.GetName(typeof(DishTypes), characterType));
         goal.GetComponentInChildren<Image>().sprite = sprite;
         goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + objective;
 

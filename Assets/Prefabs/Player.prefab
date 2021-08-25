@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 4694782094774542678}
   - component: {fileID: 4694782094774542677}
   - component: {fileID: 4694782094774542676}
+  - component: {fileID: 2342757173988182411}
   - component: {fileID: 4694782094774542679}
   m_Layer: 0
   m_Name: Player
@@ -111,10 +112,24 @@ MonoBehaviour:
   _walkingSpeed: 10
   _rotationSpeed: 8
   _animator: {fileID: 8824522899506353532}
-  _detectionRadius: 7
+  _playerInteraction: {fileID: 2342757173988182411}
+--- !u!114 &2342757173988182411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694782094774542675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f13d89f78dca94b9d4d35c8ade1da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionRadius: 8
   _interactionLayers:
     serializedVersion: 2
     m_Bits: 768
+  _animator: {fileID: 8824522899506353532}
 --- !u!114 &4694782094774542679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +173,7 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4694782094774542676}
+      - m_Target: {fileID: 2342757173988182411}
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:

@@ -15,14 +15,14 @@ public class Sink : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerMovement.OnPlayerStartedCleaning += OnPlayerStartedCleaning;
-        PlayerMovement.OnPlayerStoppedCleaning += OnPlayerStoppedCleaning;
+        PlayerInteraction.OnPlayerStartedCleaning += OnPlayerStartedCleaning;
+        PlayerInteraction.OnPlayerStoppedCleaning += OnPlayerStoppedCleaning;
     }
 
     private void OnDisable()
     {
-        PlayerMovement.OnPlayerStartedCleaning -= OnPlayerStartedCleaning;
-        PlayerMovement.OnPlayerStoppedCleaning -= OnPlayerStoppedCleaning;
+        PlayerInteraction.OnPlayerStartedCleaning -= OnPlayerStartedCleaning;
+        PlayerInteraction.OnPlayerStoppedCleaning -= OnPlayerStoppedCleaning;
     }
 
     private void OnPlayerStartedCleaning()

@@ -9,9 +9,12 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float _detectionRadius;
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _collectedPlate;
+    [SerializeField] private Transform _stackPosition;
 
     private List<DishTypes> _dishesCollected;
     private bool _isInteracting;
+    private Vector3 _stackOffset = Vector3.zero;
 
     public static Action OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
@@ -19,6 +22,16 @@ public class PlayerInteraction : MonoBehaviour
     public bool IsInteracting => _isInteracting;
 
     public List<DishTypes> DishesCollected => _dishesCollected;
+
+    private void OnEnable()
+    {
+        Sink.OnDishesCleaned += OnDishesCleaned;
+    }
+
+    private void OnDisable()
+    {
+        Sink.OnDishesCleaned -= OnDishesCleaned;
+    }
 
     private void Awake()
     {
@@ -87,7 +100,21 @@ public class PlayerInteraction : MonoBehaviour
         // Play pick up anim
         enemyAi.StopAllCoroutines();
         _dishesCollected.Add(enemyAi.DishType);
+        var dish = Instantiate(_collectedPlate, _stackPosition);
+
+        dish.transform.localPosition += _stackOffset;
+        _stackOffset += new Vector3(0.0f, 0.5f, 0.0f);
+
         Destroy(enemyAi.gameObject);
+    }
+
+    private void OnDishesCleaned()
+    {
+        _stackOffset = Vector3.zero;
+        foreach (Transform child in _stackPosition)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     void OnDrawGizmos()

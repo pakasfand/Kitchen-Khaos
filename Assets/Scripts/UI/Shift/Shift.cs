@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,13 +8,42 @@ using UnityEngine.UI;
 
 public class Shift : MonoBehaviour
 {
+    class Goal
+    {
+        private readonly DishTypes _characterType;
+        private readonly GameObject _goalGO;
+        private int _amount;
 
+        public DishTypes CharacterType => _characterType;
+        public GameObject GoalGO => _goalGO;
+
+        public Goal(GameObject goalGO, DishTypes charactertype, int totalAmount)
+        {
+            _characterType = charactertype;
+            _goalGO = goalGO;
+            _amount = totalAmount;
+        }
+
+        public void DecrementAmount()
+        {
+            if(_amount > 0)
+            {
+                _amount -= 1;
+                _goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + _amount;
+            }
+
+            if(_amount <= 0)
+            {
+                Destroy(_goalGO);
+            }
+        }
+    }
 
     [System.Serializable]
-    struct Goal
+    struct GoalObjective
     {
         public DishTypes characterType;
-        public int objective;
+        public int totalAmount;
     }
 
     [Serializable]
@@ -23,19 +53,35 @@ public class Shift : MonoBehaviour
     [SerializeField] float shiftTime;
     [SerializeField] TextMeshProUGUI timer;
     [SerializeField] RectTransform goalContainer;
-    [SerializeField] Goal[] goals;
+    [SerializeField] GoalObjective[] goalObjectives;
     [SerializeField] RectTransform goalPrefab;
-    public SerializableEvent OnShiftEnded;
+
     [Header("UI")]
     [SerializeField] float goalSeparation;
     [SerializeField] float waitTimeBetweenGoals;
 
-    float currentNumberOfGoals;
-    float goingTime = 0;
+    public SerializableEvent OnShiftEnded;
+
+    private float currentNumberOfGoals;
+    private float goingTime = 0;
+    private PlayerInteraction _playerInteraction;
+    private List<Goal> _goals;
+
+    private void OnEnable()
+    {
+        Sink.OnDishesCleaned += UpdateGoals;
+    }
+
+    private void OnDisable()
+    {
+        Sink.OnDishesCleaned -= UpdateGoals;
+    }
 
     private void Start()
     {
-        StartCoroutine(ActivateGoals());
+        _goals = new List<Goal>();
+        _playerInteraction = FindObjectOfType<PlayerInteraction>();
+        ActivateGoals();
     }
 
 
@@ -50,24 +96,30 @@ public class Shift : MonoBehaviour
         }
     }
 
-    public void RegenerateGoals()
+    public void GenerateGoals()
     {
-        if (goalContainer.childCount != 0)
+        for (int i = 0; i < goalObjectives.Length; i++)
         {
-            DestroyGoals();
-        }
+            RectTransform goal = CreateGoal(goalObjectives[i].characterType,
+                goalObjectives[i].totalAmount);
 
-        for (int i = 0; i < goals.Length; i++)
-        {
-            RectTransform goal = CreateGoal(goals[i].characterType, goals[i].objective);
             goal.gameObject.SetActive(true);
+
+            _goals.Add(new Goal(goal.gameObject,
+                goalObjectives[i].characterType,
+                goalObjectives[i].totalAmount));
         }
     }
 
-    private IEnumerator ActivateGoals()
+    private void ActivateGoals()
     {
-        if (goalContainer.childCount == 0) RegenerateGoals();
+        GenerateGoals();
 
+        StartCoroutine(PlayActivationAnimation());
+    }
+
+    private IEnumerator PlayActivationAnimation()
+    {
         for (int i = 0; i < goalContainer.childCount; i++)
         {
             goalContainer.GetChild(i).gameObject.SetActive(false);
@@ -81,24 +133,35 @@ public class Shift : MonoBehaviour
         }
     }
 
-    private void DestroyGoals()
-    {
-        for (int i = 0; i < goalContainer.childCount; i++)
-        {
-            Destroy(goalContainer.GetChild(i).gameObject);
-        }
-    }
-
-    private RectTransform CreateGoal(DishTypes characterType, int objective)
+    private RectTransform CreateGoal(DishTypes characterType, int totalAmount)
     {
         RectTransform goal = Instantiate(goalPrefab, goalContainer);
         Sprite sprite = Resources.Load<Sprite>(Enum.GetName(typeof(DishTypes), characterType));
         goal.GetComponentInChildren<Image>().sprite = sprite;
-        goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + objective;
-
-        goal.localPosition =
-            new Vector3(goal.localPosition.x, -goal.sizeDelta.y * (goalContainer.childCount - 1) - goalSeparation * goalContainer.childCount, goal.localPosition.z);
+        goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + totalAmount;
         goal.gameObject.SetActive(false);
+
         return goal;
+    }
+
+    private void TryDecrementGoalAmount(DishTypes dishType)
+    {
+        foreach (var goal in _goals)
+        {
+            if(dishType == goal.CharacterType)
+            {
+                goal.DecrementAmount();
+            }
+        }
+    }
+
+    private void UpdateGoals()
+    {
+        foreach (var dish in _playerInteraction.DishesCollected)
+        {
+            TryDecrementGoalAmount(dish);
+        }
+
+        _playerInteraction.DishesCollected.Clear();
     }
 }

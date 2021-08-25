@@ -13,6 +13,8 @@ public class Sink : MonoBehaviour
     private bool _active;
     private float _activeTimer;
 
+    public static Action OnDishesCleaned;
+
     private void OnEnable()
     {
         PlayerInteraction.OnPlayerStartedCleaning += OnPlayerStartedCleaning;
@@ -48,6 +50,8 @@ public class Sink : MonoBehaviour
             _active = false;
 
             _progressBarGO.SetActive(false);
+
+            OnDishesCleaned?.Invoke();
         }
     }
 

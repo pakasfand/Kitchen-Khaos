@@ -13,7 +13,7 @@ public class ShiftEditor : Editor
 
         if (GUILayout.Button("Regenerate Goals"))
         {
-            shift.RegenerateGoals();
+            shift.GenerateGoals();
         }
 
     }

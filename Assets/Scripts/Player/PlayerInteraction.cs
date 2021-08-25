@@ -18,6 +18,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public bool IsInteracting => _isInteracting;
 
+    public List<DishTypes> DishesCollected => _dishesCollected;
+
     private void Awake()
     {
         _dishesCollected = new List<DishTypes>();
@@ -53,18 +55,17 @@ public class PlayerInteraction : MonoBehaviour
 
         if (sink)
         {
-            CleanDishes();
+            StartCleaningDishes();
             return true;
         }
 
         return false;
     }
 
-    private void CleanDishes()
+    private void StartCleaningDishes()
     {
         // Play clean dishes anim
         _isInteracting = true;
-        _dishesCollected.Clear();
         OnPlayerStartedCleaning?.Invoke();
     }
 

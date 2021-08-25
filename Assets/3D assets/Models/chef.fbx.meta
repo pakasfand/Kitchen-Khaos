@@ -3,7 +3,67 @@ guid: 212a28df22fd4fb4a99c28cd8ef1e39a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Accessories mat
+    second: {fileID: 2100000, guid: c87a325fa230de64e8cfd6704fdddc6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Buttons mat
+    second: {fileID: 2100000, guid: 6c63255098112964e8b0b81e05d1e899, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coat dec mat
+    second: {fileID: 2100000, guid: 671249db78e095748beb67baf51d6756, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coat mat
+    second: {fileID: 2100000, guid: 9f2e475001c947448afd000784bc2977, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye lids mat
+    second: {fileID: 2100000, guid: d98b8151c5f39cd4886316ca1d75499c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hat mat
+    second: {fileID: 2100000, guid: b76fcd7178aaa6d47861e583c8ab07d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Moustach & eye braws mat
+    second: {fileID: 2100000, guid: 267137b47e612a94685a480677003955, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pants mat
+    second: {fileID: 2100000, guid: 06398c17bd67adf46b189b243e188e6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pupil mat
+    second: {fileID: 2100000, guid: 20d72d26cbc848f4dac6b22585c5b31e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sclear mat
+    second: {fileID: 2100000, guid: f6140e87cb0580e429707d71bcab05d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoes mat
+    second: {fileID: 2100000, guid: e21f10a1f925e874fb3bf2b1defc4630, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin mat
+    second: {fileID: 2100000, guid: 07f75c262a3b98d4bb7da3321c0f46e3, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5890745595575709635}
   - component: {fileID: 5890745595575709633}
   - component: {fileID: 8913132616417565946}
-  - component: {fileID: 366462375978746590}
+  - component: {fileID: 2709047134527731057}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ebd97df7719a24980a7df4d57d51c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingDistanceRange: {x: 8, y: 30}
+  walkingDistanceRange: {x: 10, y: 40}
   minTurningAngle: 60
   dwellingTime: 1
   maxDelayToReachDestination: 2
@@ -105,7 +105,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!95 &366462375978746590
+--- !u!95 &2709047134527731057
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4fbf1f0b953b05a43948478bb866cec4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4fbf1f0b953b05a43948478bb866cec4,
         type: 3}
@@ -164,7 +164,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4fbf1f0b953b05a43948478bb866cec4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4fbf1f0b953b05a43948478bb866cec4,
         type: 3}

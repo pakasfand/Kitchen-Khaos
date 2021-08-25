@@ -53,7 +53,7 @@ public class AIBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetBool("Idle", Mathf.Approximately(agent.velocity.sqrMagnitude, 0));
+        animator.SetBool("Idle", agent.velocity.magnitude <= 0.5f);
     }
 
     private void RunAway()

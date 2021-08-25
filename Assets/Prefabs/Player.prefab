@@ -90,7 +90,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -111,6 +111,10 @@ MonoBehaviour:
   _walkingSpeed: 10
   _rotationSpeed: 8
   _animator: {fileID: 8824522899506353532}
+  _detectionRadius: 7
+  _interactionLayers:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!114 &4694782094774542679
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -316,7 +316,7 @@ MonoBehaviour:
     totalAmount: 3
   - characterType: 2
     totalAmount: 2
-  goalPrefab: {fileID: 7932044179855647805, guid: f8c51e1f24c21f64f98fca0c89c575a4,
+  goalPrefab: {fileID: 7932044179855647805, guid: f77e082aa2258a34b8a90ab668b617cb,
     type: 3}
   goalSeparation: 10
   waitTimeBetweenGoals: 0.7

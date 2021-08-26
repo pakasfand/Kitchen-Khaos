@@ -13,20 +13,20 @@ public class AIBehaviour : MonoBehaviour
     [SerializeField] float minDistanceToPlayer;
     [SerializeField] float escapeSpeed;
     [SerializeField] private DishTypes _dishType;
+    [SerializeField] Animator animator;
 
     Vector3 walkingDirection;
     Coroutine wandering;
     private int timeSinceNewDestination;
     GameObject player;
     Vector3 vectorToPlayer;
-    Animator animator;
+
 
     public DishTypes DishType => _dishType;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -55,7 +55,7 @@ public class AIBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetBool("Idle", agent.velocity.magnitude <= 0.5f);
+        animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
     }
 
     private void RunAway()

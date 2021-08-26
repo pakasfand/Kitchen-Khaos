@@ -109,6 +109,9 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool TryToPickUpDish(Collider collider)
     {
+        if (_animator.GetBool("Pick up left"))  { return false; }
+        if (_animator.GetBool("Pick up right")) { return false; }
+
         var enemyAi = collider.GetComponent<AIBehaviour>();
 
         if (enemyAi)
@@ -130,7 +133,7 @@ public class PlayerInteraction : MonoBehaviour
 
         _alternateStack = !_alternateStack;
 
-        if(_alternateStack)
+        if (_alternateStack)
         {
             _animator.SetBool("Pick up right", true);
             _leftStackOffset += new Vector3(0.0f, 0.2f, 0.0f);

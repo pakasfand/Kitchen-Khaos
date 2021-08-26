@@ -79,6 +79,7 @@ public class PlayerInteraction : MonoBehaviour
         if (_isInteracting && value.canceled)
         {
             _isInteracting = false;
+            _animator.SetBool("Clean", false);
             OnPlayerStoppedCleaning?.Invoke();
         }
     }
@@ -100,7 +101,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void StartCleaningDishes()
     {
-        // Play clean dishes anim
+        _animator.SetBool("Clean", true);
+
         _isInteracting = true;
         OnPlayerStartedCleaning?.Invoke();
     }
@@ -120,7 +122,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void PickUpDish(AIBehaviour enemyAi)
     {
-        // Play pick up anim
         enemyAi.StopAllCoroutines();
         _dishesCollected.Add(enemyAi.DishType);
 
@@ -131,10 +132,12 @@ public class PlayerInteraction : MonoBehaviour
 
         if(_alternateStack)
         {
+            _animator.SetBool("Pick up right", true);
             _leftStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
         }
         else
         {
+            _animator.SetBool("Pick up left", true);
             _rightStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
         }
 
@@ -144,6 +147,12 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     private void OnDishesCleaned()
+    {
+        _animator.SetBool("Clean", false);
+        DestroyDishes();
+    }
+
+    private void DestroyDishes()
     {
         _leftStackOffset = Vector3.zero;
         _rightStackOffset = Vector3.zero;
@@ -157,6 +166,13 @@ public class PlayerInteraction : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void Stumble()
+    {
+        _animator.SetBool("Stumble", true);
+        DestroyDishes();
+        _dishesCollected.Clear();
     }
 
     void OnDrawGizmos()

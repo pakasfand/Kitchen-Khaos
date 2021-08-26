@@ -30,8 +30,7 @@ public class Splatter : MonoBehaviour
         remainingTime = Mathf.Max(0, remainingTime - Time.deltaTime);
         if (remainingTime == 0)
         {
-            animator.SetTrigger("Disappear");
-            particles.Stop();
+            PlayDisappearAnim();
         }
     }
 
@@ -51,12 +50,14 @@ public class Splatter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ApplyEffect();
+            other.GetComponent<PlayerInteraction>().Stumble();
+            PlayDisappearAnim();
         }
     }
 
-    private void ApplyEffect()
+    private void PlayDisappearAnim()
     {
-
+        animator.SetTrigger("Disappear");
+        particles.Stop();
     }
 }

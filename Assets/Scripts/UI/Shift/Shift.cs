@@ -26,13 +26,13 @@ public class Shift : MonoBehaviour
 
         public void DecrementAmount()
         {
-            if(_amount > 0)
+            if (_amount > 0)
             {
                 _amount -= 1;
                 _goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + _amount;
             }
 
-            if(_amount <= 0)
+            if (_amount <= 0)
             {
                 Destroy(_goalGO);
             }
@@ -51,7 +51,8 @@ public class Shift : MonoBehaviour
 
     [Header("Shift Manager")]
     [SerializeField] float shiftTime;
-    [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] Image timer;
+    [SerializeField] Image timerOutline;
     [SerializeField] RectTransform goalContainer;
     [SerializeField] GoalObjective[] goalObjectives;
     [SerializeField] RectTransform goalPrefab;
@@ -59,6 +60,9 @@ public class Shift : MonoBehaviour
     [Header("UI")]
     [SerializeField] float goalSeparation;
     [SerializeField] float waitTimeBetweenGoals;
+    [SerializeField] float runningOutOfTimeFraction;
+    [SerializeField] Color flickingColor;
+    [SerializeField] float flickingTime;
 
     public SerializableEvent OnShiftEnded;
 
@@ -66,6 +70,7 @@ public class Shift : MonoBehaviour
     private float goingTime = 0;
     private PlayerInteraction _playerInteraction;
     private List<Goal> _goals;
+    private bool flicking = false;
 
     private void OnEnable()
     {
@@ -88,10 +93,19 @@ public class Shift : MonoBehaviour
     private void Update()
     {
         goingTime += Time.deltaTime;
-        timer.text = Mathf.Floor(goingTime / 60) + ":" + Mathf.Floor((goingTime / 10) % 6) + Mathf.Floor(goingTime % 10);
+        timer.fillAmount = 1 - goingTime / shiftTime;
+
+        if (timer.fillAmount <= runningOutOfTimeFraction && !flicking)
+        {
+            StartCoroutine(Flicker(timer));
+            StartCoroutine(Flicker(timerOutline));
+            flicking = true;
+
+        }
 
         if (goingTime >= shiftTime)
         {
+            StopAllCoroutines();
             OnShiftEnded.Invoke();
         }
     }
@@ -148,7 +162,7 @@ public class Shift : MonoBehaviour
     {
         foreach (var goal in _goals)
         {
-            if(dishType == goal.CharacterType)
+            if (dishType == goal.CharacterType)
             {
                 goal.DecrementAmount();
             }
@@ -163,5 +177,16 @@ public class Shift : MonoBehaviour
         }
 
         _playerInteraction.DishesCollected.Clear();
+    }
+
+
+    private IEnumerator Flicker(Image image)
+    {
+        Color originalColor = image.color;
+        image.color = flickingColor;
+        yield return new WaitForSeconds(flickingTime);
+        image.color = originalColor;
+        yield return new WaitForSeconds(flickingTime);
+        StartCoroutine(Flicker(image));
     }
 }

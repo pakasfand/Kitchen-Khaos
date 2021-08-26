@@ -10,11 +10,18 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject _collectedPlate;
-    [SerializeField] private Transform _stackPosition;
+    [SerializeField] private Transform _leftStackPosition;
+    [SerializeField] private Transform _rightStackPosition;
+
+    [SerializeField] private Vector3 _leftStackIdleRotation;
+    [SerializeField] private Vector3 _rightStackIdleRotation;
+    [SerializeField] private Vector3 _leftStackMovingRotation;
+    [SerializeField] private Vector3 _rightStackMovingRotation;
 
     private List<DishTypes> _dishesCollected;
     private bool _isInteracting;
-    private Vector3 _stackOffset = Vector3.zero;
+    private Vector3 _leftStackOffset = Vector3.zero;
+    private Vector3 _rightStackOffset = Vector3.zero;
 
     public static Action OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
@@ -22,6 +29,8 @@ public class PlayerInteraction : MonoBehaviour
     public bool IsInteracting => _isInteracting;
 
     public List<DishTypes> DishesCollected => _dishesCollected;
+
+    public bool _alternateStack;
 
     private void OnEnable()
     {
@@ -36,6 +45,20 @@ public class PlayerInteraction : MonoBehaviour
     private void Awake()
     {
         _dishesCollected = new List<DishTypes>();
+    }
+
+    private void Update()
+    {
+        if(_animator.GetFloat("Speed") == 0)
+        {
+            _rightStackPosition.localRotation = Quaternion.Euler(_rightStackIdleRotation);
+            _leftStackPosition.localRotation = Quaternion.Euler(_leftStackIdleRotation);
+        }
+        else
+        {
+            _rightStackPosition.localRotation = Quaternion.Euler(_rightStackMovingRotation);
+            _leftStackPosition.localRotation = Quaternion.Euler(_leftStackMovingRotation);
+        }
     }
 
     public void OnInteract(InputAction.CallbackContext value)
@@ -100,18 +123,37 @@ public class PlayerInteraction : MonoBehaviour
         // Play pick up anim
         enemyAi.StopAllCoroutines();
         _dishesCollected.Add(enemyAi.DishType);
-        var dish = Instantiate(_collectedPlate, _stackPosition);
 
-        dish.transform.localPosition += _stackOffset;
-        _stackOffset += new Vector3(0.0f, 0.5f, 0.0f);
+        var dish = Instantiate(_collectedPlate, 
+            _alternateStack ?_leftStackPosition : _rightStackPosition);
+
+        _alternateStack = !_alternateStack;
+
+        if(_alternateStack)
+        {
+            _leftStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+        }
+        else
+        {
+            _rightStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+        }
+
+        dish.transform.localPosition += _leftStackOffset;
 
         Destroy(enemyAi.gameObject);
     }
 
     private void OnDishesCleaned()
     {
-        _stackOffset = Vector3.zero;
-        foreach (Transform child in _stackPosition)
+        _leftStackOffset = Vector3.zero;
+        _rightStackOffset = Vector3.zero;
+
+        foreach (Transform child in _leftStackPosition)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in _rightStackPosition)
         {
             Destroy(child.gameObject);
         }

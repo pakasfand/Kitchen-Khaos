@@ -87,6 +87,12 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 350380796012593390}
+    - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: dishType
+      value: 
+      objectReference: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb,
+        type: 2}
     - target: {fileID: 5890745595575709638, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: m_Name

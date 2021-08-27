@@ -6,8 +6,8 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
 
-    [SerializeField] GameObject subject;
-    [SerializeField] int numberOfInstances;
+    public GameObject subject;
+    public int numberOfInstances;
 
     Queue<GameObject> unusedObjectsQueue;
     MyList<GameObject> usedObjects;
@@ -40,6 +40,33 @@ public class ObjectPool : MonoBehaviour
         usedObjects.Add(subject);
         return subject;
     }
+
+    public enum ObjectState
+    {
+        Active,
+        Disabled,
+        Any
+    }
+
+    public int GetNumberOfObjectsInPool(ObjectState state)
+    {
+        switch (state)
+        {
+            case ObjectState.Active:
+                return numberOfInstances - unusedObjectsQueue.Count;
+
+            case ObjectState.Disabled:
+                return unusedObjectsQueue.Count;
+
+            case ObjectState.Any:
+                return numberOfInstances;
+            default:
+                return 0;
+        }
+    }
+
+
+
     private GameObject CreateSubject()
     {
         GameObject instance = Instantiate(subject, transform.position, Quaternion.identity, this.transform);

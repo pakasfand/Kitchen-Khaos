@@ -11,9 +11,9 @@ public class ShiftEditor : Editor
 
         Shift shift = (Shift)target;
 
-        if (GUILayout.Button("Regenerate Goals"))
+        if (GUILayout.Button("Pregenerate Goals"))
         {
-            shift.GenerateGoals();
+            shift.PregenerateGoals();
         }
 
     }

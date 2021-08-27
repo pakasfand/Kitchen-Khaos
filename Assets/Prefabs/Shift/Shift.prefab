@@ -79,7 +79,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &6581184169664220197
@@ -221,15 +221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2bd4de3a5573f4abfc09a2987397c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goals: []
   shiftTime: 30
   timer: {fileID: 3901637560958508098}
   timerOutline: {fileID: 4139431461192754646}
   goalContainer: {fileID: 4139431459698363605}
-  goalObjectives:
-  - characterType: 0
-    totalAmount: 3
-  - characterType: 2
-    totalAmount: 2
   goalPrefab: {fileID: 7932044179855647805, guid: f77e082aa2258a34b8a90ab668b617cb,
     type: 3}
   goalSeparation: 10

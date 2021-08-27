@@ -69,7 +69,6 @@ public class Cup : MonoBehaviour
     private IEnumerator TryToSpill()
     {
         tryToSpillTimer = 0;
-        print("Trying To Spill");
         yield return new WaitUntil(() =>
         {
             if (hopCoroutine == null) hopCoroutine = StartCoroutine(Hop(normalHopHeigth));
@@ -86,13 +85,11 @@ public class Cup : MonoBehaviour
 
         for (int i = 0; i < jumpsBeforeTryingToSpill; i++)
         {
-            print("Jump # " + (i + 1));
             yield return StartCoroutine(Hop(spillingHopHeigth));
         }
 
         if (CanSpill())
         {
-            print("Spilled");
             if (puddlePrefab != null) Instantiate(puddlePrefab, transform.position, puddlePrefab.transform.rotation, null);
         }
         yield return new WaitForSeconds(2f);

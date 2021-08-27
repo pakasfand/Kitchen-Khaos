@@ -12,7 +12,7 @@ public class AIBehaviour : MonoBehaviour
     [SerializeField] float maxDelayToReachDestination;
     [SerializeField] float minDistanceToPlayer;
     [SerializeField] float escapeSpeed;
-    [SerializeField] private DishTypes _dishType;
+    public DishType dishType;
     [SerializeField] Animator animator;
 
     Vector3 walkingDirection;
@@ -20,9 +20,6 @@ public class AIBehaviour : MonoBehaviour
     private int timeSinceNewDestination;
     GameObject player;
     Vector3 vectorToPlayer;
-
-
-    public DishTypes DishType => _dishType;
 
     private void Awake()
     {

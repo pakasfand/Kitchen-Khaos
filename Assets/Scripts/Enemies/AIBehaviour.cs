@@ -53,9 +53,40 @@ public class AIBehaviour : MonoBehaviour
         wandering = StartCoroutine(Wander());
     }
 
+    public bool IsStopped()
+    {
+        return agent.isStopped;
+    }
+
+    public void Continue()
+    {
+        agent.isStopped = false;
+    }
+
+    public void Stop()
+    {
+        agent.isStopped = true;
+    }
+
+    public bool HasReachedDestination()
+    {
+        if (!agent.pathPending)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
     private void LateUpdate()
     {
-        animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+        if (animator != null) animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
     }
 
     private void RunAway()
@@ -97,21 +128,7 @@ public class AIBehaviour : MonoBehaviour
         wandering = null;
     }
 
-    private bool HasReachedDestination()
-    {
-        if (!agent.pathPending)
-        {
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
 
-    }
 
     private bool IsPathValid(Vector3 targetPosition)
     {
@@ -137,6 +154,11 @@ public class AIBehaviour : MonoBehaviour
             pathLength += Vector3.Distance(path.corners[i], path.corners[i - 1]);
         }
         return pathLength;
+    }
+
+    private void OnDisable()
+    {
+        if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
     }
 
 

@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "InputAction",
     "maps": [
         {
             "name": "PlayerActions",
@@ -17,6 +17,14 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "f10f0355-7add-4a7a-a487-b7b2eda95a93",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Stability",
+                    "type": "Button",
+                    "id": "dd355cf9-02fb-49a3-88f8-bfad9cf08ea9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -86,6 +94,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e982262-97f7-4cc9-b5c4-0a4eb60c1884",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

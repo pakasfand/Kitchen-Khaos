@@ -9,10 +9,18 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float _detectionRadius;
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _collectedPlate;
     [SerializeField] private Transform _leftStackPosition;
     [SerializeField] private Transform _rightStackPosition;
 
+    [Header("Stumble Parameters")]
+    [SerializeField] private int _chanceToStumblePerDish;
+    [SerializeField] private float _stumbleCheckRate;
+
+    [Header("Collected Dishes")]
+    [SerializeField] private GameObject _collectedPlate;
+    [SerializeField] private GameObject _collectedCup;
+
+    [Header("Stack Rotation Parameters")]
     [SerializeField] private Vector3 _leftStackIdleRotation;
     [SerializeField] private Vector3 _rightStackIdleRotation;
     [SerializeField] private Vector3 _leftStackMovingRotation;
@@ -22,24 +30,27 @@ public class PlayerInteraction : MonoBehaviour
     private bool _isInteracting;
     private Vector3 _leftStackOffset = Vector3.zero;
     private Vector3 _rightStackOffset = Vector3.zero;
+    private bool _alternateStack;
 
     public static Action OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
+    public static Action OnStabilityCheckBegin;
 
     public bool IsInteracting => _isInteracting;
-
     public List<DishTypes> DishesCollected => _dishesCollected;
 
-    public bool _alternateStack;
+    private float _stabilityCheckTimer;
 
     private void OnEnable()
     {
         Sink.OnDishesCleaned += OnDishesCleaned;
+        StabilityCheck.OnStabilityCompleted += OnStabilityCompleted;
     }
 
     private void OnDisable()
     {
         Sink.OnDishesCleaned -= OnDishesCleaned;
+        StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
     }
 
     private void Awake()
@@ -58,6 +69,25 @@ public class PlayerInteraction : MonoBehaviour
         {
             _rightStackPosition.localRotation = Quaternion.Euler(_rightStackMovingRotation);
             _leftStackPosition.localRotation = Quaternion.Euler(_leftStackMovingRotation);
+        }
+
+        if(_dishesCollected.Count > 0)
+        {
+            _stabilityCheckTimer += Time.deltaTime;
+
+            if(_stabilityCheckTimer >= _stumbleCheckRate)
+            {
+                _stabilityCheckTimer = 0;
+                var rng = UnityEngine.Random.Range(0, 100);
+                if(rng < _dishesCollected.Count * _chanceToStumblePerDish)
+                {
+                    OnStabilityCheckBegin?.Invoke();
+                }
+            }
+        }
+        else
+        {
+            _stabilityCheckTimer = 0;
         }
     }
 
@@ -135,16 +165,16 @@ public class PlayerInteraction : MonoBehaviour
 
         if (_alternateStack)
         {
-            _animator.SetBool("Pick up right", true);
+            //_animator.SetBool("Pick up right", true);
             _leftStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+            dish.transform.localPosition += _leftStackOffset;
         }
         else
         {
-            _animator.SetBool("Pick up left", true);
+            //_animator.SetBool("Pick up left", true);
             _rightStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+            dish.transform.localPosition += _rightStackOffset;
         }
-
-        dish.transform.localPosition += _leftStackOffset;
 
         Destroy(enemyAi.gameObject);
     }
@@ -153,6 +183,14 @@ public class PlayerInteraction : MonoBehaviour
     {
         _animator.SetBool("Clean", false);
         DestroyDishes();
+    }
+
+    private void OnStabilityCompleted(bool status)
+    {
+        if(!status)
+        {
+            Stumble();
+        }
     }
 
     private void DestroyDishes()

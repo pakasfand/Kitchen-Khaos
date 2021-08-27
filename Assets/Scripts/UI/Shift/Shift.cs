@@ -50,9 +50,9 @@ public class Shift : MonoBehaviour
     public class SerializableEvent : UnityEvent { }
 
     [Header("Shift Manager")]
-    [SerializeField] float shiftTime;
+    public float shiftTime;
     [SerializeField] Image timer;
-    [SerializeField] Image timerOutline;
+    [SerializeField] Animator timerOutline;
     [SerializeField] RectTransform goalContainer;
     [SerializeField] GoalObjective[] goalObjectives;
     [SerializeField] RectTransform goalPrefab;
@@ -98,7 +98,7 @@ public class Shift : MonoBehaviour
         if (timer.fillAmount <= runningOutOfTimeFraction && !flicking)
         {
             StartCoroutine(Flicker(timer));
-            StartCoroutine(Flicker(timerOutline));
+            timerOutline.SetTrigger("Change Clock");
             flicking = true;
 
         }

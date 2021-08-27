@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1192269369573649303}
-  - component: {fileID: 6287537416981160869}
   - component: {fileID: 1255407161351899243}
   m_Layer: 0
   m_Name: Spawn
@@ -32,20 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6287537416981160869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192269369573649302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb668890c19a4d41a013cd1f0f7a37c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subject: {fileID: 0}
-  numberOfInstances: 10
 --- !u!114 &1255407161351899243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,8 +40,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192269369573649302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9484735f7718e74459880cf3ca0cb722, type: 3}
+  m_Script: {fileID: 11500000, guid: f35b993bc40cb534b98a40b4f85b9991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 1
-  startTime: 0
+  maxNumberOfDishes: 30
+  dishesToSpawn:
+  - prefab: {fileID: 144021349041675612, guid: 5e08498fd29b1094fae27e7240ab317d, type: 3}
+    dishType: 0
+    probability: 1
+  numberOfPoolInstances: 10
+  spawnRate: 0.5
+  startToSpawnTime: 1

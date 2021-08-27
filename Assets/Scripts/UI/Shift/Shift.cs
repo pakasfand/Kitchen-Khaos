@@ -8,53 +8,53 @@ using UnityEngine.UI;
 
 public class Shift : MonoBehaviour
 {
-    class Goal
+    [Serializable]
+    public class Goal
     {
-        private readonly DishTypes _characterType;
-        private readonly GameObject _goalGO;
+
+        public DishType dishType;
+        [HideInInspector] public GameObject goalGO;
+        public int totalAmount;
         private int _amount;
 
-        public DishTypes CharacterType => _characterType;
-        public GameObject GoalGO => _goalGO;
-
-        public Goal(GameObject goalGO, DishTypes charactertype, int totalAmount)
+        public Goal(GameObject goalGO, DishType dishType, int totalAmount)
         {
-            _characterType = charactertype;
-            _goalGO = goalGO;
+            this.dishType = dishType;
+            this.goalGO = goalGO;
+            this.totalAmount = totalAmount;
             _amount = totalAmount;
+        }
+
+        public Goal()
+        {
+            _amount = -1;
         }
 
         public void DecrementAmount()
         {
+            if (_amount == -1) _amount = totalAmount;
             if (_amount > 0)
             {
                 _amount -= 1;
-                _goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + _amount;
+                goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + _amount;
             }
 
             if (_amount <= 0)
             {
-                Destroy(_goalGO);
+                Destroy(goalGO);
             }
         }
-    }
-
-    [System.Serializable]
-    struct GoalObjective
-    {
-        public DishTypes characterType;
-        public int totalAmount;
     }
 
     [Serializable]
     public class SerializableEvent : UnityEvent { }
 
     [Header("Shift Manager")]
+    public List<Goal> goals;
     public float shiftTime;
     [SerializeField] Image timer;
     [SerializeField] Animator timerOutline;
     [SerializeField] RectTransform goalContainer;
-    [SerializeField] GoalObjective[] goalObjectives;
     [SerializeField] RectTransform goalPrefab;
 
     [Header("UI")]
@@ -64,12 +64,12 @@ public class Shift : MonoBehaviour
     [SerializeField] Color flickingColor;
     [SerializeField] float flickingTime;
 
+    [HideInInspector]
     public SerializableEvent OnShiftEnded;
 
     private float currentNumberOfGoals;
     private float goingTime = 0;
     private PlayerInteraction _playerInteraction;
-    private List<Goal> _goals;
     private bool flicking = false;
 
     private void OnEnable()
@@ -84,7 +84,12 @@ public class Shift : MonoBehaviour
 
     private void Start()
     {
-        _goals = new List<Goal>();
+
+        for (int i = 0; i < goalContainer.transform.childCount; i++)
+        {
+            goals[i].goalGO = goalContainer.transform.GetChild(i).gameObject;
+        }
+
         _playerInteraction = FindObjectOfType<PlayerInteraction>();
         ActivateGoals();
     }
@@ -92,6 +97,7 @@ public class Shift : MonoBehaviour
 
     private void Update()
     {
+        if (goals == null) goals = new List<Goal>();
         goingTime += Time.deltaTime;
         timer.fillAmount = 1 - goingTime / shiftTime;
 
@@ -110,25 +116,32 @@ public class Shift : MonoBehaviour
         }
     }
 
-    public void GenerateGoals()
+    public void PregenerateGoals()
     {
-        for (int i = 0; i < goalObjectives.Length; i++)
+        GenerateGoals();
+    }
+
+    private void GenerateGoals()
+    {
+        for (int i = 0; i < goals.Count; i++)
         {
-            RectTransform goal = CreateGoal(goalObjectives[i].characterType,
-                goalObjectives[i].totalAmount);
+            RectTransform goal = InstantiateGoal(goals[i].dishType,
+                goals[i].totalAmount);
 
             goal.gameObject.SetActive(true);
 
-            _goals.Add(new Goal(goal.gameObject,
-                goalObjectives[i].characterType,
-                goalObjectives[i].totalAmount));
+            goals[i].goalGO = goal.gameObject;
         }
+    }
+
+    public void AddGoal(DishType dishType, int totalAmount)
+    {
+        GameObject goalGO = InstantiateGoal(dishType, totalAmount).gameObject;
+        goals.Add(new Goal(goalGO, dishType, totalAmount));
     }
 
     private void ActivateGoals()
     {
-        GenerateGoals();
-
         StartCoroutine(PlayActivationAnimation());
     }
 
@@ -147,22 +160,20 @@ public class Shift : MonoBehaviour
         }
     }
 
-    private RectTransform CreateGoal(DishTypes characterType, int totalAmount)
+    private RectTransform InstantiateGoal(DishType dishType, int totalAmount)
     {
         RectTransform goal = Instantiate(goalPrefab, goalContainer);
-        Sprite sprite = Resources.Load<Sprite>(Enum.GetName(typeof(DishTypes), characterType));
-        goal.GetComponentInChildren<Image>().sprite = sprite;
+        goal.GetComponentInChildren<Image>().sprite = dishType.UISprite;
         goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + totalAmount;
         goal.gameObject.SetActive(false);
-
         return goal;
     }
 
-    private void TryDecrementGoalAmount(DishTypes dishType)
+    private void TryDecrementGoalAmount(DishType dishType)
     {
-        foreach (var goal in _goals)
+        foreach (var goal in goals)
         {
-            if (dishType == goal.CharacterType)
+            if (dishType == goal.dishType)
             {
                 goal.DecrementAmount();
             }

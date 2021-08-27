@@ -26,7 +26,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Vector3 _leftStackMovingRotation;
     [SerializeField] private Vector3 _rightStackMovingRotation;
 
-    private List<DishTypes> _dishesCollected;
+    private List<DishType> _dishesCollected;
     private bool _isInteracting;
     private Vector3 _leftStackOffset = Vector3.zero;
     private Vector3 _rightStackOffset = Vector3.zero;
@@ -37,7 +37,7 @@ public class PlayerInteraction : MonoBehaviour
     public static Action OnStabilityCheckBegin;
 
     public bool IsInteracting => _isInteracting;
-    public List<DishTypes> DishesCollected => _dishesCollected;
+    public List<DishType> DishesCollected => _dishesCollected;
 
     private float _stabilityCheckTimer;
 
@@ -55,12 +55,12 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Awake()
     {
-        _dishesCollected = new List<DishTypes>();
+        _dishesCollected = new List<DishType>();
     }
 
     private void Update()
     {
-        if(_animator.GetFloat("Speed") == 0)
+        if (_animator.GetFloat("Speed") == 0)
         {
             _rightStackPosition.localRotation = Quaternion.Euler(_rightStackIdleRotation);
             _leftStackPosition.localRotation = Quaternion.Euler(_leftStackIdleRotation);
@@ -71,15 +71,15 @@ public class PlayerInteraction : MonoBehaviour
             _leftStackPosition.localRotation = Quaternion.Euler(_leftStackMovingRotation);
         }
 
-        if(_dishesCollected.Count > 0)
+        if (_dishesCollected.Count > 0)
         {
             _stabilityCheckTimer += Time.deltaTime;
 
-            if(_stabilityCheckTimer >= _stumbleCheckRate)
+            if (_stabilityCheckTimer >= _stumbleCheckRate)
             {
                 _stabilityCheckTimer = 0;
                 var rng = UnityEngine.Random.Range(0, 100);
-                if(rng < _dishesCollected.Count * _chanceToStumblePerDish)
+                if (rng < _dishesCollected.Count * _chanceToStumblePerDish)
                 {
                     OnStabilityCheckBegin?.Invoke();
                 }
@@ -139,7 +139,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool TryToPickUpDish(Collider collider)
     {
-        if (_animator.GetBool("Pick up left"))  { return false; }
+        if (_animator.GetBool("Pick up left")) { return false; }
         if (_animator.GetBool("Pick up right")) { return false; }
 
         var enemyAi = collider.GetComponent<AIBehaviour>();
@@ -156,10 +156,10 @@ public class PlayerInteraction : MonoBehaviour
     private void PickUpDish(AIBehaviour enemyAi)
     {
         enemyAi.StopAllCoroutines();
-        _dishesCollected.Add(enemyAi.DishType);
+        _dishesCollected.Add(enemyAi.dishType);
 
-        var dish = Instantiate(_collectedPlate, 
-            _alternateStack ?_leftStackPosition : _rightStackPosition);
+        var dish = Instantiate(_collectedPlate,
+            _alternateStack ? _leftStackPosition : _rightStackPosition);
 
         _alternateStack = !_alternateStack;
 
@@ -187,7 +187,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnStabilityCompleted(bool status)
     {
-        if(!status)
+        if (!status)
         {
             Stumble();
         }

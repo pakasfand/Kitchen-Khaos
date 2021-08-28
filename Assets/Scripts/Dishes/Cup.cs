@@ -1,7 +1,6 @@
 ﻿
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Cup : MonoBehaviour
@@ -13,14 +12,14 @@ public class Cup : MonoBehaviour
     [SerializeField] int maxSpillTimes;
     [SerializeField] float normalHopHeigth;
     [SerializeField] float spillingHopHeigth;
-    [SerializeField] Rigidbody rigidBody;
+    [SerializeField] Transform model;
     [SerializeField] int jumpsBeforeTryingToSpill;
+    [SerializeField] float gravity;
 
     AIBehaviour AI;
 
     float currentChanceToSpill;
     float tryToSpillTimer = 0;
-    float gravity;
     Coroutine hopCoroutine;
     Coroutine tryToSpillCoroutine;
 
@@ -32,7 +31,6 @@ public class Cup : MonoBehaviour
     private void Start()
     {
         currentChanceToSpill = chanceToSpill;
-        gravity = Physics.gravity.magnitude;
         hopCoroutine = StartCoroutine(Hop(normalHopHeigth));
     }
 
@@ -50,8 +48,25 @@ public class Cup : MonoBehaviour
 
     private IEnumerator Hop(float hopHeigth)
     {
-        rigidBody.velocity = new Vector3(rigidBody.velocity.x, GetHopVelocity(hopHeigth), rigidBody.velocity.z);
-        yield return new WaitForSeconds(GetHopTime(hopHeigth));
+        float time = 0;
+        float hopTime = GetHopTime(hopHeigth);
+        float hopVelocity = GetHopVelocity(hopHeigth);
+        float initialY = model.localPosition.y;
+        yield return new WaitUntil(() =>
+        {
+            time += Time.deltaTime;
+            float calculatedPosition = (-gravity * time * time / 2) + hopVelocity * time + initialY;
+
+            model.localPosition = new Vector3(model.localPosition.x, calculatedPosition, model.localPosition.z);
+
+            if (time >= hopTime || model.localPosition.y <= initialY)
+            {
+                model.localPosition = new Vector3(model.localPosition.x, initialY, model.localPosition.z);
+                return true;
+            }
+
+            return false;
+        });
         hopCoroutine = null;
     }
 

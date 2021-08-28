@@ -123,6 +123,14 @@ public class DishesSpawner : MonoBehaviour
         }
     }
 
+    private GameObject SpawnDish(DishType dishType)
+    {
+        GameObject dish = dishTypeInfo[dishType].pool.RequestSubject();
+        dish.SetActive(true);
+        dish.transform.position = PickRandomLocation().position;
+        return dish;
+    }
+
     private void SpawnFromNeeded()
     {
         SpawnDish(neededDishesQueue[0]);
@@ -194,13 +202,7 @@ public class DishesSpawner : MonoBehaviour
         return pool.GetNumberOfObjectsInPool(ObjectPool.ObjectState.Active);
     }
 
-    private GameObject SpawnDish(DishType dishType)
-    {
-        GameObject dish = dishTypeInfo[dishType].pool.RequestSubject();
-        dish.SetActive(true);
-        dish.transform.position = PickRandomLocation().position;
-        return dish;
-    }
+
 
     private DishType GetRandomDishType()
     {

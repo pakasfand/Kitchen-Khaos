@@ -1,12 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!54 &1060923286381351689
+--- !u!54 &1721103089319547956
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700642069485831621}
+  m_GameObject: {fileID: 6130837936577665617}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -48,10 +48,11 @@ MonoBehaviour:
   chanceToSpillIncrement: 0.1
   timeToTryToSpill: 10
   maxSpillTimes: 3
-  normalHopHeigth: 1
-  spillingHopHeigth: 2
-  rigidBody: {fileID: 1060923286381351689}
+  normalHopHeigth: 2
+  spillingHopHeigth: 3
+  model: {fileID: 212512424569708415}
   jumpsBeforeTryingToSpill: 3
+  gravity: 20
 --- !u!1001 &348252125208245655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -260,9 +261,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c61d6a13218c18d4488c0fb1e4958f4f, type: 3}
---- !u!1 &700642069485831621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c61d6a13218c18d4488c0fb1e4958f4f,
+--- !u!4 &212512424569708415 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c61d6a13218c18d4488c0fb1e4958f4f,
     type: 3}
   m_PrefabInstance: {fileID: 394143659356387476}
   m_PrefabAsset: {fileID: 0}

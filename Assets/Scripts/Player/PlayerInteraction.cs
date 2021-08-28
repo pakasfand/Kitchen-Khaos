@@ -34,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public static Action OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
-    public static Action OnStabilityCheckBegin;
+    public static Action<int> OnStabilityCheckBegin;
 
     public bool IsInteracting => _isInteracting;
     public List<DishType> DishesCollected => _dishesCollected;
@@ -81,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
                 var rng = UnityEngine.Random.Range(0, 100);
                 if (rng < _dishesCollected.Count * _chanceToStumblePerDish)
                 {
-                    OnStabilityCheckBegin?.Invoke();
+                    OnStabilityCheckBegin?.Invoke(_dishesCollected.Count);
                 }
             }
         }

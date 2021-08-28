@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class StabilityCheck : MonoBehaviour
 {
-    [SerializeField] private GameObject _stabilityGO1;
-    [SerializeField] private GameObject _stabilityGO2;
+    [SerializeField] private GameObject _stabilityBarGO;
+    [SerializeField] private GameObject _cooldownTimerGO;
     [SerializeField] private Image _stabilityBar;
     [SerializeField] private Image _countdownBar;
     [SerializeField] private Gradient _stabilitygradient;
@@ -17,41 +17,20 @@ public class StabilityCheck : MonoBehaviour
     [SerializeField] private float _durationToStabilityFull;
     [SerializeField] private Color _passColor;
     [SerializeField] private Color _failColor;
-    [SerializeField] private float _durationToFail;
+    [SerializeField] private float _durationToFailPerDish;
+
     private bool _active;
     private float _coolDownTimer;
     private float _stabilityTimer;
+    private float _durationToFail;
 
-    public float DurationToFail => _durationToFail;
+    //public float DurationToFail => _durationToFail;
 
     public static Action<bool> OnStabilityCompleted;
 
     private void OnEnable()
     {
         PlayerInteraction.OnStabilityCheckBegin += OnStabilityCheckBegin;
-        //_stabilityGO.SetActive(true);
-        
-        // For testing!!!!
-        //_active = true;
-        //_countdownBar.fillAmount = 1f;
-        //_stabilityBar.fillAmount = 0f;
-
-        //var colorKeys = new GradientColorKey[2];
-        //var alphakeys = new GradientAlphaKey[2];
-
-        //colorKeys[0].color = _passColor;
-        //colorKeys[0].time = _durationToFail;
-
-        //colorKeys[1].color = _failColor;
-        //colorKeys[1].time = 1f;
-
-        //alphakeys[0].alpha = 1f;
-        //alphakeys[0].time = 0f;
-        //alphakeys[1].alpha = 1f;
-        //alphakeys[1].time = 1f;
-
-        //_stabilitygradient.SetKeys(colorKeys, alphakeys);
-
     }
 
     private void OnDisable()
@@ -59,15 +38,17 @@ public class StabilityCheck : MonoBehaviour
         PlayerInteraction.OnStabilityCheckBegin -= OnStabilityCheckBegin;
     }
 
-    private void OnStabilityCheckBegin()
+    private void OnStabilityCheckBegin(int dishesCount)
     {
-        _stabilityGO1.SetActive(true);
-        _stabilityGO2.SetActive(true);
+        _stabilityBarGO.SetActive(true);
+        _cooldownTimerGO.SetActive(true);
 
         _active = true;
 
         _countdownBar.fillAmount = 1f;
         _stabilityBar.fillAmount = 0f;
+
+        _durationToFail = Mathf.Clamp(1 - (_durationToFailPerDish * dishesCount), 0, 1);
 
         var colorKeys = new GradientColorKey[2];
         var alphakeys = new GradientAlphaKey[2];
@@ -103,22 +84,24 @@ public class StabilityCheck : MonoBehaviour
             }
 
 
-            UpdateCountDown();
+            UpdateCountDownTimer();
             UpdateStabilityBar();
 
             if(_countdownBar.fillAmount <= 0)
             {
-                // TODO: Invoke fail stability test when countdown runs out
-                //CompleteStability();
+                OnStabilityCompleted?.Invoke(false);
+                CompleteStabilityCheck();
             }
         }
     }
 
     public void OnStability(InputAction.CallbackContext value)
     {
+        if(!_active) { return; }
+
         if(value.started)
         {
-            if(_stabilityBar.fillAmount > _durationToFail 
+            if(_stabilityBar.fillAmount < _durationToFail 
                 && _countdownBar.fillAmount > 0)
             {
                 OnStabilityCompleted?.Invoke(true);
@@ -128,7 +111,7 @@ public class StabilityCheck : MonoBehaviour
                 OnStabilityCompleted?.Invoke(false);
             }
 
-            CompleteStability();
+            CompleteStabilityCheck();
         }
     }
 
@@ -141,7 +124,7 @@ public class StabilityCheck : MonoBehaviour
         _stabilityBar.color = _stabilitygradient.Evaluate(colorValue);
     }
 
-    private void UpdateCountDown()
+    private void UpdateCountDownTimer()
     {
         float fillValue = Mathf.Lerp(0f, 1f, _coolDownTimer);
         float colorValue = Mathf.Lerp(0f, 1f, _coolDownTimer);
@@ -150,10 +133,12 @@ public class StabilityCheck : MonoBehaviour
         _countdownBar.color = _cooldowngradient.Evaluate(colorValue);
     }
 
-    private void CompleteStability()
+    private void CompleteStabilityCheck()
     {
         _active = false;
-        _stabilityGO1.SetActive(false);
-        _stabilityGO2.SetActive(false);
+        _stabilityTimer = 0f;
+        _coolDownTimer = 0f;
+        _stabilityBarGO.SetActive(false);
+        _cooldownTimerGO.SetActive(false);
     }
 }

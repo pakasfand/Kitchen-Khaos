@@ -166,6 +166,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cup
       objectReference: {fileID: 0}
+    - target: {fileID: 8030328630678327259, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030328630678327259, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030328630678327259, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8030328630678327259, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.26
+      objectReference: {fileID: 0}
     - target: {fileID: 8913132616417565946, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: m_Radius

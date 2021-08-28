@@ -16,5 +16,11 @@ public class ShiftEditor : Editor
             shift.PregenerateGoals();
         }
 
+        if (GUILayout.Button("Destroy Goals"))
+        {
+            shift.PreDestroyGoals();
+        }
+
+
     }
 }

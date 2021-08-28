@@ -180,7 +180,9 @@ public class Shift : MonoBehaviour
     private RectTransform InstantiateGoal(DishType dishType, int totalAmount)
     {
         RectTransform goal = Instantiate(goalPrefab, goalContainer);
-        goal.GetComponentInChildren<Image>().sprite = dishType.UISprite;
+        Image image = goal.GetComponentInChildren<Image>();
+        image.sprite = dishType.UISprite;
+        image.SetNativeSize();
         goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + totalAmount;
         goal.gameObject.SetActive(false);
         return goal;
@@ -193,6 +195,15 @@ public class Shift : MonoBehaviour
             Destroy(goalContainer.GetChild(i).gameObject);
         }
     }
+
+    public void PreDestroyGoals()
+    {
+        for (int i = 0; i < goalContainer.childCount; i++)
+        {
+            DestroyImmediate(goalContainer.GetChild(i).gameObject);
+        }
+    }
+
 
     private void TryDecrementGoalAmount(DishType dishType)
     {

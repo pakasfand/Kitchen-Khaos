@@ -20,4 +20,14 @@ public class PlayerAnimationEvent : MonoBehaviour
     {
         _animator.SetBool("Pick up right", false);
     }
+
+    public void ResetJump()
+    {
+        _animator.SetBool("Jump", false);
+    }
+
+    public void ResetEat()
+    {
+        _animator.SetBool("Eat", false);
+    }
 }

@@ -97,12 +97,14 @@ public class PlayerInteraction : MonoBehaviour
         {
             var hitColliers = Physics.OverlapSphere(transform.position,
                                 _detectionRadius,
-                                _interactionLayers);
+                                _interactionLayers,
+                                QueryTriggerInteraction.Collide);
 
             for (int i = 0; i < hitColliers.Length; i++)
             {
                 if (TryToCleanDishes(hitColliers[i])) { return; }
-                if (TryToPickUpDish(hitColliers[i])) { return; }
+                if (TryToPickUpDish(hitColliers[i]))  { return; }
+                if (TryToEatPowerUp(hitColliers[i]))  { return; }
             }
         }
 
@@ -177,6 +179,19 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         enemyAi.gameObject.SetActive(false);
+    }
+
+    private bool TryToEatPowerUp(Collider collider)
+    {
+        var powerUp = collider.GetComponent<PowerUp>();
+
+        if(powerUp)
+        {
+            powerUp.ConsumePowerUp();
+            return true;
+        }
+
+        return false;
     }
 
     private void OnDishesCleaned()

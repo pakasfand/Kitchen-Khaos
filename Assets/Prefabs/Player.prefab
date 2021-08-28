@@ -748,7 +748,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &4694782094774542676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,9 +786,6 @@ MonoBehaviour:
   _rightStackPosition: {fileID: 2778160562464529558}
   _chanceToStumblePerDish: 100
   _stumbleCheckRate: 5
-  _collectedPlate: {fileID: 919132149155446097, guid: 3a8ca170efd60ca4c950ad8f3c75dc83,
-    type: 3}
-  _collectedCup: {fileID: 0}
   _leftStackIdleRotation: {x: -39, y: -108.7, z: 22}
   _rightStackIdleRotation: {x: -28, y: 96, z: -12}
   _leftStackMovingRotation: {x: 0, y: -118, z: 83}

@@ -15,8 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rigidbody;
     private float _powerUpTimeLeft;
     private float _disableTimeLeft;
+    private bool _burning;
     private float _powerUpSpeedModifier;
-    private bool _isDisable;
+    private float _effectSpeedModifier;
 
     public float WalkingSpeed { get { return this._walkingSpeed; } set { this._walkingSpeed = value; } }
 
@@ -37,20 +38,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_isDisable) { return; }
-
-        var desiredVelocity = _direction * _walkingSpeed * _powerUpSpeedModifier;
-
-        _rigidbody.velocity = _playerInteraction.IsInteracting ?
-                                Vector3.zero : desiredVelocity;
-
-        _animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
-
         if (_direction != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,
                 Quaternion.LookRotation(_direction), Time.deltaTime * _rotationSpeed);
         }
+
+        if (_burning)
+        {
+            _direction = transform.forward.normalized;
+            _animator.SetFloat("SpeedMultiplier", _effectSpeedModifier);
+        }
+        else
+        {
+            _animator.SetFloat("SpeedMultiplier", 1f);
+        }
+
+        var desiredVelocity = _direction * _walkingSpeed * _powerUpSpeedModifier * _effectSpeedModifier;
+
+        _rigidbody.velocity = _playerInteraction.IsInteracting ?
+                                Vector3.zero : desiredVelocity;
+
+        _animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
     }
 
     private void Update()
@@ -70,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _isDisable = false;
+            _burning = false;
+            _effectSpeedModifier = 1f;
         }
     }
 
@@ -88,9 +98,10 @@ public class PlayerMovement : MonoBehaviour
         _powerUpSpeedModifier = _speedBoost;
     }
 
-    public void DisableMovement(float disableTime)
+    public void SpeedUp(float disableTime, float speedBoost)
     {
+        _burning = true;
         _disableTimeLeft = disableTime;
-        _isDisable = true;
+        _effectSpeedModifier = speedBoost;
     }
 }

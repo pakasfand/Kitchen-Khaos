@@ -25,8 +25,6 @@ public class StabilityCheck : MonoBehaviour
     private float _stabilityTimer;
     private float _durationToFail;
 
-    //public float DurationToFail => _durationToFail;
-
     public static Action<bool> OnStabilityCompleted;
 
     private void OnEnable()

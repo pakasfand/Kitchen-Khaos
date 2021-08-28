@@ -241,6 +241,8 @@ public class PlayerInteraction : MonoBehaviour
     public void Ignite(float disabledTime)
     {
         // Fire particles
+        DropDishes();
+        _animator.SetBool("Jump", true);
         _isDisable = true;
         _disabledTimeLeft = disabledTime;
     }

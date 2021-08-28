@@ -81,10 +81,16 @@ public class AIBehaviour : MonoBehaviour
 
     }
 
+    public float GetVelocityFraction()
+    {
+        return agent.velocity.magnitude / agent.speed;
+    }
+
     private void LateUpdate()
     {
-        if (animator != null) animator.SetFloat("Speed", agent.velocity.magnitude / agent.speed);
+        if (animator != null) animator.SetFloat("Speed", GetVelocityFraction());
     }
+
 
     private void RunAway()
     {
@@ -152,6 +158,9 @@ public class AIBehaviour : MonoBehaviour
         }
         return pathLength;
     }
+
+
+
 
     private void OnDisable()
     {

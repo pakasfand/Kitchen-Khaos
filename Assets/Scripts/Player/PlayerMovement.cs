@@ -14,9 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _direction;
     private Rigidbody _rigidbody;
     private float _powerUpTimeLeft;
-    private float _effectTimeLeft;
+    private float _disableTimeLeft;
     private float _powerUpSpeedModifier;
-    private float _effectSpeedModifier;
+    private bool _isDisable;
 
     public float WalkingSpeed { get { return this._walkingSpeed; } set { this._walkingSpeed = value; } }
 
@@ -37,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var desiredVelocity = _direction * _walkingSpeed * _powerUpSpeedModifier * _effectSpeedModifier;
+        if(_isDisable) { return; }
+
+        var desiredVelocity = _direction * _walkingSpeed * _powerUpSpeedModifier;
 
         _rigidbody.velocity = _playerInteraction.IsInteracting ?
                                 Vector3.zero : desiredVelocity;
@@ -62,13 +64,13 @@ public class PlayerMovement : MonoBehaviour
             _powerUpSpeedModifier = 1f;
         }
 
-        if (_effectTimeLeft > 0)
+        if (_disableTimeLeft > 0)
         {
-            _effectTimeLeft -= Time.deltaTime;
+            _disableTimeLeft -= Time.deltaTime;
         }
         else
         {
-            _effectSpeedModifier = 1f;
+            _isDisable = false;
         }
     }
 
@@ -86,9 +88,9 @@ public class PlayerMovement : MonoBehaviour
         _powerUpSpeedModifier = _speedBoost;
     }
 
-    public void SpeedUp(float effectTime, float speedModifier)
+    public void DisableMovement(float disableTime)
     {
-        _effectTimeLeft = effectTime;
-        _effectSpeedModifier = speedModifier;
+        _disableTimeLeft = disableTime;
+        _isDisable = true;
     }
 }

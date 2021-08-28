@@ -1,15 +1,10 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class InteractionIndicator : MonoBehaviour
 {
-
-    MeshRenderer meshRenderer;
-
-    private void Awake()
-    {
-        meshRenderer = GetComponent<MeshRenderer>();
-    }
+    [SerializeField] private MeshRenderer meshRenderer;
 
     public bool active
     {
@@ -23,7 +18,6 @@ public class InteractionIndicator : MonoBehaviour
             _active = value;
             meshRenderer.enabled = _active;
         }
-
     }
 
     private bool _active;

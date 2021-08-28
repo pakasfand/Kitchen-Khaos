@@ -40,6 +40,7 @@ public class PlayerInteraction : MonoBehaviour
     public List<DishType> DishesCollected => _dishesCollected;
 
     private float _stabilityCheckTimer;
+    private Collider _nearestDish;
 
     private void OnEnable()
     {
@@ -100,6 +101,52 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    public void FixedUpdate()
+    {
+        var hitColliders = Physics.OverlapSphere(transform.position,
+                    _detectionRadius,
+                    _interactionLayers,
+                    QueryTriggerInteraction.Collide);
+
+        Collider nearestInteractable = null;
+        float minDist = float.MaxValue;
+        foreach (var collider in hitColliders)
+        {
+            var dist = Vector3.Distance(transform.position, collider.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearestInteractable = collider;
+            }
+        }
+
+        AIBehaviour enemyAi;
+        if(_nearestDish != null)
+        {
+            // Disable old
+            enemyAi = _nearestDish.GetComponent<AIBehaviour>();
+
+            if (enemyAi != null)
+            {
+                enemyAi.SetInteractionIndicator(false);
+            }
+        }
+
+
+        _nearestDish = nearestInteractable;
+
+        if(nearestInteractable)
+        {
+            // Enable new
+            enemyAi = _nearestDish.GetComponent<AIBehaviour>();
+
+            if (enemyAi != null)
+            {
+                enemyAi.SetInteractionIndicator(true);
+            }
+        }
+    }
+
     public void OnInteract(InputAction.CallbackContext value)
     {
         if(_isDisable) { return; }
@@ -107,15 +154,27 @@ public class PlayerInteraction : MonoBehaviour
         if (value.started)
         {
             var hitColliders = Physics.OverlapSphere(transform.position,
-                                _detectionRadius,
-                                _interactionLayers,
-                                QueryTriggerInteraction.Collide);
+                        _detectionRadius,
+                        _interactionLayers,
+                        QueryTriggerInteraction.Collide);
 
-            for (int i = 0; i < hitColliders.Length; i++)
+            Collider nearestInteractable = null;
+            float minDist = float.MaxValue;
+            foreach (var collider in hitColliders)
             {
-                if (TryToCleanDishes(hitColliders[i])) { return; }
-                if (TryToPickUpDish(hitColliders[i]))  { return; }
-                if (TryToEatPowerUp(hitColliders[i]))  { return; }
+                var dist = Vector3.Distance(transform.position, collider.transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    nearestInteractable = collider;
+                }
+            }
+
+            if(nearestInteractable != null)
+            {
+                if (TryToCleanDishes(nearestInteractable)) { return; }
+                if (TryToPickUpDish(nearestInteractable)) { return; }
+                if (TryToEatPowerUp(nearestInteractable)) { return; }
             }
         }
 

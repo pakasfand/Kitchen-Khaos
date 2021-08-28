@@ -14,6 +14,7 @@ public class AIBehaviour : MonoBehaviour
     [SerializeField] float escapeSpeed;
     public DishType dishType;
     [SerializeField] Animator animator;
+    [SerializeField] private InteractionIndicator _interactionIndicator;
 
     Vector3 walkingDirection;
     Coroutine wandering;
@@ -159,7 +160,10 @@ public class AIBehaviour : MonoBehaviour
         return pathLength;
     }
 
-
+    public void SetInteractionIndicator(bool status)
+    {
+        _interactionIndicator.active = status;
+    }
 
 
     private void OnDisable()

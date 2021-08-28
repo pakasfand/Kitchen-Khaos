@@ -781,6 +781,9 @@ MonoBehaviour:
   _interactionLayers:
     serializedVersion: 2
     m_Bits: 1792
+  _dishLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _animator: {fileID: 8963575591018668857}
   _leftStackPosition: {fileID: 6963183477849714153}
   _rightStackPosition: {fileID: 2778160562464529558}

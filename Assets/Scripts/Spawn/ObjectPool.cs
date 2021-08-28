@@ -17,6 +17,12 @@ public class ObjectPool : MonoBehaviour
     {
         usedObjects = new MyList<GameObject>();
         unusedObjectsQueue = new Queue<GameObject>(numberOfInstances);
+
+    }
+
+
+    private void Start()
+    {
         for (int i = 0; i < numberOfInstances; i++)
         {
             GameObject item = CreateSubject();
@@ -24,7 +30,6 @@ public class ObjectPool : MonoBehaviour
             unusedObjectsQueue.Enqueue(item);
         }
     }
-
 
     public GameObject RequestSubject()
     {
@@ -50,19 +55,15 @@ public class ObjectPool : MonoBehaviour
 
     public int GetNumberOfObjectsInPool(ObjectState state)
     {
-        switch (state)
+        if (state == ObjectState.Any) return transform.childCount;
+        int count = 0;
+        bool isActive = (state == ObjectState.Active);
+        for (int i = 0; i < transform.childCount; i++)
         {
-            case ObjectState.Active:
-                return numberOfInstances - unusedObjectsQueue.Count;
-
-            case ObjectState.Disabled:
-                return unusedObjectsQueue.Count;
-
-            case ObjectState.Any:
-                return numberOfInstances;
-            default:
-                return 0;
+            if (transform.GetChild(i).gameObject.activeInHierarchy == isActive) count++;
         }
+
+        return count;
     }
 
 

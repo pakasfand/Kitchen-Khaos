@@ -15,31 +15,46 @@ public class Shift : MonoBehaviour
         public DishType dishType;
         [HideInInspector] public GameObject goalGO;
         public int totalAmount;
-        private int _amount;
+        [HideInInspector]
+        public int currentAmount
+        {
+            get
+            {
+                if (_currentAmount == -1) return totalAmount;
+                return _currentAmount;
+            }
+
+            set
+            {
+                _currentAmount = value;
+            }
+        }
+
+        private int _currentAmount;
 
         public Goal(GameObject goalGO, DishType dishType, int totalAmount)
         {
             this.dishType = dishType;
             this.goalGO = goalGO;
             this.totalAmount = totalAmount;
-            _amount = totalAmount;
+            currentAmount = totalAmount;
         }
 
         public Goal()
         {
-            _amount = -1;
+            _currentAmount = -1;
         }
 
         public void DecrementAmount()
         {
-            if (_amount == -1) _amount = totalAmount;
-            if (_amount > 0)
+            if (currentAmount == -1) currentAmount = totalAmount;
+            if (currentAmount > 0)
             {
-                _amount -= 1;
-                goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + _amount;
+                currentAmount -= 1;
+                goalGO.GetComponentInChildren<TextMeshProUGUI>().text = "x" + currentAmount;
             }
 
-            if (_amount <= 0)
+            if (currentAmount <= 0)
             {
                 Destroy(goalGO);
             }
@@ -82,22 +97,24 @@ public class Shift : MonoBehaviour
         Sink.OnDishesCleaned -= UpdateGoals;
     }
 
-    private void Start()
+    private void Awake()
     {
 
-        for (int i = 0; i < goalContainer.transform.childCount; i++)
-        {
-            goals[i].goalGO = goalContainer.transform.GetChild(i).gameObject;
-        }
+        DestroyGoals();
+
+        GenerateGoals();
 
         _playerInteraction = FindObjectOfType<PlayerInteraction>();
+
+    }
+
+    private void Start()
+    {
         ActivateGoals();
     }
 
-
     private void Update()
     {
-        if (goals == null) goals = new List<Goal>();
         goingTime += Time.deltaTime;
         timer.fillAmount = 1 - goingTime / shiftTime;
 
@@ -167,6 +184,14 @@ public class Shift : MonoBehaviour
         goal.GetComponentInChildren<TextMeshProUGUI>().text = "x" + totalAmount;
         goal.gameObject.SetActive(false);
         return goal;
+    }
+
+    private void DestroyGoals()
+    {
+        for (int i = 0; i < goalContainer.childCount; i++)
+        {
+            Destroy(goalContainer.GetChild(i).gameObject);
+        }
     }
 
     private void TryDecrementGoalAmount(DishType dishType)

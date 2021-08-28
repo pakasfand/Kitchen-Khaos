@@ -176,13 +176,13 @@ public class PlayerInteraction : MonoBehaviour
             dish.transform.localPosition += _rightStackOffset;
         }
 
-        Destroy(enemyAi.gameObject);
+        enemyAi.gameObject.SetActive(false);
     }
 
     private void OnDishesCleaned()
     {
         _animator.SetBool("Clean", false);
-        DestroyDishes();
+        DisableDishes();
     }
 
     private void OnStabilityCompleted(bool status)
@@ -193,26 +193,26 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void DestroyDishes()
+    private void DisableDishes()
     {
         _leftStackOffset = Vector3.zero;
         _rightStackOffset = Vector3.zero;
 
         foreach (Transform child in _leftStackPosition)
         {
-            Destroy(child.gameObject);
+            child.gameObject.SetActive(false);
         }
 
         foreach (Transform child in _rightStackPosition)
         {
-            Destroy(child.gameObject);
+            child.gameObject.SetActive(false);
         }
     }
 
     public void Stumble()
     {
         _animator.SetBool("Stumble", true);
-        DestroyDishes();
+        DisableDishes();
         _dishesCollected.Clear();
     }
 

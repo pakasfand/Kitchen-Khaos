@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UISprite: {fileID: 21300000, guid: 34f11020d840fdf4fa29e108ac0f2aef, type: 3}
   prefab: {fileID: 144021349041675612, guid: 5e08498fd29b1094fae27e7240ab317d, type: 3}
+  collectedDish: {fileID: 2983296196231497094, guid: 59771600ace86a049887994aa7e0779a,
+    type: 3}

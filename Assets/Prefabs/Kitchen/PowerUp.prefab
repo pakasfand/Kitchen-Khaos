@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b131dd198ad165a4389ba13e5852c3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedBoost: 3
+  _speedBoost: 1.5
   _powerUpLifeTime: 5
 --- !u!1001 &1593718952356252426
 PrefabInstance:

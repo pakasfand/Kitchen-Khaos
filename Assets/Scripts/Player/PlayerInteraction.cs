@@ -16,10 +16,6 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private int _chanceToStumblePerDish;
     [SerializeField] private float _stumbleCheckRate;
 
-    [Header("Collected Dishes")]
-    [SerializeField] private GameObject _collectedPlate;
-    [SerializeField] private GameObject _collectedCup;
-
     [Header("Stack Rotation Parameters")]
     [SerializeField] private Vector3 _leftStackIdleRotation;
     [SerializeField] private Vector3 _rightStackIdleRotation;
@@ -28,13 +24,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private List<DishType> _dishesCollected;
     private bool _isInteracting;
-    private Vector3 _leftStackOffset = Vector3.zero;
-    private Vector3 _rightStackOffset = Vector3.zero;
+    private Vector3 _leftStackOffset = new Vector3(0f, 0.1f, 0f);
+    private Vector3 _rightStackOffset = new Vector3(0f, 0.1f, 0f);
     private bool _alternateStack;
 
-    public static Action OnPlayerStartedCleaning;
+    public static Action<List<DishType>> OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
     public static Action<int> OnStabilityCheckBegin;
+    public static Action OnPlayerStumble;
 
     public bool IsInteracting => _isInteracting;
     public List<DishType> DishesCollected => _dishesCollected;
@@ -136,7 +133,7 @@ public class PlayerInteraction : MonoBehaviour
         _animator.SetBool("Clean", true);
 
         _isInteracting = true;
-        OnPlayerStartedCleaning?.Invoke();
+        OnPlayerStartedCleaning?.Invoke(_dishesCollected);
     }
 
     private bool TryToPickUpDish(Collider collider)
@@ -160,7 +157,7 @@ public class PlayerInteraction : MonoBehaviour
         enemyAi.StopAllCoroutines();
         _dishesCollected.Add(enemyAi.dishType);
 
-        var dish = Instantiate(_collectedPlate,
+        var dish = Instantiate(enemyAi.dishType.collectedDish,
             _alternateStack ? _leftStackPosition : _rightStackPosition);
 
         _alternateStack = !_alternateStack;
@@ -168,13 +165,13 @@ public class PlayerInteraction : MonoBehaviour
         if (_alternateStack)
         {
             //_animator.SetBool("Pick up right", true);
-            _leftStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+            _leftStackOffset += new Vector3(0f, enemyAi.dishType.collectedDish.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.y, 0f);//new Vector3(0.0f, 0.2f, 0.0f);
             dish.transform.localPosition += _leftStackOffset;
         }
         else
         {
             //_animator.SetBool("Pick up left", true);
-            _rightStackOffset += new Vector3(0.0f, 0.2f, 0.0f);
+            _rightStackOffset += new Vector3(0f, enemyAi.dishType.collectedDish.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.y, 0f);//new Vector3(0.0f, 0.2f, 0.0f);
             dish.transform.localPosition += _rightStackOffset;
         }
 
@@ -197,7 +194,7 @@ public class PlayerInteraction : MonoBehaviour
     private void OnDishesCleaned()
     {
         _animator.SetBool("Clean", false);
-        DisableDishes();
+        DropDishes();
     }
 
     private void OnStabilityCompleted(bool status)
@@ -208,10 +205,10 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void DisableDishes()
+    private void DropDishes()
     {
-        _leftStackOffset = Vector3.zero;
-        _rightStackOffset = Vector3.zero;
+        _leftStackOffset = new Vector3(0f, 0.1f, 0f);
+        _rightStackOffset = new Vector3(0f, 0.1f, 0f);
 
         foreach (Transform child in _leftStackPosition)
         {
@@ -227,8 +224,9 @@ public class PlayerInteraction : MonoBehaviour
     public void Stumble()
     {
         _animator.SetBool("Stumble", true);
-        DisableDishes();
+        DropDishes();
         _dishesCollected.Clear();
+        OnPlayerStumble?.Invoke();
     }
 
     void OnDrawGizmos()

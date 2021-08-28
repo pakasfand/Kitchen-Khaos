@@ -5,4 +5,5 @@ public class DishType : ScriptableObject
 {
     public Sprite UISprite;
     public GameObject prefab;
+    public GameObject collectedDish;
 }

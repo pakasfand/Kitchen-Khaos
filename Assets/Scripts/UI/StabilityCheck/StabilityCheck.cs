@@ -31,11 +31,15 @@ public class StabilityCheck : MonoBehaviour
     private void OnEnable()
     {
         PlayerInteraction.OnStabilityCheckBegin += OnStabilityCheckBegin;
+        PlayerInteraction.OnPlayerStumble += OnPlayerStumble;
+        Sink.OnDishesCleaned += OnDishesCleaned;
     }
 
     private void OnDisable()
     {
         PlayerInteraction.OnStabilityCheckBegin -= OnStabilityCheckBegin;
+        PlayerInteraction.OnPlayerStumble -= OnPlayerStumble;
+        Sink.OnDishesCleaned -= OnDishesCleaned;
     }
 
     private void OnStabilityCheckBegin(int dishesCount)
@@ -48,7 +52,7 @@ public class StabilityCheck : MonoBehaviour
         _countdownBar.fillAmount = 1f;
         _stabilityBar.fillAmount = 0f;
 
-        _durationToFail = Mathf.Clamp(1 - (_durationToFailPerDish * dishesCount), 0, 1);
+        _durationToFail = Mathf.Clamp(1 - (_durationToFailPerDish * dishesCount), 0.1f, 1);
 
         var colorKeys = new GradientColorKey[2];
         var alphakeys = new GradientAlphaKey[2];
@@ -113,6 +117,16 @@ public class StabilityCheck : MonoBehaviour
 
             CompleteStabilityCheck();
         }
+    }
+
+    private void OnDishesCleaned()
+    {
+        CompleteStabilityCheck();
+    }
+
+    private void OnPlayerStumble()
+    {
+        CompleteStabilityCheck();
     }
 
     private void UpdateStabilityBar()

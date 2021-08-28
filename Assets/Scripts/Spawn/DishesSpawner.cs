@@ -20,7 +20,7 @@ public class DishesSpawner : MonoBehaviour
     float spawnTimer = 0;
     float checkAvailabilityTimer;
     Dictionary<DishType, DishTypeSpawnInfo> dishTypeInfo;
-    public List<DishType> neededDishesQueue;
+    List<DishType> neededDishesQueue;
 
 
     Shift shift;

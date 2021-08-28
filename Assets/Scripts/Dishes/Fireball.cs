@@ -7,11 +7,13 @@ public class Fireball : MonoBehaviour
     [SerializeField] Rigidbody rigidBody;
     [SerializeField] float maxLifetime;
     [SerializeField] float fireballSpeed;
-
+    [SerializeField] LayerMask[] collisionLayers;
+    [SerializeField] float effectTimeOnPlayer;
+    [SerializeField] float speedBoostOnPlayer;
 
     float timer = 0;
-    public bool canMove;
-    private Vector3 movingDirection;
+    bool canMove;
+    Vector3 movingDirection;
 
     private void FixedUpdate()
     {
@@ -42,4 +44,27 @@ public class Fireball : MonoBehaviour
         movingDirection = direction;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            IgnitePlayer(other.gameObject);
+            gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < collisionLayers.Length; i++)
+        {
+
+            if (ExtensionMethods.LayerMaskExtensions.IsInLayerMask(collisionLayers[i], other.gameObject))
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void IgnitePlayer(GameObject gameObject)
+    {
+        gameObject.GetComponent<PlayerInteraction>().Ignite(effectTimeOnPlayer);
+        gameObject.GetComponent<PlayerMovement>().SpeedUp(effectTimeOnPlayer, speedBoostOnPlayer);
+    }
 }

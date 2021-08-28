@@ -14,7 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _direction;
     private Rigidbody _rigidbody;
     private float _powerUpTimeLeft;
-    private float _speedModifier;
+    private float _disableTimeLeft;
+    private float _powerUpSpeedModifier;
+    private bool _isDisable;
 
     public float WalkingSpeed { get { return this._walkingSpeed; } set { this._walkingSpeed = value; } }
 
@@ -35,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var desiredVelocity = _direction * _walkingSpeed * _speedModifier;
+        if(_isDisable) { return; }
+
+        var desiredVelocity = _direction * _walkingSpeed * _powerUpSpeedModifier;
 
         _rigidbody.velocity = _playerInteraction.IsInteracting ?
                                 Vector3.zero : desiredVelocity;
@@ -57,7 +61,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _speedModifier = 1f;
+            _powerUpSpeedModifier = 1f;
+        }
+
+        if (_disableTimeLeft > 0)
+        {
+            _disableTimeLeft -= Time.deltaTime;
+        }
+        else
+        {
+            _isDisable = false;
         }
     }
 
@@ -72,6 +85,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _animator.SetBool("Eat", true);
         _powerUpTimeLeft = _lifeTime;
-        _speedModifier = _speedBoost;
+        _powerUpSpeedModifier = _speedBoost;
+    }
+
+    public void DisableMovement(float disableTime)
+    {
+        _disableTimeLeft = disableTime;
+        _isDisable = true;
     }
 }

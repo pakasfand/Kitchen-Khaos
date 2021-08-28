@@ -23,17 +23,20 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Vector3 _rightStackMovingRotation;
 
     private List<DishType> _dishesCollected;
-    private bool _isInteracting;
+    private bool _isCleaning;
     private Vector3 _leftStackOffset = new Vector3(0f, 0.1f, 0f);
     private Vector3 _rightStackOffset = new Vector3(0f, 0.1f, 0f);
     private bool _alternateStack;
+
+    private float _disabledTimeLeft;
+    private bool _isDisable;
 
     public static Action<List<DishType>> OnPlayerStartedCleaning;
     public static Action OnPlayerStoppedCleaning;
     public static Action<int> OnStabilityCheckBegin;
     public static Action OnPlayerStumble;
 
-    public bool IsInteracting => _isInteracting;
+    public bool IsInteracting => _isCleaning;
     public List<DishType> DishesCollected => _dishesCollected;
 
     private float _stabilityCheckTimer;
@@ -57,6 +60,15 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (_disabledTimeLeft > 0)
+        {
+            _disabledTimeLeft -= Time.deltaTime;
+        }
+        else
+        {
+            _isDisable = false;
+        }
+
         if (_animator.GetFloat("Speed") == 0)
         {
             _rightStackPosition.localRotation = Quaternion.Euler(_rightStackIdleRotation);
@@ -90,24 +102,26 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext value)
     {
+        if(_isDisable) { return; }
+
         if (value.started)
         {
-            var hitColliers = Physics.OverlapSphere(transform.position,
+            var hitColliders = Physics.OverlapSphere(transform.position,
                                 _detectionRadius,
                                 _interactionLayers,
                                 QueryTriggerInteraction.Collide);
 
-            for (int i = 0; i < hitColliers.Length; i++)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                if (TryToCleanDishes(hitColliers[i])) { return; }
-                if (TryToPickUpDish(hitColliers[i]))  { return; }
-                if (TryToEatPowerUp(hitColliers[i]))  { return; }
+                if (TryToCleanDishes(hitColliders[i])) { return; }
+                if (TryToPickUpDish(hitColliders[i]))  { return; }
+                if (TryToEatPowerUp(hitColliders[i]))  { return; }
             }
         }
 
-        if (_isInteracting && value.canceled)
+        if (_isCleaning && value.canceled)
         {
-            _isInteracting = false;
+            _isCleaning = false;
             _animator.SetBool("Clean", false);
             OnPlayerStoppedCleaning?.Invoke();
         }
@@ -132,15 +146,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         _animator.SetBool("Clean", true);
 
-        _isInteracting = true;
+        _isCleaning = true;
         OnPlayerStartedCleaning?.Invoke(_dishesCollected);
     }
 
     private bool TryToPickUpDish(Collider collider)
     {
-        if (_animator.GetBool("Pick up left")) { return false; }
-        if (_animator.GetBool("Pick up right")) { return false; }
-
         var enemyAi = collider.GetComponent<AIBehaviour>();
 
         if (enemyAi)
@@ -164,13 +175,11 @@ public class PlayerInteraction : MonoBehaviour
 
         if (_alternateStack)
         {
-            //_animator.SetBool("Pick up right", true);
             _leftStackOffset += new Vector3(0f, enemyAi.dishType.collectedDish.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.y, 0f);//new Vector3(0.0f, 0.2f, 0.0f);
             dish.transform.localPosition += _leftStackOffset;
         }
         else
         {
-            //_animator.SetBool("Pick up left", true);
             _rightStackOffset += new Vector3(0f, enemyAi.dishType.collectedDish.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.y, 0f);//new Vector3(0.0f, 0.2f, 0.0f);
             dish.transform.localPosition += _rightStackOffset;
         }
@@ -227,6 +236,13 @@ public class PlayerInteraction : MonoBehaviour
         DropDishes();
         _dishesCollected.Clear();
         OnPlayerStumble?.Invoke();
+    }
+
+    public void Ignite(float disabledTime)
+    {
+        // Fire particles
+        _isDisable = true;
+        _disabledTimeLeft = disabledTime;
     }
 
     void OnDrawGizmos()

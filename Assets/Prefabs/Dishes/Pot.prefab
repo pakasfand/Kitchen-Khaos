@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angularSpeed: 300
   timeToExplode: 5
-  numberOfFireballs: 8
+  numberOfFireballs: 4
   fireballSpawnPoint: {fileID: 258000387}
   fireballPrefab: {fileID: 284443367372305368, guid: b2ea2fb6e88dae0438105f935812c601,
     type: 3}

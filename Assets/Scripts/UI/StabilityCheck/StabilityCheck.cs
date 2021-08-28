@@ -18,6 +18,7 @@ public class StabilityCheck : MonoBehaviour
     [SerializeField] private Color _passColor;
     [SerializeField] private Color _failColor;
     [SerializeField] private float _durationToFailPerDish;
+    [SerializeField] private Animator _animator;
 
     private bool _active;
     private float _coolDownTimer;
@@ -133,6 +134,15 @@ public class StabilityCheck : MonoBehaviour
     {
         float fillValue = Mathf.Lerp(0f, 1f, _stabilityTimer);
         float colorValue = Mathf.Lerp(0f, 1f, _stabilityTimer);
+
+        if(fillValue > _durationToFail)
+        {
+            _animator.SetBool("Fall", true);
+        }
+        else
+        {
+            _animator.SetBool("Fall", false);
+        }
 
         _stabilityBar.fillAmount = fillValue;
         _stabilityBar.color = _stabilitygradient.Evaluate(colorValue);

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4dec38b17a95dca43a612e146f3525ea
+guid: 4ec35b4ef488a6c4b9931052c05ff3f7
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,23 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Road
-    second: {fileID: 2100000, guid: ab3a5aba7484e4544ad4cf6c1a991591, type: 2}
+      name: Table mat
+    second: {fileID: 2100000, guid: 36445c2cf7655a549bfd0fa95c940f5b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Yellow line
-    second: {fileID: 2100000, guid: 0d0126e81b49f194b89d4b8a3fe63395, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: road
-    second: {fileID: 2100000, guid: bd4da77d392de3645aea745f70c47953, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: white lines
-    second: {fileID: 2100000, guid: b1886fb2e0e9e1e418789d8d83438586, type: 2}
+      name: Thing
+    second: {fileID: 2100000, guid: 8148c3befd2d8b64e8cf4136243400b5, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

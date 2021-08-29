@@ -1,26 +1,26 @@
 ﻿
-using UnityEditor;
-using UnityEngine;
+//using UnityEditor;
+//using UnityEngine;
 
-[CustomEditor(typeof(Shift))]
-public class ShiftEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+//[CustomEditor(typeof(Shift))]
+//public class ShiftEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        DrawDefaultInspector();
 
-        Shift shift = (Shift)target;
+//        Shift shift = (Shift)target;
 
-        if (GUILayout.Button("Pregenerate Goals"))
-        {
-            shift.PregenerateGoals();
-        }
+//        if (GUILayout.Button("Pregenerate Goals"))
+//        {
+//            shift.PregenerateGoals();
+//        }
 
-        if (GUILayout.Button("Destroy Goals"))
-        {
-            shift.PreDestroyGoals();
-        }
+//        if (GUILayout.Button("Destroy Goals"))
+//        {
+//            shift.PreDestroyGoals();
+//        }
 
 
-    }
-}
+//    }
+//}

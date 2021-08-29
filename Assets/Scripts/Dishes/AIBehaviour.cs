@@ -35,6 +35,7 @@ public class AIBehaviour : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        GetComponent<Rigidbody>().sleepThreshold = 0;
     }
 
     private void Start()

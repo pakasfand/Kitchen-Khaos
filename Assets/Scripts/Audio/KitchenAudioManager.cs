@@ -35,6 +35,7 @@ public class KitchenAudioManager : MonoBehaviour
         Splatter.OnSplatterCreated += OnSplatterCreated;
         Sink.OnDishesCleaned += OnDishesCleaned;
         Pot.OnPotExplodes += OnPotExplodes;
+        GameLoop.OnShiftOver += OnShiftOver;
     }
 
     private void OnDisable()
@@ -48,7 +49,13 @@ public class KitchenAudioManager : MonoBehaviour
         Splatter.OnSplatterCreated -= OnSplatterCreated;
         Sink.OnDishesCleaned -= OnDishesCleaned;
         Pot.OnPotExplodes -= OnPotExplodes;
+        GameLoop.OnShiftOver -= OnShiftOver;
+    }
 
+    private void OnShiftOver()
+    {
+        _musicAudioPlayer.clip = _endMusic;
+        _musicAudioPlayer.Play();
     }
 
     private void OnPowerUpConsumed(float arg1, float arg2)

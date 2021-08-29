@@ -18,6 +18,8 @@ public class GameLoop : MonoBehaviour
     Shift currentShift;
     private Coroutine changingShift;
 
+    public static Action OnShiftOver;
+
     private void Awake()
     {
         if (instance != null) throw new Exception("More than one Game Manager");
@@ -56,6 +58,9 @@ public class GameLoop : MonoBehaviour
         else if (currentShift.hasEnded)
         {
             _retryPanel.SetActive(true);
+            FindObjectOfType<PlayerMovement>().enabled = false;
+            FindObjectOfType<PlayerInteraction>().enabled = false;
+            OnShiftOver?.Invoke();
         }
     }
 
@@ -92,6 +97,9 @@ public class GameLoop : MonoBehaviour
     public void WinGame()
     {
         winPanel.SetActive(true);
+        FindObjectOfType<PlayerMovement>().enabled = false;
+        FindObjectOfType<PlayerInteraction>().enabled = false;
+        OnShiftOver?.Invoke();
     }
 
     public void OnPlayAgainClicked()

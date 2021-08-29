@@ -65,6 +65,8 @@ public class Fireball : MonoBehaviour
     private void IgnitePlayer(GameObject gameObject)
     {
         gameObject.GetComponent<PlayerInteraction>().Ignite(effectTimeOnPlayer);
-        gameObject.GetComponent<PlayerMovement>().SpeedUp(effectTimeOnPlayer, speedBoostOnPlayer);
+        PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
+        playerMovement.DisableMovement(effectTimeOnPlayer);
+        playerMovement.WalkingSpeed *= speedBoostOnPlayer;
     }
 }

@@ -65,4 +65,9 @@ public class Pot : MonoBehaviour
     {
         model.Rotate(new Vector3(0, angularSpeed * Time.deltaTime * AI.GetVelocityFraction(), 0), Space.World);
     }
+
+    private void OnDisable()
+    {
+        anim.Stop();
+    }
 }

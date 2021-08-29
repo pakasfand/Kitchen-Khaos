@@ -15,6 +15,7 @@ public class DishesSpawner : MonoBehaviour
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] [Range(0, 1f)] float spawnFromNeededQueueProbability;
 
+    [HideInInspector] public Shift shift;
 
     int currentNumberOfDishes = 0;
     float spawnTimer = 0;
@@ -23,7 +24,7 @@ public class DishesSpawner : MonoBehaviour
     List<DishType> neededDishesQueue;
 
 
-    Shift shift;
+
 
     [Serializable]
     private class DishTypeSpawnInfo
@@ -47,9 +48,6 @@ public class DishesSpawner : MonoBehaviour
 
         neededDishesQueue = new List<DishType>();
         dishTypeInfo = new Dictionary<DishType, DishTypeSpawnInfo>();
-        shift = FindObjectOfType<Shift>();
-
-
 
         float total = 0;
 
@@ -73,6 +71,7 @@ public class DishesSpawner : MonoBehaviour
         }
     }
 
+
     private class ProbabilityException : System.Exception
     {
         public ProbabilityException() { }
@@ -87,6 +86,14 @@ public class DishesSpawner : MonoBehaviour
     private void Start()
     {
         CheckAvailabilityForGoals();
+    }
+
+    public void DeactivateAllDishes()
+    {
+        foreach (DishTypeSpawnInfo dishTypeSpawn in dishTypeInfo.Values)
+        {
+            dishTypeSpawn.pool.DeactivateAll();
+        }
     }
 
     private void Update()

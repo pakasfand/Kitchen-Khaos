@@ -15,22 +15,7 @@ public class Shift : MonoBehaviour
         public DishType dishType;
         [HideInInspector] public GameObject goalGO;
         public int totalAmount;
-        [HideInInspector]
-        public int currentAmount
-        {
-            get
-            {
-                if (_currentAmount == -1) return totalAmount;
-                return _currentAmount;
-            }
-
-            set
-            {
-                _currentAmount = value;
-            }
-        }
-
-        private int _currentAmount;
+        public int currentAmount;
 
         public Goal(GameObject goalGO, DishType dishType, int totalAmount)
         {
@@ -40,14 +25,8 @@ public class Shift : MonoBehaviour
             currentAmount = totalAmount;
         }
 
-        public Goal()
-        {
-            _currentAmount = -1;
-        }
-
         public void DecrementAmount()
         {
-            if (currentAmount == -1) currentAmount = totalAmount;
             if (currentAmount > 0)
             {
                 currentAmount -= 1;
@@ -67,10 +46,12 @@ public class Shift : MonoBehaviour
     [Header("Shift Manager")]
     public List<Goal> goals;
     public float shiftTime;
+    [SerializeField] float breakTime;
     [SerializeField] Image timer;
     [SerializeField] Animator timerOutline;
     [SerializeField] RectTransform goalContainer;
     [SerializeField] RectTransform goalPrefab;
+
 
     [Header("UI")]
     [SerializeField] float goalSeparation;
@@ -78,14 +59,18 @@ public class Shift : MonoBehaviour
     [SerializeField] float runningOutOfTimeFraction;
     [SerializeField] Color flickingColor;
     [SerializeField] float flickingTime;
+    [SerializeField] TextMeshProUGUI breakUI;
 
-    [HideInInspector]
+
     public SerializableEvent OnShiftEnded;
+    [HideInInspector] public bool hasEnded;
 
     private float currentNumberOfGoals;
     private float goingTime = 0;
     private PlayerInteraction _playerInteraction;
     private bool flicking = false;
+    private Coroutine flickerCoroutine;
+    private bool started;
 
     private void OnEnable()
     {
@@ -99,10 +84,9 @@ public class Shift : MonoBehaviour
 
     private void Awake()
     {
-
         DestroyGoals();
 
-        GenerateGoals();
+        GenerateGoals(false);
 
         _playerInteraction = FindObjectOfType<PlayerInteraction>();
 
@@ -110,17 +94,21 @@ public class Shift : MonoBehaviour
 
     private void Start()
     {
-        ActivateGoals();
+        foreach (Goal goal in goals)
+        {
+            goal.currentAmount = goal.totalAmount;
+        }
     }
 
     private void Update()
     {
+        if (!started) return;
         goingTime += Time.deltaTime;
         timer.fillAmount = 1 - goingTime / shiftTime;
 
         if (timer.fillAmount <= runningOutOfTimeFraction && !flicking)
         {
-            StartCoroutine(Flicker(timer));
+            flickerCoroutine = StartCoroutine(Flicker(timer));
             timerOutline.SetTrigger("Change Clock");
             flicking = true;
 
@@ -128,24 +116,55 @@ public class Shift : MonoBehaviour
 
         if (goingTime >= shiftTime)
         {
-            StopAllCoroutines();
+            StopCoroutine(flickerCoroutine);
             OnShiftEnded.Invoke();
+            hasEnded = true;
         }
+    }
+
+    public void StartShift()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        ActivateGoals();
+        started = true;
+    }
+
+    public IEnumerator Break()
+    {
+
+        hasEnded = true;
+        breakUI.gameObject.SetActive(true);
+        float timer = breakTime;
+        yield return new WaitUntil(() =>
+        {
+            timer -= Time.deltaTime;
+            breakUI.text = String.Format("Nice job! Next shift in: " + timer.ToString("F2"));
+            return timer <= 0;
+        });
+    }
+
+    public bool CheckGoalsCompletition()
+    {
+        foreach (Goal goal in goals)
+        {
+            if (goal.currentAmount != 0) return false;
+        }
+        return true;
     }
 
     public void PregenerateGoals()
     {
-        GenerateGoals();
+        GenerateGoals(true);
     }
 
-    private void GenerateGoals()
+    private void GenerateGoals(bool active)
     {
         for (int i = 0; i < goals.Count; i++)
         {
             RectTransform goal = InstantiateGoal(goals[i].dishType,
                 goals[i].totalAmount);
 
-            goal.gameObject.SetActive(true);
+            goal.gameObject.SetActive(active);
 
             goals[i].goalGO = goal.gameObject;
         }
@@ -164,11 +183,6 @@ public class Shift : MonoBehaviour
 
     private IEnumerator PlayActivationAnimation()
     {
-        for (int i = 0; i < goalContainer.childCount; i++)
-        {
-            goalContainer.GetChild(i).gameObject.SetActive(false);
-        }
-
         for (int i = 0; i < goalContainer.childCount; i++)
         {
             goalContainer.GetChild(i).gameObject.SetActive(true);
@@ -207,6 +221,7 @@ public class Shift : MonoBehaviour
 
     private void TryDecrementGoalAmount(DishType dishType)
     {
+
         foreach (var goal in goals)
         {
             if (dishType == goal.dishType)
@@ -218,6 +233,7 @@ public class Shift : MonoBehaviour
 
     private void UpdateGoals()
     {
+        if (!started) return;
         foreach (var dish in _playerInteraction.DishesCollected)
         {
             TryDecrementGoalAmount(dish);
@@ -236,4 +252,6 @@ public class Shift : MonoBehaviour
         yield return new WaitForSeconds(flickingTime);
         StartCoroutine(Flicker(image));
     }
+
+
 }

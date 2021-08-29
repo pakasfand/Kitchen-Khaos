@@ -17,9 +17,19 @@ public class AIBehaviour : MonoBehaviour
 
     Vector3 walkingDirection;
     Coroutine wandering;
-    private int timeSinceNewDestination;
     GameObject player;
     Vector3 vectorToPlayer;
+
+    private void OnEnable()
+    {
+        agent.isStopped = false;
+    }
+
+    private void OnDisable()
+    {
+        walkingDirection = new Vector3(Random.Range(0, 1f), 0, Random.Range(0, 1f));
+        StopAllCoroutines();
+    }
 
     private void Awake()
     {
@@ -157,14 +167,6 @@ public class AIBehaviour : MonoBehaviour
             pathLength += Vector3.Distance(path.corners[i], path.corners[i - 1]);
         }
         return pathLength;
-    }
-
-
-
-
-    private void OnDisable()
-    {
-        if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
     }
 
 

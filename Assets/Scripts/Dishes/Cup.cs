@@ -126,4 +126,11 @@ public class Cup : MonoBehaviour
             return false;
         }
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        currentChanceToSpill = chanceToSpill;
+        tryToSpillTimer = 0;
+    }
 }

@@ -75,6 +75,19 @@ public class ObjectPool : MonoBehaviour
         return instance;
     }
 
+    public void DeactivateAll()
+    {
+        foreach (GameObject go in unusedObjectsQueue)
+        {
+            go.SetActive(false);
+        }
+
+        foreach (GameObject go in usedObjects)
+        {
+            go.SetActive(false);
+        }
+    }
+
     private bool RetrieveFromUsed()
     {
         bool retrieved = false;

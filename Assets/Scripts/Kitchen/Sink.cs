@@ -47,18 +47,20 @@ public class Sink : MonoBehaviour
 
     private void Update()
     {
-        if(_active)
+        if (_active)
         {
             _activeTimer += Time.deltaTime;
 
-            float width = (_activeTimer/_cleaningTime) * (5.0f);
+            float width = (_activeTimer / _cleaningTime) * (5.0f);
 
             _progressBar.rectTransform.sizeDelta =
                 new Vector2(width, _progressBar.rectTransform.rect.height);
         }
 
-        if(_activeTimer >= _cleaningTime)
+        if (_activeTimer >= _cleaningTime)
         {
+            _activeTimer = 0f;
+
             _active = false;
 
             _progressBarGO.SetActive(false);
@@ -75,7 +77,7 @@ public class Sink : MonoBehaviour
         {
             foreach (var cleanDish in _cleanDishes)
             {
-                if(dishType == cleanDish.dishtype)
+                if (dishType == cleanDish.dishtype)
                 {
                     var dish = Instantiate(cleanDish.prefab, cleanDish.stack);
                     dish.transform.localPosition += cleanDish.offset;

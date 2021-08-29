@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class Pot : MonoBehaviour
@@ -17,6 +18,8 @@ public class Pot : MonoBehaviour
 
     AIBehaviour AI;
     Animation anim;
+
+    public static Action OnPotExplodes;
 
     private void Awake()
     {
@@ -59,6 +62,7 @@ public class Pot : MonoBehaviour
         }
 
         explosionTimer = 0;
+        OnPotExplodes?.Invoke();
     }
 
     private void Rotate()

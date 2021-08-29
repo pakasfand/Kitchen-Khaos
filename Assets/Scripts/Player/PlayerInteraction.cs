@@ -35,6 +35,8 @@ public class PlayerInteraction : MonoBehaviour
     public static Action OnPlayerStoppedCleaning;
     public static Action<int> OnStabilityCheckBegin;
     public static Action OnPlayerStumble;
+    public static Action OnDishPickedUp;
+    public static Action OnChefIgnited;
 
     public bool IsInteracting => _isCleaning;
     public List<DishType> DishesCollected => _dishesCollected;
@@ -244,6 +246,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         enemyAi.gameObject.SetActive(false);
+        OnDishPickedUp?.Invoke();
     }
 
     private bool TryToEatPowerUp(Collider collider)
@@ -304,6 +307,7 @@ public class PlayerInteraction : MonoBehaviour
         _animator.SetBool("Jump", true);
         _isDisable = true;
         _disabledTimeLeft = disabledTime;
+        OnChefIgnited?.Invoke();
     }
 
     void OnDrawGizmos()

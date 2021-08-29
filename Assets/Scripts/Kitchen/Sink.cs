@@ -51,7 +51,7 @@ public class Sink : MonoBehaviour
         {
             _activeTimer += Time.deltaTime;
 
-            float width = (_activeTimer/_cleaningTime) * (5.0f);
+            float width = (_activeTimer/_cleaningTime) * (3.0f);
 
             _progressBar.rectTransform.sizeDelta =
                 new Vector2(width, _progressBar.rectTransform.rect.height);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Splatter : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Splatter : MonoBehaviour
     ParticleSystem particles;
     float remainingTime = 0;
 
+    public static Action OnSplatterCreated;
+
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -21,7 +24,8 @@ public class Splatter : MonoBehaviour
     private void Start()
     {
         remainingTime = Mathf.Infinity;
-        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Count)];
+        spriteRenderer.sprite = sprites[UnityEngine.Random.Range(0, sprites.Count)];
+        OnSplatterCreated?.Invoke();
     }
 
 

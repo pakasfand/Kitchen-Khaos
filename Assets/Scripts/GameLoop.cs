@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class GameLoop : MonoBehaviour
 {
     public static int passedShifts;
-    public static int numberOfShifts = 2;
+    public static int numberOfShifts = 1;
     public static GameLoop instance;
 
     [SerializeField] GameObject player;
     [SerializeField] DishesSpawner spawner;
     [SerializeField] GameObject winPanel;
-
+    [SerializeField] private GameObject _retryPanel;
 
     Shift currentShift;
     private Coroutine changingShift;
@@ -55,13 +55,8 @@ public class GameLoop : MonoBehaviour
         }
         else if (currentShift.hasEnded)
         {
-            RestartScene();
+            _retryPanel.SetActive(true);
         }
-    }
-
-    private void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private IEnumerator ChangeShift()
@@ -99,4 +94,15 @@ public class GameLoop : MonoBehaviour
         winPanel.SetActive(true);
     }
 
+    public void OnPlayAgainClicked()
+    {
+        passedShifts = 0;
+
+        SceneManager.LoadScene(2);
+    }
+    
+    public void OnRetryClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

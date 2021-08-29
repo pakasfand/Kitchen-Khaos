@@ -38,12 +38,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192269369573649302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f35b993bc40cb534b98a40b4f85b9991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNumberOfDishes: 30
+  maxNumberOfDishes: 15
   dishTypesToSpawn:
   - pool: {fileID: 0}
     dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
@@ -59,5 +59,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spawnFromNeededQueueProbability: 0.15
-  shift: {fileID: 0}

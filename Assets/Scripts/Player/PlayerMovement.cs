@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private float _powerUpSpeedModifier;
     private float _effectSpeedModifier;
 
-    public float WalkingSpeed { get { return this._walkingSpeed; } set { this._walkingSpeed = value; } }
-
     private void OnEnable()
     {
         PowerUp.OnPowerUpConsumed += OnPowerUpConsumed;

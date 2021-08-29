@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using UnityEngine;
 
 public class Pot : MonoBehaviour
@@ -14,6 +14,8 @@ public class Pot : MonoBehaviour
     [SerializeField] ObjectPool fireballsPool;
 
     float explosionTimer = 0;
+
+    public static Action OnPotExplodes;
 
     AIBehaviour AI;
     Animation anim;
@@ -59,6 +61,7 @@ public class Pot : MonoBehaviour
         }
 
         explosionTimer = 0;
+        OnPotExplodes?.Invoke();
     }
 
     private void Rotate()

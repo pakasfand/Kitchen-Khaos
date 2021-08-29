@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameLoop : MonoBehaviour
 {
     public static int passedShifts;
-    public static int numberOfShifts = 1;
+    public static int numberOfShifts = 3;
     public static GameLoop instance;
 
     [SerializeField] GameObject player;

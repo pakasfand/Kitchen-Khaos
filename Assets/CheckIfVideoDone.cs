@@ -20,7 +20,6 @@ public class CheckIfVideoDone : MonoBehaviour
 		
 		if(video.frame == (long)video.frameCount - 1)
 		{
-			print("Test");
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
 			

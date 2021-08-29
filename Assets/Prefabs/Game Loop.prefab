@@ -46,3 +46,4 @@ MonoBehaviour:
   player: {fileID: 0}
   spawner: {fileID: 0}
   winPanel: {fileID: 0}
+  _retryPanel: {fileID: 0}

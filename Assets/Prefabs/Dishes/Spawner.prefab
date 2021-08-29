@@ -47,7 +47,7 @@ MonoBehaviour:
   dishTypesToSpawn:
   - pool: {fileID: 0}
     dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
-    probability: 0.2
+    probability: 0.8
   - pool: {fileID: 0}
     dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
     probability: 0.1

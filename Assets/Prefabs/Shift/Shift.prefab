@@ -361,7 +361,7 @@ MonoBehaviour:
     totalAmount: 10
     currentAmount: 0
   shiftTime: 90
-  breakTime: 2
+  breakTime: 5
   timer: {fileID: 3901637560958508098}
   timerOutline: {fileID: 4139431461192754646}
   goalContainer: {fileID: 4139431459698363605}

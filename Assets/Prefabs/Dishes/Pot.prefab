@@ -296,7 +296,7 @@ PrefabInstance:
     - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: escapeSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
@@ -322,6 +322,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BaseOffset
       value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890745595575709635, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890745595575709635, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5890745595575709638, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}

@@ -52,7 +52,7 @@ MonoBehaviour:
     dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
     probability: 0.1
   spawnRate: 2
-  startToSpawnTime: 5
+  startToSpawnTime: 1
   numberOfPoolInstances: 20
   maxTimesToCheckForAvailability: 3
   spawnPoints:

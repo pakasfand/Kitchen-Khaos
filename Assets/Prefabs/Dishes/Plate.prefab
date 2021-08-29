@@ -93,6 +93,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb,
         type: 2}
+    - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: escapeSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: minDistanceToPlayer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890745595575709635, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5890745595575709635, guid: 12ed59301f1864f4584bab0e706806f5,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5890745595575709638, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: m_Name

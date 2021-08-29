@@ -19,13 +19,17 @@ public class Pot : MonoBehaviour
 
     AIBehaviour AI;
     Animation anim;
+    private Vector3 originalScale;
 
     private void Awake()
     {
         AI = GetComponent<AIBehaviour>();
         anim = GetComponent<Animation>();
+        originalScale = transform.localScale;
 
     }
+
+
 
     private void Update()
     {
@@ -54,7 +58,7 @@ public class Pot : MonoBehaviour
             fireBall.gameObject.SetActive(true);
             fireBall.transform.position = fireballSpawnPoint.position;
             fireBall.transform.parent = null;
-            fireBall.transform.localScale /= transform.localScale.x;
+            if (transform.parent != null) fireBall.transform.localScale /= transform.localScale.x;
 
             Vector3 direction = Quaternion.AngleAxis((360 / numberOfFireballs) * i, Vector3.up) * Vector3.forward;
             fireBall.Launch(direction);
@@ -71,6 +75,7 @@ public class Pot : MonoBehaviour
 
     private void OnDisable()
     {
+        transform.localScale = originalScale;
         anim.Stop();
     }
 }

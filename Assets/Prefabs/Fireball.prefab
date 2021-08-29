@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 9144245351580919792}
-  maxLifetime: 30
-  fireballSpeed: 12
+  maxLifetime: 10
+  fireballSpeed: 10
   collisionLayers: []
-  effectTimeOnPlayer: 5
-  speedBoostOnPlayer: 2
+  effectTimeOnPlayer: 2
+  speedBoostOnPlayer: 1.5
 --- !u!136 &1387113982510011094
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -360,7 +360,7 @@ MonoBehaviour:
     goalGO: {fileID: 0}
     totalAmount: 10
     currentAmount: 0
-  shiftTime: 120
+  shiftTime: 90
   breakTime: 2
   timer: {fileID: 3901637560958508098}
   timerOutline: {fileID: 4139431461192754646}

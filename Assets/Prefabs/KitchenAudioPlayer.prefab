@@ -57,6 +57,9 @@ MonoBehaviour:
   _splash: {fileID: 8300000, guid: 3a23d273e8b32eb42afebbb2cd032f9c, type: 3}
   _blast: {fileID: 8300000, guid: 5aafc0ed450e9b945b92443493505200, type: 3}
   _eat: {fileID: 8300000, guid: f88968e0cc304c547bf25fa759d00bde, type: 3}
+  _stabilityCheckFail: {fileID: 8300000, guid: 4f4e4ab7062f69246af6bc7c245f5992, type: 3}
+  _stabilityCheckSuccess: {fileID: 8300000, guid: 9bb728cc7ec5db54abe589feab6ce86d,
+    type: 3}
   _plateSounds:
   - {fileID: 8300000, guid: 30661a16d53fe7b47a16f7cea0cdba6f, type: 3}
   - {fileID: 8300000, guid: e9f5751cf2ddc7c438fa07e71a61775c, type: 3}

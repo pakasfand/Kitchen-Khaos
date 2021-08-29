@@ -20,6 +20,8 @@ public class KitchenAudioManager : MonoBehaviour
     [SerializeField] private AudioClip _splash;
     [SerializeField] private AudioClip _blast;
     [SerializeField] private AudioClip _eat;
+    [SerializeField] private AudioClip _stabilityCheckFail;
+    [SerializeField] private AudioClip _stabilityCheckSuccess;
 
     [Header("Plates")]
     [SerializeField] private List<AudioClip> _plateSounds;
@@ -36,6 +38,7 @@ public class KitchenAudioManager : MonoBehaviour
         Sink.OnDishesCleaned += OnDishesCleaned;
         Pot.OnPotExplodes += OnPotExplodes;
         GameLoop.OnShiftOver += OnShiftOver;
+        StabilityCheck.OnStabilityCompleted += OnStabilityCompleted;
     }
 
     private void OnDisable()
@@ -50,6 +53,12 @@ public class KitchenAudioManager : MonoBehaviour
         Sink.OnDishesCleaned -= OnDishesCleaned;
         Pot.OnPotExplodes -= OnPotExplodes;
         GameLoop.OnShiftOver -= OnShiftOver;
+        StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
+    }
+
+    private void OnStabilityCompleted(bool status)
+    {
+        _sfxAudioPlayer.PlayOneShot(status ? _stabilityCheckSuccess: _stabilityCheckFail);
     }
 
     private void OnShiftOver()

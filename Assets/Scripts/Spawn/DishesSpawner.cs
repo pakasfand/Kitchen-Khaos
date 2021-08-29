@@ -15,7 +15,7 @@ public class DishesSpawner : MonoBehaviour
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] [Range(0, 1f)] float spawnFromNeededQueueProbability;
 
-    [HideInInspector] public Shift shift;
+
 
     int currentNumberOfDishes = 0;
     float spawnTimer = 0;
@@ -23,7 +23,7 @@ public class DishesSpawner : MonoBehaviour
     Dictionary<DishType, DishTypeSpawnInfo> dishTypeInfo;
     List<DishType> neededDishesQueue;
 
-
+    Shift shift;
 
 
     [Serializable]
@@ -41,11 +41,13 @@ public class DishesSpawner : MonoBehaviour
             this.pool = pool;
         }
 
+
+
     }
 
     private void Awake()
     {
-
+        shift = FindObjectOfType<Shift>();
         neededDishesQueue = new List<DishType>();
         dishTypeInfo = new Dictionary<DishType, DishTypeSpawnInfo>();
 

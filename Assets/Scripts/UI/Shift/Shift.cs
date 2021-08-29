@@ -15,7 +15,7 @@ public class Shift : MonoBehaviour
         public DishType dishType;
         [HideInInspector] public GameObject goalGO;
         public int totalAmount;
-        public int currentAmount;
+        [HideInInspector] public int currentAmount;
 
         public Goal(GameObject goalGO, DishType dishType, int totalAmount)
         {

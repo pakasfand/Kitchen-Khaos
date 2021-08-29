@@ -85,12 +85,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ebd97df7719a24980a7df4d57d51c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingDistanceRange: {x: 10, y: 40}
-  minTurningAngle: 60
-  dwellingTime: 1
+  walkingDistanceRange: {x: 10, y: 60}
+  minTurningAngle: 30
+  dwellingTime: 2
   maxDelayToReachDestination: 2
   minDistanceToPlayer: 5
-  escapeSpeed: 7
+  escapeSpeed: 8
   dishType: {fileID: 0}
   animator: {fileID: 0}
   _interactionIndicator: {fileID: 3958494106633366625}

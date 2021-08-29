@@ -44,9 +44,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puddlePrefab: {fileID: 1827848428430763311, guid: a804d5cf1c02ec04588d52412337d134,
     type: 3}
-  chanceToSpill: 0.2
+  chanceToSpill: 0.3
   chanceToSpillIncrement: 0.1
-  timeToTryToSpill: 10
+  timeToTryToSpill: 15
   maxSpillTimes: 3
   normalHopHeigth: 2
   spillingHopHeigth: 3
@@ -139,16 +139,6 @@ PrefabInstance:
     - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: _dishType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: escapeSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: dwellingTime
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5890745595575709634, guid: 12ed59301f1864f4584bab0e706806f5,

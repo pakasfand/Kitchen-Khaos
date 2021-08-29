@@ -41,7 +41,6 @@ public class GameLoop : MonoBehaviour
         player.GetComponent<PlayerInteraction>().enabled = true;
         player.GetComponent<PlayerMovement>().enabled = true;
 
-        spawner.shift = currentShift;
         currentShift.StartShift();
         spawner.enabled = true;
 

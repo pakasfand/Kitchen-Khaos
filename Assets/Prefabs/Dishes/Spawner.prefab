@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1192269369573649303}
   - component: {fileID: 1255407161351899243}
   m_Layer: 0
-  m_Name: Spawn
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,17 +47,17 @@ MonoBehaviour:
   dishTypesToSpawn:
   - pool: {fileID: 0}
     dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
-    probability: 0.6
+    probability: 0.9
   - pool: {fileID: 0}
     dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
-    probability: 0.2
-  spawnRate: 1
-  startToSpawnTime: 1
+    probability: 0.1
+  spawnRate: 2
+  startToSpawnTime: 5
   numberOfPoolInstances: 20
-  maxTimesToCheckForAvailability: 4
+  maxTimesToCheckForAvailability: 3
   spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spawnFromNeededQueueProbability: 0.3
-  neededDishesQueue: []
+  spawnFromNeededQueueProbability: 0.15
+  shift: {fileID: 0}

@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb04e7ec0814a84a9201baf6076592a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 10
+  _walkingSpeed: 12
   _rotationSpeed: 8
   _animator: {fileID: 8963575591018668857}
   _playerInteraction: {fileID: 2342757173988182411}
@@ -777,13 +777,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f13d89f78dca94b9d4d35c8ade1da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detectionRadius: 8
+  _detectionRadius: 5
   _interactionLayers:
     serializedVersion: 2
     m_Bits: 1792
-  _dishLayer:
-    serializedVersion: 2
-    m_Bits: 256
   _animator: {fileID: 8963575591018668857}
   _leftStackPosition: {fileID: 6963183477849714153}
   _rightStackPosition: {fileID: 2778160562464529558}

@@ -37,6 +37,11 @@ public class GameLoop : MonoBehaviour
         Sink.OnDishesCleaned += CheckGoalCompletition;
     }
 
+    private void OnDisable()
+    {
+        Sink.OnDishesCleaned -= CheckGoalCompletition;
+    }
+
     public void StartGame()
     {
 

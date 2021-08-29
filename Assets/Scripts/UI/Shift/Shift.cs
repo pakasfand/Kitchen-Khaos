@@ -103,6 +103,8 @@ public class Shift : MonoBehaviour
     private void Update()
     {
         if (!started) return;
+        if (hasEnded) { return; }
+
         goingTime += Time.deltaTime;
         timer.fillAmount = 1 - goingTime / shiftTime;
 
@@ -117,8 +119,8 @@ public class Shift : MonoBehaviour
         if (goingTime >= shiftTime)
         {
             StopCoroutine(flickerCoroutine);
-            OnShiftEnded.Invoke();
             hasEnded = true;
+            OnShiftEnded?.Invoke();
         }
     }
 

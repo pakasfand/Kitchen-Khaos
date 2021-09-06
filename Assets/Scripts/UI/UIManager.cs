@@ -10,7 +10,9 @@ public class UIManager : MonoBehaviour
 
 	public GameObject menu;
 
-	public void Quit()
+    public GameObject credit;
+
+    public void Quit()
 	{
 		Application.Quit();
 	}
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour
 	public void GoToMenu()
 	{
 		menu.SetActive(true);
+        credit.SetActive(false);
 		options.SetActive(false);
 	}
 
@@ -40,4 +43,9 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+    public void OnCreditsClicked()
+    {
+        menu.SetActive(false);
+        credit.SetActive(true);
+    }
 }

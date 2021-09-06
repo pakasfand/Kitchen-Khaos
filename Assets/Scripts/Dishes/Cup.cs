@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class Cup : MonoBehaviour
 {
-    [SerializeField] GameObject puddlePrefab;
+    [SerializeField] GameObject[] puddlePrefabs;
     [Range(0, 1f)] [SerializeField] float chanceToSpill;
     [Range(0, 1f)] [SerializeField] float chanceToSpillIncrement;
     [SerializeField] float timeToTryToSpill;
@@ -105,11 +105,17 @@ public class Cup : MonoBehaviour
 
         if (CanSpill())
         {
+            GameObject puddlePrefab = GetRandomPuddle();
             if (puddlePrefab != null) Instantiate(puddlePrefab, transform.position, puddlePrefab.transform.rotation, null);
         }
         yield return new WaitForSeconds(2f);
         AI.enabled = true;
         tryToSpillCoroutine = null;
+    }
+
+    private GameObject GetRandomPuddle()
+    {
+        return puddlePrefabs[Random.Range(0, puddlePrefabs.Length)];
     }
 
     private bool CanSpill()

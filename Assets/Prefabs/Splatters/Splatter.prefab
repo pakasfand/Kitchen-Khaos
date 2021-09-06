@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &39131337756245652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4775788609233263189}
+  - component: {fileID: 4279231706066422504}
+  - component: {fileID: 6160723603323946023}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4775788609233263189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39131337756245652}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1827848428430763310}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!64 &4279231706066422504
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39131337756245652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &6160723603323946023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39131337756245652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2117c3f1dce36544bb00d1cdad08ef98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_radius: 0.63
+  m_height: 0.1
+  m_fanAngle: 360
+  m_numVertices: 15
 --- !u!1 &1827848428430763311
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +74,6 @@ GameObject:
   - component: {fileID: 1827848428430763314}
   - component: {fileID: 1827848428430763315}
   - component: {fileID: 1827848428430763312}
-  - component: {fileID: 1827848428430763313}
   m_Layer: 0
   m_Name: Splatter
   m_TagString: Untagged
@@ -32,6 +93,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 6664407987348373725}
+  - {fileID: 4775788609233263189}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -74,7 +136,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d5adc05d4113d7448a75637bb998396c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0, g: 0.58278656, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +144,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1827848428430763315
@@ -99,12 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLifetime: 10
   sprites:
-  - {fileID: 21300000, guid: fc79ff27b96f9004daf1eb7eff387158, type: 3}
-  - {fileID: 21300000, guid: d8b1d6eb1a26dab4bbc4c4394a0a6098, type: 3}
-  - {fileID: 21300000, guid: 3d7f0e255bdf32b4e8e001443c0d9e15, type: 3}
-  - {fileID: 21300000, guid: 234400bd3a4aa954cbb2c2a0225d2b79, type: 3}
   - {fileID: 21300000, guid: 9dad6916cb6dcab49a0404ebbcdd7595, type: 3}
-  - {fileID: 21300000, guid: d5adc05d4113d7448a75637bb998396c, type: 3}
 --- !u!95 &1827848428430763312
 Animator:
   serializedVersion: 3
@@ -124,19 +181,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1827848428430763313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827848428430763311}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!1 &8390552270697467083
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +223,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -359,7 +403,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.1792453, g: 0.0752492, b: 0.13785909, a: 1}
+      maxColor: {r: 0.26517445, g: 0.3089831, b: 0.5566038, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4846,7 +4890,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 04f1e9c1e18eada4d9c63368d29d1f60, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

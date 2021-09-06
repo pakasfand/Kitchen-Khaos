@@ -62,6 +62,5 @@ public class Splatter : MonoBehaviour
     private void PlayDisappearAnim()
     {
         animator.SetTrigger("Disappear");
-        particles.Stop();
     }
 }

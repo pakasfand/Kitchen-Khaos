@@ -14,6 +14,12 @@ public class Fireball : MonoBehaviour
     float timer = 0;
     bool canMove;
     Vector3 movingDirection;
+    Vector3 originalScale;
+
+    private void Awake()
+    {
+        originalScale = transform.localScale;
+    }
 
     private void FixedUpdate()
     {
@@ -26,6 +32,9 @@ public class Fireball : MonoBehaviour
     private void OnEnable()
     {
         timer = 0;
+
+        transform.localScale = originalScale;
+
     }
 
     private void Update()
@@ -42,6 +51,8 @@ public class Fireball : MonoBehaviour
         transform.forward = direction.normalized;
         canMove = true;
         movingDirection = direction;
+        transform.localScale = originalScale;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,4 +78,5 @@ public class Fireball : MonoBehaviour
         gameObject.GetComponent<PlayerInteraction>().Ignite(effectTimeOnPlayer);
         gameObject.GetComponent<PlayerMovement>().SpeedUp(effectTimeOnPlayer, speedBoostOnPlayer);
     }
+
 }

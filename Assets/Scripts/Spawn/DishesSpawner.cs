@@ -69,20 +69,10 @@ public class DishesSpawner : MonoBehaviour
 
         if (total != 1)
         {
-            throw new ProbabilityException("Total Probabilty is not equal to 1");
+            throw new Exception("Total Probabilty of Spawn is not equal to 1");
         }
     }
 
-
-    private class ProbabilityException : System.Exception
-    {
-        public ProbabilityException() { }
-        public ProbabilityException(string message) : base(message) { }
-        public ProbabilityException(string message, System.Exception inner) : base(message, inner) { }
-        protected ProbabilityException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
 
 
     private void Start()
@@ -206,7 +196,8 @@ public class DishesSpawner : MonoBehaviour
 
     private int GetDishTypeCurrentAmountInScene(DishType dishType)
     {
-        if (!dishTypeInfo.ContainsKey(dishType)) Debug.LogWarning("The dishes requested in goals are not in the spawner");
+        if (!dishTypeInfo.ContainsKey(dishType)) throw new Exception("The dishes requested in goals are not in the spawner");
+
         ObjectPool pool = dishTypeInfo[dishType].pool;
         return pool.GetNumberOfObjectsInPool(ObjectPool.ObjectState.Active);
     }

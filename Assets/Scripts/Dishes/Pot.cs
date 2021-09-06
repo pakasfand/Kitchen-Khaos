@@ -58,7 +58,6 @@ public class Pot : MonoBehaviour
             fireBall.gameObject.SetActive(true);
             fireBall.transform.position = fireballSpawnPoint.position;
             fireBall.transform.parent = null;
-            if (transform.parent != null) fireBall.transform.localScale /= transform.localScale.x;
 
             Vector3 direction = Quaternion.AngleAxis((360 / numberOfFireballs) * i, Vector3.up) * Vector3.forward;
             fireBall.Launch(direction);
@@ -75,7 +74,7 @@ public class Pot : MonoBehaviour
 
     private void OnDisable()
     {
-        transform.localScale = originalScale;
+
         anim.Stop();
     }
 }

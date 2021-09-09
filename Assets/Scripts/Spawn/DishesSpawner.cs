@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class DishesSpawner : MonoBehaviour
 {
     [SerializeField] int maxNumberOfDishes;
-    [SerializeField] DishTypeSpawnInfo[] dishTypesToSpawn;
+    [SerializeField] DishType[] dishTypes;
     [SerializeField] float spawnRate = 1f;
     [SerializeField] float startToSpawnTime = 0f;
     [SerializeField] int numberOfPoolInstances;
@@ -20,71 +20,75 @@ public class DishesSpawner : MonoBehaviour
     int currentNumberOfDishes = 0;
     float spawnTimer = 0;
     float checkAvailabilityTimer;
-    Dictionary<DishType, DishTypeSpawnInfo> dishTypeInfo;
+    Dictionary<DishType, DishTypeSpawnInfo> spawnInfoByDishType;
     List<DishType> neededDishesQueue;
 
-    Shift shift;
+
+    [HideInInspector]
+    public Shift shift
+    {
+
+        get
+        {
+            return _shift;
+        }
+        set
+        {
+            ResetSpawner();
+            print("Shift set");
+            _shift = value;
+        }
+
+
+    }
+
+    Shift _shift;
 
 
     [Serializable]
     private class DishTypeSpawnInfo
     {
+        public ObjectPool pool;
+        public float spawnProbability;
 
-        [HideInInspector] public ObjectPool pool;
-        public DishType dishType;
-        [Range(0, 1f)] public float probability;
-
-        public DishTypeSpawnInfo(DishType dishType, float probability, ObjectPool pool)
+        public DishTypeSpawnInfo()
         {
-            this.dishType = dishType;
-            this.probability = probability;
-            this.pool = pool;
         }
 
-
-
+        public DishTypeSpawnInfo(ObjectPool pool)
+        {
+            this.pool = pool;
+        }
     }
 
     private void Awake()
     {
-        shift = FindObjectOfType<Shift>();
         neededDishesQueue = new List<DishType>();
-        dishTypeInfo = new Dictionary<DishType, DishTypeSpawnInfo>();
+        spawnInfoByDishType = new Dictionary<DishType, DishTypeSpawnInfo>();
 
-        float total = 0;
 
-        for (int i = 0; i < dishTypesToSpawn.Length; i++)
+        for (int i = 0; i < dishTypes.Length; i++)
         {
-            GameObject poolContainer = new GameObject("Pool container");
+            GameObject poolContainer = new GameObject(dishTypes[i] + " Pool container");
             poolContainer.transform.parent = this.transform;
             ObjectPool pool = (ObjectPool)poolContainer.AddComponent(typeof(ObjectPool));
-            pool.subject = dishTypesToSpawn[i].dishType.prefab;
+            pool.subject = dishTypes[i].prefab;
             pool.numberOfInstances = numberOfPoolInstances;
-            dishTypesToSpawn[i].pool = pool;
 
-            total += dishTypesToSpawn[i].probability;
-
-            dishTypeInfo.Add(dishTypesToSpawn[i].dishType, dishTypesToSpawn[i]);
-        }
-
-        if (total != 1)
-        {
-            throw new Exception("Total Probabilty of Spawn is not equal to 1");
+            spawnInfoByDishType.Add(dishTypes[i], new DishTypeSpawnInfo(pool));
         }
     }
 
-
-
-    private void Start()
+    private void OnEnable()
     {
         CheckAvailabilityForGoals();
     }
 
     public void DeactivateAllDishes()
     {
-        foreach (DishTypeSpawnInfo dishTypeSpawn in dishTypeInfo.Values)
+        foreach (DishTypeSpawnInfo dishTypeSpawnInfo in spawnInfoByDishType.Values)
         {
-            dishTypeSpawn.pool.DeactivateAll();
+            dishTypeSpawnInfo.pool.DeactivateAll();
         }
     }
 
@@ -93,7 +97,7 @@ public class DishesSpawner : MonoBehaviour
         spawnTimer += Time.deltaTime;
         checkAvailabilityTimer += Time.deltaTime;
 
-        if (checkAvailabilityTimer > shift.shiftTime / maxTimesToCheckForAvailability)
+        if (checkAvailabilityTimer > _shift.shiftTime / maxTimesToCheckForAvailability)
         {
             CheckAvailabilityForGoals();
             checkAvailabilityTimer = 0;
@@ -122,11 +126,30 @@ public class DishesSpawner : MonoBehaviour
         }
     }
 
+    public void SetShift(Shift shift)
+    {
+        foreach (DishType dishType in spawnInfoByDishType.Keys)
+        {
+            bool inShift = false;
+            foreach (Goal goal in shift.goals)
+            {
+                if (dishType == goal.dishType)
+                {
+                    inShift = true;
+                    spawnInfoByDishType[dishType].spawnProbability = goal.spawnProbability;
+                }
+            }
+            if (!inShift) spawnInfoByDishType[dishType].spawnProbability = 0;
+        }
+
+        this._shift = shift;
+    }
+
     private GameObject SpawnDish(DishType dishType)
     {
-        GameObject dish = dishTypeInfo[dishType].pool.RequestSubject();
+        GameObject dish = spawnInfoByDishType[dishType].pool.RequestSubject();
         dish.SetActive(true);
-        dish.transform.position = PickRandomLocation().position;
+        dish.transform.position = PickRandomLocation();
         return dish;
     }
 
@@ -138,12 +161,12 @@ public class DishesSpawner : MonoBehaviour
 
     private void CheckAvailabilityForGoals()
     {
-        for (int i = 0; i < shift.goals.Count; i++)
+        for (int i = 0; i < _shift.goals.Count; i++)
         {
-            int goalAmount = shift.goals[i].currentAmount;
-            DishType dishType = shift.goals[i].dishType;
+            int goalAmount = _shift.goals[i].currentAmount;
+            DishType dishType = _shift.goals[i].dishType;
             int currentAmountInScene = GetDishTypeCurrentAmountInScene(dishType);
-            int currentAmountInQueue = GetDishTypeCurrentAmountInQueue(shift.goals[i].dishType);
+            int currentAmountInQueue = GetDishTypeCurrentAmountInQueue(_shift.goals[i].dishType);
             int neededAmount = goalAmount - currentAmountInScene - currentAmountInQueue;
 
 
@@ -162,7 +185,7 @@ public class DishesSpawner : MonoBehaviour
 
         neededDishesQueue.Sort((DishType x, DishType y) =>
         {
-            float difference = dishTypeInfo[x].probability - dishTypeInfo[y].probability;
+            float difference = spawnInfoByDishType[x].spawnProbability - spawnInfoByDishType[y].spawnProbability;
             if (difference == 0) return 0;
 
             return (int)Mathf.Sign(difference); //This would sort from the most rare to the less rare
@@ -196,9 +219,9 @@ public class DishesSpawner : MonoBehaviour
 
     private int GetDishTypeCurrentAmountInScene(DishType dishType)
     {
-        if (!dishTypeInfo.ContainsKey(dishType)) throw new Exception("The dishes requested in goals are not in the spawner");
+        if (!spawnInfoByDishType.ContainsKey(dishType)) throw new Exception("The dishes requested in goals are not in the spawner");
 
-        ObjectPool pool = dishTypeInfo[dishType].pool;
+        ObjectPool pool = spawnInfoByDishType[dishType].pool;
         return pool.GetNumberOfObjectsInPool(ObjectPool.ObjectState.Active);
     }
 
@@ -210,21 +233,29 @@ public class DishesSpawner : MonoBehaviour
 
         float probabilitySum = 0;
 
-        for (int i = 0; i < dishTypesToSpawn.Length; i++)
+        for (int i = 0; i < _shift.goals.Count; i++)
         {
-            probabilitySum += dishTypesToSpawn[i].probability;
+            probabilitySum += _shift.goals[i].spawnProbability;
             if (randomNumber <= probabilitySum)
             {
-                return dishTypesToSpawn[i].dishType;
+                return _shift.goals[i].dishType;
             }
         }
 
-        return null; //Not reachable
+        return null;
     }
 
-    private Transform PickRandomLocation()
+    private Vector3 PickRandomLocation()
     {
         int randomIndex = Random.Range(0, spawnPoints.Length);
-        return spawnPoints[randomIndex];
+        return spawnPoints[randomIndex].position;
+    }
+
+    private void ResetSpawner()
+    {
+        currentNumberOfDishes = 0;
+        spawnTimer = 0;
+        checkAvailabilityTimer = 0;
+        neededDishesQueue.Clear();
     }
 }

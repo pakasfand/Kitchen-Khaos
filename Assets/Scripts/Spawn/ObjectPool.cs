@@ -55,12 +55,18 @@ public class ObjectPool : MonoBehaviour
 
     public int GetNumberOfObjectsInPool(ObjectState state)
     {
-        if (state == ObjectState.Any) return transform.childCount;
+        if (state == ObjectState.Any) return numberOfInstances;
         int count = 0;
         bool isActive = (state == ObjectState.Active);
-        for (int i = 0; i < transform.childCount; i++)
+
+        foreach (Node<GameObject> node in usedObjects)
         {
-            if (transform.GetChild(i).gameObject.activeInHierarchy == isActive) count++;
+            if (node.Data.activeInHierarchy == isActive) count++;
+        }
+
+        foreach (GameObject go in unusedObjectsQueue)
+        {
+            if (go.gameObject.activeInHierarchy == isActive) count++;
         }
 
         return count;
@@ -82,9 +88,9 @@ public class ObjectPool : MonoBehaviour
             go.SetActive(false);
         }
 
-        foreach (GameObject go in usedObjects)
+        foreach (Node<GameObject> node in usedObjects)
         {
-            go.SetActive(false);
+            node.Data.SetActive(false);
         }
     }
 

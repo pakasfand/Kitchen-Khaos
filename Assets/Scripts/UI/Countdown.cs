@@ -16,7 +16,7 @@ public class Countdown : MonoBehaviour
     [Serializable]
     public class SerializableEvent : UnityEvent { }
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(CountDown());
     }
@@ -32,6 +32,7 @@ public class Countdown : MonoBehaviour
         count.text = countDownEndText;
         yield return new WaitForSeconds(countDownEndWaitTime);
         OnCountDownFinished?.Invoke();
+        yield return null;
         gameObject.SetActive(false);
     }
 }

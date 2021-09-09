@@ -58,11 +58,12 @@ public class KitchenAudioManager : MonoBehaviour
 
     private void OnStabilityCompleted(bool status)
     {
-        _sfxAudioPlayer.PlayOneShot(status ? _stabilityCheckSuccess: _stabilityCheckFail);
+        _sfxAudioPlayer.PlayOneShot(status ? _stabilityCheckSuccess : _stabilityCheckFail);
     }
 
-    private void OnShiftOver()
+    private void OnShiftOver(bool completed)
     {
+        if (completed) return;
         _musicAudioPlayer.clip = _endMusic;
         _musicAudioPlayer.Play();
     }

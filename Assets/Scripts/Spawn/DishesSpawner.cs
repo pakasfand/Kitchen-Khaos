@@ -35,7 +35,6 @@ public class DishesSpawner : MonoBehaviour
         set
         {
             ResetSpawner();
-            print("Shift set");
             _shift = value;
         }
 

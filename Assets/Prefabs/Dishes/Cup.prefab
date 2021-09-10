@@ -48,14 +48,14 @@ MonoBehaviour:
   - {fileID: 6849066969304534965, guid: e00122b0948f76648b06876cb9763ff9, type: 3}
   - {fileID: 6849066969304534965, guid: 8fbac043e2d207646a41d99aa1bc5d8f, type: 3}
   - {fileID: 6849066969304534965, guid: 8b0b12535d4ab5446bf2ea0f45df8bd5, type: 3}
+  normalHopHeigth: 2
+  spillingHopHeigth: 3
   chanceToSpill: 0.35
   chanceToSpillIncrement: 0.1
   timeToTryToSpill: 10
-  maxSpillTimes: 3
-  normalHopHeigth: 2
-  spillingHopHeigth: 3
-  model: {fileID: 212512424569708415}
   jumpsBeforeTryingToSpill: 3
+  waitTimeAfterTrySpilling: 3
+  model: {fileID: 212512424569708415}
   gravity: 20
 --- !u!1001 &348252125208245655
 PrefabInstance:
@@ -197,7 +197,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8913132616417565946, guid: 12ed59301f1864f4584bab0e706806f5, type: 3}
-    - {fileID: 5890745595575709635, guid: 12ed59301f1864f4584bab0e706806f5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 12ed59301f1864f4584bab0e706806f5, type: 3}
 --- !u!1 &6130837936577665617 stripped
 GameObject:

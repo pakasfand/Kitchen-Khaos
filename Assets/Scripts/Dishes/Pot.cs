@@ -19,14 +19,16 @@ public class Pot : MonoBehaviour
 
     AIBehaviour AI;
     Animation anim;
-    private Vector3 originalScale;
+
+
+    Vector3 originalScale;
+    float modelRotation;
 
     private void Awake()
     {
         AI = GetComponent<AIBehaviour>();
         anim = GetComponent<Animation>();
         originalScale = transform.localScale;
-
     }
 
 
@@ -36,11 +38,15 @@ public class Pot : MonoBehaviour
         explosionTimer += Time.deltaTime;
 
 
+        model.rotation = Quaternion.Euler(model.rotation.eulerAngles.x, modelRotation, model.rotation.eulerAngles.z);
+
         if (explosionTimer >= timeToExplode)
         {
             AI.Stop();
+            AI.enabled = false;
             anim.Play();
         }
+
 
         if (!AI.IsStopped())
         {
@@ -65,11 +71,12 @@ public class Pot : MonoBehaviour
 
         explosionTimer = 0;
         OnPotExplodes?.Invoke();
+        AI.enabled = true;
     }
 
     private void Rotate()
     {
-        model.Rotate(new Vector3(0, angularSpeed * Time.deltaTime * AI.GetVelocityFraction(), 0), Space.World);
+        modelRotation += angularSpeed * Time.deltaTime * AI.GetVelocityFraction();
     }
 
     private void OnDisable()

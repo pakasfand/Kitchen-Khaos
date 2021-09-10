@@ -94,7 +94,6 @@ public class GameLoop : MonoBehaviour
 
     public void StartShift()
     {
-        print("Started shift #" + currentShiftIndex);
         EnablePlayer(true);
 
         shifts[currentShiftIndex].Initialize();

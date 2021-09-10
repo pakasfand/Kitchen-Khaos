@@ -1,10 +1,11 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIBehaviour : MonoBehaviour
 {
+    public DishType dishType;
+
     NavMeshAgent agent;
     [SerializeField] Vector2 walkingDistanceRange;
     [SerializeField] float minTurningAngle;
@@ -12,7 +13,6 @@ public class AIBehaviour : MonoBehaviour
     [SerializeField] float maxDelayToReachDestination;
     [SerializeField] float minDistanceToPlayer;
     [SerializeField] float escapeSpeed;
-    public DishType dishType;
     [SerializeField] Animator animator;
     [SerializeField] private InteractionIndicator _interactionIndicator;
 
@@ -30,6 +30,7 @@ public class AIBehaviour : MonoBehaviour
     {
         walkingDirection = new Vector3(Random.Range(0, 1f), 0, Random.Range(0, 1f));
         StopAllCoroutines();
+        wandering = null;
     }
 
     private void Awake()
@@ -49,12 +50,12 @@ public class AIBehaviour : MonoBehaviour
         vectorToPlayer = player.transform.position - transform.position;
         if (IsPlayerNear())
         {
+            agent.ResetPath();
             if (wandering != null)
             {
-                agent.ResetPath();
                 StopCoroutine(wandering);
+                wandering = null;
             }
-            wandering = null;
             RunAway();
             return;
         }
@@ -127,13 +128,13 @@ public class AIBehaviour : MonoBehaviour
 
         if (IsPathValid(target.position))
         {
-            float timeToDestination = walkTo.magnitude / agent.speed;
+            float timeToDestination = (walkTo - transform.position).magnitude / agent.speed;
             agent.destination = target.position;
             float timeSinceNewDestination = Time.time;
             yield return new WaitUntil(() =>
             {
                 float time = Time.time - timeSinceNewDestination;
-                return HasReachedDestination() || time - timeToDestination >= maxDelayToReachDestination;
+                return HasReachedDestination() || (time >= timeToDestination + maxDelayToReachDestination);
             });
             agent.isStopped = true;
             yield return new WaitForSeconds(dwellingTime);

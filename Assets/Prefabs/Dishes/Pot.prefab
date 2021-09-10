@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1214a506c720eec41abcdbc26d1cc207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angularSpeed: 300
+  angularSpeed: 450
   timeToExplode: 7
   numberOfFireballs: 4
   fireballSpawnPoint: {fileID: 258000387}

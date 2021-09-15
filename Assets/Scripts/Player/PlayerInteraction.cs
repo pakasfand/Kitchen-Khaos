@@ -123,7 +123,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         AIBehaviour enemyAi;
-        if(_nearestDish != null)
+        if (_nearestDish != null)
         {
             // Disable old
             enemyAi = _nearestDish.GetComponent<AIBehaviour>();
@@ -137,7 +137,7 @@ public class PlayerInteraction : MonoBehaviour
 
         _nearestDish = nearestInteractable;
 
-        if(nearestInteractable)
+        if (nearestInteractable)
         {
             // Enable new
             enemyAi = _nearestDish.GetComponent<AIBehaviour>();
@@ -151,7 +151,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext value)
     {
-        if(_isDisable) { return; }
+        if (_isDisable) { return; }
 
         if (value.started)
         {
@@ -172,7 +172,7 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
 
-            if(nearestInteractable != null)
+            if (nearestInteractable != null)
             {
                 if (TryToCleanDishes(nearestInteractable)) { return; }
                 if (TryToPickUpDish(nearestInteractable)) { return; }
@@ -253,7 +253,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         var powerUp = collider.GetComponent<PowerUp>();
 
-        if(powerUp)
+        if (powerUp)
         {
             powerUp.ConsumePowerUp();
             return true;
@@ -308,6 +308,11 @@ public class PlayerInteraction : MonoBehaviour
         _isDisable = true;
         _disabledTimeLeft = disabledTime;
         OnChefIgnited?.Invoke();
+    }
+
+    public void GetDrunk()
+    {
+
     }
 
     void OnDrawGizmos()

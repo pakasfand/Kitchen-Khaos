@@ -37,6 +37,7 @@ public class AIBehaviour : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         GetComponent<Rigidbody>().sleepThreshold = 0;
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -101,7 +102,10 @@ public class AIBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (animator != null) animator.SetFloat("Speed", GetVelocityFraction());
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", GetVelocityFraction());
+        }
     }
 
 

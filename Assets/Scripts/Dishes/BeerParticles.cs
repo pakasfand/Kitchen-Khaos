@@ -5,10 +5,13 @@ using static UnityEngine.ParticleSystem;
 
 public class BeerParticles : MonoBehaviour
 {
-    [SerializeField] float drunkEffectTime;
+    [SerializeField] DrunkEffect drunkEffect;
 
     ParticleSystem particleSys;
     PlayerInteraction player;
+
+
+    private float timer;
 
     private void Awake()
     {
@@ -17,8 +20,17 @@ public class BeerParticles : MonoBehaviour
         particleSys.trigger.SetCollider(0, player.GetComponent<Collider>());
     }
 
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        timer = Mathf.Max(0, timer);
+    }
+
     private void OnParticleTrigger()
     {
-        player.GetDrunk();
+        if (!drunkEffect.isPlaying)
+        {
+            drunkEffect.Play();
+        }
     }
 }

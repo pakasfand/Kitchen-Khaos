@@ -148,7 +148,7 @@ public class DishesSpawner : MonoBehaviour
     {
         GameObject dish = spawnInfoByDishType[dishType].pool.RequestSubject();
         dish.SetActive(true);
-        dish.transform.position = PickRandomLocation();
+        dish.transform.position = ExtensionMethods.RandomExtensions.PickRandomFrom(spawnPoints).position;
         return dish;
     }
 
@@ -244,17 +244,23 @@ public class DishesSpawner : MonoBehaviour
         return null;
     }
 
-    private Vector3 PickRandomLocation()
-    {
-        int randomIndex = Random.Range(0, spawnPoints.Length);
-        return spawnPoints[randomIndex].position;
-    }
-
     private void ResetSpawner()
     {
         currentNumberOfDishes = 0;
         spawnTimer = 0;
         checkAvailabilityTimer = 0;
         neededDishesQueue.Clear();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (spawnPoints.Length == 0) return;
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(transform.position, spawnPoints[i].position);
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(spawnPoints[i].position, 1f);
+        }
     }
 }

@@ -4688,6 +4688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfd3466ba231204c8369b8049d9f7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drunkEffectTime: 0
 --- !u!1001 &348252125208245655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4714,41 +4715,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -19.224394
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.5921755
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}

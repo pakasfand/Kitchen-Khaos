@@ -15,11 +15,11 @@ namespace ExtensionMethods
         }
     }
 
-    public static class UIExtensions { }
-
-    public static class VisualExtensions
+    public static class RandomExtensions
     {
-
+        public static T PickRandomFrom<T>(T[] array)
+        {
+            return array[Random.Range(0, array.Length)];
+        }
     }
-
 }

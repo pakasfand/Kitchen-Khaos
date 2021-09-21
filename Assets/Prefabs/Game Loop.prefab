@@ -2091,7 +2091,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   spawner: {fileID: 0}
-  shifts: []
+  shifts:
+  - goals:
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 5
+      spawnProbability: 1
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 0
+    transitionTime: 0
+    sequence: {fileID: 0}
   shiftTimer: {fileID: 6013858619280397413}
   goalContainer: {fileID: 637862290934356274}
   goalPrefab: {fileID: 3781711712801291936, guid: f77e082aa2258a34b8a90ab668b617cb,

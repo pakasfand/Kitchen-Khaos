@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -78,7 +79,7 @@ public class GameLoop : MonoBehaviour
                 return;
             }
 
-            shiftTransition = StartCoroutine(StartShiftTransition(shifts[currentShiftIndex - 1].transitionTime));
+            shiftTransition = StartCoroutine(StartShiftTransition(shifts[currentShiftIndex - 1]));
             return;
         }
 
@@ -117,27 +118,37 @@ public class GameLoop : MonoBehaviour
         OnShiftOver?.Invoke(completed);
     }
 
-    private IEnumerator StartShiftTransition(float transitionTime)
+    private IEnumerator StartShiftTransition(Shift previousShift)
     {
         player.GetComponent<PlayerInteraction>().enabled = false;
 
         breakTextUI.gameObject.SetActive(true);
-        float timer = transitionTime;
+        float timer = previousShift.transitionTime;
 
         yield return new WaitUntil(() =>
         {
             timer -= Time.deltaTime;
+            timer = Mathf.Max(timer, 0f);
             breakTextUI.text = String.Format("Nice job! Next shift in: " + timer.ToString("F2"));
             return timer <= 0;
         });
 
-        countdown.SetActive(true);
         breakTextUI.gameObject.SetActive(false);
 
-        yield return new WaitUntil(() =>
+        if (previousShift.sequence != null)
         {
-            return countdown.activeSelf == false;
-        });
+            previousShift.sequence.Play();
+            yield return null;
+            yield return new WaitWhile(() => { return previousShift.sequence.state == PlayState.Playing; });
+        }
+
+        countdown.SetActive(true);
+
+        yield return new WaitUntil(() =>
+            {
+                return countdown.activeSelf == false;
+            });
+
 
         shiftTransition = null;
     }
@@ -243,6 +254,7 @@ public class Shift
     public List<Goal> goals;
     public float shiftTime;
     public float transitionTime;
+    public PlayableDirector sequence;
 
     private float currentNumberOfGoals;
     private PlayerInteraction _playerInteraction;
@@ -261,7 +273,6 @@ public class Shift
 
     public void Initialize()
     {
-
         foreach (Goal goal in goals)
         {
             goal.currentAmount = goal.totalAmount;
@@ -292,7 +303,7 @@ public class Goal
     [Range(0, 1f)] public float spawnProbability;
 
     [HideInInspector] public GameObject goalGO;
-    public int currentAmount;
+    [HideInInspector] public int currentAmount;
 
 
 

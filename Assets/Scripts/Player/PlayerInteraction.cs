@@ -48,12 +48,14 @@ public class PlayerInteraction : MonoBehaviour
     {
         Sink.OnDishesCleaned += OnDishesCleaned;
         StabilityCheck.OnStabilityCompleted += OnStabilityCompleted;
+        GameLoop.OnShiftOver += OnShiftOver;
     }
 
     private void OnDisable()
     {
         Sink.OnDishesCleaned -= OnDishesCleaned;
         StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
+        GameLoop.OnShiftOver -= OnShiftOver;
     }
 
     private void Awake()
@@ -320,6 +322,11 @@ public class PlayerInteraction : MonoBehaviour
 
     }
 
+    private void OnShiftOver(bool completed)
+    {
+        DropDishes();
+    }
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

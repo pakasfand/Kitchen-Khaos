@@ -296,8 +296,13 @@ public class PlayerInteraction : MonoBehaviour
     {
         _animator.SetBool("Stumble", true);
         DropDishes();
+        
+        if (_dishesCollected.Count > 0)
+        {
+            OnPlayerStumble?.Invoke();
+        }
+
         _dishesCollected.Clear();
-        OnPlayerStumble?.Invoke();
     }
 
     public void Ignite(float disabledTime)

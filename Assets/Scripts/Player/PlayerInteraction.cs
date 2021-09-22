@@ -48,12 +48,14 @@ public class PlayerInteraction : MonoBehaviour
     {
         Sink.OnDishesCleaned += OnDishesCleaned;
         StabilityCheck.OnStabilityCompleted += OnStabilityCompleted;
+        GameLoop.OnShiftOver += OnShiftOver;
     }
 
     private void OnDisable()
     {
         Sink.OnDishesCleaned -= OnDishesCleaned;
         StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
+        GameLoop.OnShiftOver -= OnShiftOver;
     }
 
     private void Awake()
@@ -296,8 +298,13 @@ public class PlayerInteraction : MonoBehaviour
     {
         _animator.SetBool("Stumble", true);
         DropDishes();
+        
+        if (_dishesCollected.Count > 0)
+        {
+            OnPlayerStumble?.Invoke();
+        }
+
         _dishesCollected.Clear();
-        OnPlayerStumble?.Invoke();
     }
 
     public void Ignite(float disabledTime)
@@ -315,6 +322,11 @@ public class PlayerInteraction : MonoBehaviour
 
     }
 
+    private void OnShiftOver(bool completed)
+    {
+        DropDishes();
+    }
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

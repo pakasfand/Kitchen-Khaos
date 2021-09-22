@@ -30,12 +30,14 @@ public class Sink : MonoBehaviour
     {
         PlayerInteraction.OnPlayerStartedCleaning += OnPlayerStartedCleaning;
         PlayerInteraction.OnPlayerStoppedCleaning += OnPlayerStoppedCleaning;
+        GameLoop.OnShiftOver += OnShiftOver;
     }
 
     private void OnDisable()
     {
         PlayerInteraction.OnPlayerStartedCleaning -= OnPlayerStartedCleaning;
         PlayerInteraction.OnPlayerStoppedCleaning -= OnPlayerStoppedCleaning;
+        GameLoop.OnShiftOver -= OnShiftOver;
     }
 
     private void OnPlayerStartedCleaning(List<DishType> dishesBeingCleaned)
@@ -92,5 +94,16 @@ public class Sink : MonoBehaviour
         _progressBarGO.SetActive(false);
         _active = false;
         _activeTimer = 0f;
+    }
+    
+    private void OnShiftOver(bool completed)
+    {
+        foreach (var cleanDish in _cleanDishes)
+        {
+            foreach (Transform child in cleanDish.stack)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ExtensionMethods
@@ -19,7 +20,8 @@ namespace ExtensionMethods
     {
         public static T PickRandomFrom<T>(T[] array)
         {
-            return array[Random.Range(0, array.Length)];
+            if (array.Length == 0) throw new Exception("Empty Array");
+            return array[UnityEngine.Random.Range(0, array.Length)];
         }
     }
 }

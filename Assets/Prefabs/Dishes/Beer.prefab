@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToSplatterBeer: 5
-  beerParticles: {fileID: 5376289565812939194}
+  beerParticles: {fileID: 2444803147175226672}
 --- !u!198 &5376289565812939194
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4717,41 +4717,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -19.224394
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.5921755
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5890745595575708733, guid: 12ed59301f1864f4584bab0e706806f5,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -4769,7 +4734,7 @@ PrefabInstance:
         type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3753846300575103271}
     - target: {fileID: 5890745595575709633, guid: 12ed59301f1864f4584bab0e706806f5,
         type: 3}
       propertyPath: dishType
@@ -4859,7 +4824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e6db54670ea84d4298ec673c60ca3c7, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e6db54670ea84d4298ec673c60ca3c7, type: 3}
       propertyPath: m_LocalScale.x

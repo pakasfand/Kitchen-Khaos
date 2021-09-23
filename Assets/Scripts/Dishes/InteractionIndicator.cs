@@ -1,10 +1,11 @@
 ﻿
 using System;
+using HighlightPlus;
 using UnityEngine;
 
 public class InteractionIndicator : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private HighlightEffect _highlightEffect;
 
     public bool active
     {
@@ -16,7 +17,7 @@ public class InteractionIndicator : MonoBehaviour
         set
         {
             _active = value;
-            meshRenderer.enabled = _active;
+            _highlightEffect.highlighted = _active;
         }
     }
 

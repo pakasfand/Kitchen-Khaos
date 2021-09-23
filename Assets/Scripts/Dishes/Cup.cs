@@ -5,16 +5,19 @@ using Random = UnityEngine.Random;
 
 public class Cup : MonoBehaviour
 {
-    [SerializeField] GameObject[] puddlePrefabs;
+    [Header("Movement")]
     [SerializeField] float normalHopHeigth;
     [SerializeField] float spillingHopHeigth;
+    [SerializeField] int jumpsBeforeTryingToSpill;
+    [SerializeField] Transform model;
+    [SerializeField] float gravity;
+    [Header("Spilling")]
+    [SerializeField] GameObject[] puddlePrefabs;
+    [SerializeField] ParticleSystem tryToSpillIndicator;
     [Range(0, 1f)] [SerializeField] float chanceToSpill;
     [Range(0, 1f)] [SerializeField] float chanceToSpillIncrement;
     [SerializeField] float timeToTryToSpill;
-    [SerializeField] int jumpsBeforeTryingToSpill;
     [SerializeField] float waitTimeAfterTrySpilling;
-    [SerializeField] Transform model;
-    [SerializeField] float gravity;
 
     AIBehaviour AI;
 
@@ -96,6 +99,7 @@ public class Cup : MonoBehaviour
         });
 
         AI.enabled = false;
+        tryToSpillIndicator.Play();
 
         for (int i = 0; i < jumpsBeforeTryingToSpill; i++)
         {
@@ -107,6 +111,8 @@ public class Cup : MonoBehaviour
             GameObject puddlePrefab = GetRandomPuddle();
             if (puddlePrefab != null) Instantiate(puddlePrefab, transform.position, puddlePrefab.transform.rotation, null);
         }
+
+        tryToSpillIndicator.Stop();
         yield return new WaitForSeconds(waitTimeAfterTrySpilling);
 
         AI.enabled = true;

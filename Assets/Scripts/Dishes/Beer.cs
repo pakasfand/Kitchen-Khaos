@@ -1,22 +1,32 @@
 ﻿
 
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Beer : MonoBehaviour
 {
     [SerializeField] float timeToSplatterBeer;
-    [SerializeField] ParticleSystem beerParticles;
+    [SerializeField] BeerParticles beerParticles;
 
     AIBehaviour AI;
     Animator animator;
+    PostProcessVolume volume;
+    DrunkEffect drunkEffect;
+
+
+
     float splatterTimer = 0;
     private bool splattering;
 
     private void Awake()
     {
+        drunkEffect = FindObjectOfType<DrunkEffect>();
         AI = GetComponent<AIBehaviour>();
         animator = GetComponentInChildren<Animator>();
     }
+
+    private void OnEnable() => beerParticles.OnPlayerHit += drunkEffect.Play;
+    private void OnDisable() => beerParticles.OnPlayerHit -= drunkEffect.Play;
 
     private void Update()
     {
@@ -38,12 +48,12 @@ public class Beer : MonoBehaviour
 
     public void StartSplatter()
     {
-        beerParticles.Play();
+        beerParticles.GetComponent<ParticleSystem>().Play();
     }
 
     public void StopSplatter()
     {
-        beerParticles.Stop();
+        beerParticles.GetComponent<ParticleSystem>().Stop();
     }
 
 }

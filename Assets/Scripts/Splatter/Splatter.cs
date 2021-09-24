@@ -7,7 +7,7 @@ public class Splatter : MonoBehaviour
     [SerializeField] float maxLifetime;
     public List<Sprite> sprites; //ref to the sprites which will be used by sprites renderer
 
-    SpriteRenderer spriteRenderer;//ref to sprite renderer component
+    SpriteRenderer spriteRenderer;
     Animator animator;
     ParticleSystem particles;
     float remainingTime = 0;
@@ -28,6 +28,10 @@ public class Splatter : MonoBehaviour
         OnSplatterCreated?.Invoke();
     }
 
+    private void OnEnable() => GetComponentInChildren<SplatterCollider>().OnTrigger += OnTrigger;
+    private void OnDisable() => GetComponentInChildren<SplatterCollider>().OnTrigger -= OnTrigger;
+
+
 
     private void Update()
     {
@@ -44,19 +48,15 @@ public class Splatter : MonoBehaviour
         particles.Play();
     }
 
+    private void OnTrigger(Collider player)
+    {
+        player.gameObject.GetComponent<PlayerInteraction>().Stumble();
+        PlayDisappearAnim();
+    }
+
     public void Destroy()
     {
         Destroy(this.gameObject);
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.GetComponent<PlayerInteraction>().Stumble();
-            PlayDisappearAnim();
-        }
     }
 
     private void PlayDisappearAnim()

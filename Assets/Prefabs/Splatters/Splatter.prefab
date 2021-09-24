@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4775788609233263189}
   - component: {fileID: 4279231706066422504}
   - component: {fileID: 6160723603323946023}
+  - component: {fileID: 5726921455763717089}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -62,6 +63,18 @@ MonoBehaviour:
   m_height: 0.1
   m_fanAngle: 360
   m_numVertices: 15
+--- !u!114 &5726921455763717089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39131337756245652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13119890311386f4a84a89fed817a6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1827848428430763311
 GameObject:
   m_ObjectHideFlags: 0

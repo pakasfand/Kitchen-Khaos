@@ -280,31 +280,32 @@ public class PlayerInteraction : MonoBehaviour
 
     private void DropDishes()
     {
+        _dishesCollected.Clear();
+
         _leftStackOffset = new Vector3(0f, 0.1f, 0f);
         _rightStackOffset = new Vector3(0f, 0.1f, 0f);
 
         foreach (Transform child in _leftStackPosition)
         {
-            child.gameObject.SetActive(false);
+            Destroy(child.gameObject); 
         }
 
         foreach (Transform child in _rightStackPosition)
         {
-            child.gameObject.SetActive(false);
+            Destroy(child.gameObject); 
         }
     }
 
     public void Stumble()
     {
         _animator.SetBool("Stumble", true);
-        DropDishes();
         
         if (_dishesCollected.Count > 0)
         {
             OnPlayerStumble?.Invoke();
         }
-
-        _dishesCollected.Clear();
+        
+        DropDishes();
     }
 
     public void Ignite(float disabledTime)

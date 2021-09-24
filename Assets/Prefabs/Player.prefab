@@ -784,8 +784,8 @@ MonoBehaviour:
   _animator: {fileID: 8963575591018668857}
   _leftStackPosition: {fileID: 6963183477849714153}
   _rightStackPosition: {fileID: 2778160562464529558}
-  _chanceToStumblePerDish: 100
-  _stumbleCheckRate: 5
+  _chanceToStumblePerDish: 15
+  _stumbleCheckRate: 3
   _leftStackIdleRotation: {x: -39, y: -108.7, z: 22}
   _rightStackIdleRotation: {x: -28, y: 96, z: -12}
   _leftStackMovingRotation: {x: 0, y: -118, z: 83}

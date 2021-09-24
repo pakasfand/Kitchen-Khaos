@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -21,6 +22,7 @@ public class Beer : MonoBehaviour
     private void Awake()
     {
         drunkEffect = FindObjectOfType<DrunkEffect>();
+        if (drunkEffect == null) throw new Exception("Drunk Effect missing in scene");
         AI = GetComponent<AIBehaviour>();
         animator = GetComponentInChildren<Animator>();
     }

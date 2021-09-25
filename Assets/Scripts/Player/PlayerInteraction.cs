@@ -37,6 +37,7 @@ public class PlayerInteraction : MonoBehaviour
     public static Action<int> OnStabilityCheckBegin;
     public static Action OnPlayerStumble;
     public static Action OnDishPickedUp;
+    public static Action OnDishesDropped;
     public static Action OnChefIgnited;
 
     public bool IsInteracting => _isCleaning;
@@ -295,6 +296,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             Destroy(child.gameObject); 
         }
+        
+        OnDishesDropped?.Invoke();
     }
 
     public void Stumble()

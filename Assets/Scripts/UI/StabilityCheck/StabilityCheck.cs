@@ -55,7 +55,6 @@ public class StabilityCheck : MonoBehaviour
     {
         if(_active)
         {
-            // _coolDownTimer += Time.deltaTime / _durationToCooldownFull;
             _coolDownTimer += Time.deltaTime;
             if (_coolDownTimer >= _durationToCooldownFull)
             {
@@ -99,20 +98,11 @@ public class StabilityCheck : MonoBehaviour
         }
     }
 
-    private void OnDishesCleaned()
-    {
-        CompleteStabilityCheck();
-    }
+    private void OnDishesCleaned() => CompleteStabilityCheck();
 
-    private void OnPlayerStumble()
-    {
-        CompleteStabilityCheck();
-    }
+    private void OnPlayerStumble() => CompleteStabilityCheck();
     
-    private void OnChefIgnited()
-    {
-        CompleteStabilityCheck();
-    }
+    private void OnChefIgnited() => CompleteStabilityCheck();
 
     private void UpdateStabilityBar()
     {

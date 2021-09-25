@@ -9,9 +9,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float _detectionRadius;
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
+    [SerializeField] private ParticleSystem _fireFx;
     [SerializeField] private Transform _leftStackPosition;
     [SerializeField] private Transform _rightStackPosition;
-
+    
     [Header("Stumble Parameters")]
     [SerializeField] private int _chanceToStumblePerDish;
     [SerializeField] private float _stumbleCheckRate;
@@ -310,7 +311,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void Ignite(float disabledTime)
     {
-        // Fire particles
+        _fireFx.Play();    
         DropDishes();
         _animator.SetBool("Jump", true);
         _isDisable = true;

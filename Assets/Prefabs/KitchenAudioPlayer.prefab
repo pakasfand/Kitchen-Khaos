@@ -52,7 +52,7 @@ MonoBehaviour:
   _gameMusic: {fileID: 8300000, guid: e91069ecb5da30f429ec8808a9ebc631, type: 3}
   _endMusic: {fileID: 8300000, guid: adfeff09d2de10d4fb2611994ace15ae, type: 3}
   _dishDropped: {fileID: 8300000, guid: d5c47d98ae9fcf641b6d46deb1bec24c, type: 3}
-  _chefHurt: {fileID: 8300000, guid: 0de6bee109b48e44cb1224725e8186f4, type: 3}
+  _chefHurt: {fileID: 8300000, guid: f8907e37c03448a4d910cbe73000a8a8, type: 3}
   _sink: {fileID: 8300000, guid: af86f5929364a7b498284241401999b2, type: 3}
   _splash: {fileID: 8300000, guid: 3a23d273e8b32eb42afebbb2cd032f9c, type: 3}
   _blast: {fileID: 8300000, guid: 5aafc0ed450e9b945b92443493505200, type: 3}
@@ -63,7 +63,6 @@ MonoBehaviour:
   _plateSounds:
   - {fileID: 8300000, guid: 30661a16d53fe7b47a16f7cea0cdba6f, type: 3}
   - {fileID: 8300000, guid: e9f5751cf2ddc7c438fa07e71a61775c, type: 3}
-  - {fileID: 8300000, guid: 7916270717f1a1b4081d1a892eb64770, type: 3}
   - {fileID: 8300000, guid: b9d1833ce56e31c4f867fc5b937e275f, type: 3}
 --- !u!82 &8461689487700841586
 AudioSource:

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class PlayerAnimationEvent : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
+    public static Action OnPlayerWalk;
+    
     public void ResetStumble()
     {
         _animator.SetBool("Stumble", false);
@@ -29,5 +32,10 @@ public class PlayerAnimationEvent : MonoBehaviour
     public void ResetEat()
     {
         _animator.SetBool("Eat", false);
+    }
+
+    public void PlayWalkSound()
+    {
+        OnPlayerWalk?.Invoke();
     }
 }

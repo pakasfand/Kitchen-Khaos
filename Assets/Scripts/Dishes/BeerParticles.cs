@@ -5,7 +5,6 @@ using static UnityEngine.ParticleSystem;
 
 public class BeerParticles : MonoBehaviour
 {
-    [SerializeField] DrunkEffect drunkEffect;
 
     ParticleSystem particleSys;
     PlayerInteraction player;
@@ -28,9 +27,5 @@ public class BeerParticles : MonoBehaviour
 
     private void OnParticleTrigger()
     {
-        if (!drunkEffect.isPlaying)
-        {
-            drunkEffect.Play();
-        }
     }
 }

@@ -9,6 +9,7 @@ public class WitchEvent : MonoBehaviour
     [SerializeField] RouteFollower witch;
     [SerializeField] Animation spellCastAnim;
     PlayableDirector playableDirector;
+    [SerializeField] GameObject fireball;
 
 
     private void Awake()
@@ -43,6 +44,7 @@ public class WitchEvent : MonoBehaviour
 
     private void PlaySpellCast()
     {
+        fireball.SetActive(true);
         spellCastAnim.Play();
     }
 }

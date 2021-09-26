@@ -6,7 +6,7 @@ public class DestructibleWall : MonoBehaviour
 {
     [SerializeField] LayerMask cinematicsLayer;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (ExtensionMethods.LayerMaskExtensions.IsInLayerMask(cinematicsLayer, other.gameObject))
         {

@@ -9,9 +9,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float _detectionRadius;
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
+    [SerializeField] private ParticleSystem _fireFx;
     [SerializeField] private Transform _leftStackPosition;
     [SerializeField] private Transform _rightStackPosition;
-
+    
     [Header("Stumble Parameters")]
     [SerializeField] private int _chanceToStumblePerDish;
     [SerializeField] private float _stumbleCheckRate;
@@ -36,6 +37,7 @@ public class PlayerInteraction : MonoBehaviour
     public static Action<int> OnStabilityCheckBegin;
     public static Action OnPlayerStumble;
     public static Action OnDishPickedUp;
+    public static Action OnDishesDropped;
     public static Action OnChefIgnited;
 
     public bool IsInteracting => _isCleaning;
@@ -280,36 +282,39 @@ public class PlayerInteraction : MonoBehaviour
 
     private void DropDishes()
     {
+        _dishesCollected.Clear();
+
         _leftStackOffset = new Vector3(0f, 0.1f, 0f);
         _rightStackOffset = new Vector3(0f, 0.1f, 0f);
 
         foreach (Transform child in _leftStackPosition)
         {
-            child.gameObject.SetActive(false);
+            Destroy(child.gameObject); 
         }
 
         foreach (Transform child in _rightStackPosition)
         {
-            child.gameObject.SetActive(false);
+            Destroy(child.gameObject); 
         }
+        
+        OnDishesDropped?.Invoke();
     }
 
     public void Stumble()
     {
         _animator.SetBool("Stumble", true);
-        DropDishes();
         
         if (_dishesCollected.Count > 0)
         {
             OnPlayerStumble?.Invoke();
         }
-
-        _dishesCollected.Clear();
+        
+        DropDishes();
     }
 
     public void Ignite(float disabledTime)
     {
-        // Fire particles
+        _fireFx.Play();    
         DropDishes();
         _animator.SetBool("Jump", true);
         _isDisable = true;

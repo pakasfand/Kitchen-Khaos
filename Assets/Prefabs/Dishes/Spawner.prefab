@@ -43,15 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35b993bc40cb534b98a40b4f85b9991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNumberOfDishes: 15
-  dishTypesToSpawn:
-  - pool: {fileID: 0}
-    dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
-    probability: 0.8
-  - pool: {fileID: 0}
-    dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
-    probability: 0.1
-  spawnRate: 2
+  maxNumberOfDishes: 1
+  dishTypes:
+  - {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
+  - {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+  - {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+  - {fileID: 11400000, guid: c81e2f17fcd01f845b291b49880a30c5, type: 2}
+  spawnRate: 1
   startToSpawnTime: 1
   numberOfPoolInstances: 20
   maxTimesToCheckForAvailability: 3
@@ -59,6 +57,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  spawnFromNeededQueueProbability: 0.15
+  spawnFromNeededQueueProbability: 0.2

@@ -57,7 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinematicsLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 4096
 --- !u!54 &982918129183729281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 982918130542403072}
   - component: {fileID: 982918130542403073}
   - component: {fileID: 982918130542403078}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}

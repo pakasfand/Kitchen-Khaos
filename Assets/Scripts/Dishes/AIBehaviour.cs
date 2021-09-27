@@ -37,7 +37,6 @@ public class AIBehaviour : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         GetComponent<Rigidbody>().sleepThreshold = 0;
-        animator = GetComponent<Animator>();
     }
 
     private void Start()

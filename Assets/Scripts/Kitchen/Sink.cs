@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using HighlightPlus;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,8 @@ public class Sink : MonoBehaviour
     [SerializeField] private Image _progressBar;
     [SerializeField] private float _cleaningTime;
     [SerializeField] private List<CleanDish> _cleanDishes;
-
+    [SerializeField] private HighlightEffect _highlightFx;
+    
     private bool _active;
     private float _activeTimer;
     private List<DishType> _dishesBeingCleaned;
@@ -30,12 +32,28 @@ public class Sink : MonoBehaviour
     {
         PlayerInteraction.OnPlayerStartedCleaning += OnPlayerStartedCleaning;
         PlayerInteraction.OnPlayerStoppedCleaning += OnPlayerStoppedCleaning;
+        PlayerInteraction.OnDishPickedUp += OnDishPickedUp;
+        PlayerInteraction.OnDishesDropped += OnDishesDropped;
+        GameLoop.OnShiftOver += OnShiftOver;
     }
 
     private void OnDisable()
     {
         PlayerInteraction.OnPlayerStartedCleaning -= OnPlayerStartedCleaning;
         PlayerInteraction.OnPlayerStoppedCleaning -= OnPlayerStoppedCleaning;
+        PlayerInteraction.OnDishPickedUp -= OnDishPickedUp;
+        PlayerInteraction.OnDishesDropped -= OnDishesDropped;
+        GameLoop.OnShiftOver -= OnShiftOver;
+    }
+
+    private void OnDishesDropped()
+    {
+        _highlightFx.highlighted = false;
+    }
+
+    private void OnDishPickedUp()
+    {
+        _highlightFx.highlighted = true;
     }
 
     private void OnPlayerStartedCleaning(List<DishType> dishesBeingCleaned)
@@ -68,6 +86,7 @@ public class Sink : MonoBehaviour
             PopulateStack();
 
             OnDishesCleaned?.Invoke();
+            _highlightFx.highlighted = false;
         }
     }
 
@@ -92,5 +111,16 @@ public class Sink : MonoBehaviour
         _progressBarGO.SetActive(false);
         _active = false;
         _activeTimer = 0f;
+    }
+    
+    private void OnShiftOver(bool completed)
+    {
+        foreach (var cleanDish in _cleanDishes)
+        {
+            foreach (Transform child in cleanDish.stack)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

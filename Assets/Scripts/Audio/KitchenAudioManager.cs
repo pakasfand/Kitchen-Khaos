@@ -8,6 +8,7 @@ public class KitchenAudioManager : MonoBehaviour
     [SerializeField] private AudioSource _musicAudioPlayer;
     [SerializeField] private AudioSource _sfxAudioPlayer;
     [SerializeField] private AudioSource _dishAudioPlayer;
+    [SerializeField] private AudioSource _walkAudioPlayer;
 
     [Header("Music Clips")]
     [SerializeField] private AudioClip _gameMusic;
@@ -26,6 +27,9 @@ public class KitchenAudioManager : MonoBehaviour
     [Header("Plates")]
     [SerializeField] private List<AudioClip> _plateSounds;
 
+    [Header("Walk")] 
+    [SerializeField] private List<AudioClip> _walkSounds;
+
     private void OnEnable()
     {
         PlayerInteraction.OnPlayerStumble += OnPlayerStumble;
@@ -39,6 +43,8 @@ public class KitchenAudioManager : MonoBehaviour
         Pot.OnPotExplodes += OnPotExplodes;
         GameLoop.OnShiftOver += OnShiftOver;
         StabilityCheck.OnStabilityCompleted += OnStabilityCompleted;
+        PlayerAnimationEvent.OnPlayerWalk += OnPlayerWalk;
+
     }
 
     private void OnDisable()
@@ -54,6 +60,7 @@ public class KitchenAudioManager : MonoBehaviour
         Pot.OnPotExplodes -= OnPotExplodes;
         GameLoop.OnShiftOver -= OnShiftOver;
         StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
+        PlayerAnimationEvent.OnPlayerWalk -= OnPlayerWalk;
     }
 
     private void OnStabilityCompleted(bool status)
@@ -122,5 +129,12 @@ public class KitchenAudioManager : MonoBehaviour
     private void OnSplatterCreated()
     {
         _sfxAudioPlayer.PlayOneShot(_splash);
+    }
+    
+    private void OnPlayerWalk()
+    {
+        int rand = UnityEngine.Random.Range(0, _walkSounds.Count);
+        
+        _walkAudioPlayer.PlayOneShot(_walkSounds[rand]);
     }
 }

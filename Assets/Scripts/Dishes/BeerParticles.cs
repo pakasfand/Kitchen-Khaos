@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
@@ -8,7 +8,12 @@ public class BeerParticles : MonoBehaviour
 
     ParticleSystem particleSys;
     PlayerInteraction player;
+    DrunkEffect drunkEffect;
 
+
+    List<Particle> enterParticles;
+
+    public Action OnPlayerHit;
 
     private float timer;
 
@@ -17,6 +22,7 @@ public class BeerParticles : MonoBehaviour
         particleSys = GetComponent<ParticleSystem>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerInteraction>();
         particleSys.trigger.SetCollider(0, player.GetComponent<Collider>());
+        enterParticles = new List<Particle>();
     }
 
     private void Update()
@@ -27,5 +33,7 @@ public class BeerParticles : MonoBehaviour
 
     private void OnParticleTrigger()
     {
+        ParticlePhysicsExtensions.GetTriggerParticles(particleSys, ParticleSystemTriggerEventType.Enter, enterParticles);
+        if (enterParticles.Count != 0) OnPlayerHit?.Invoke();
     }
 }

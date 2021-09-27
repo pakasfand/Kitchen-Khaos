@@ -1,64 +1,141 @@
-﻿
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using Random = UnityEngine.Random;
 
 public class DrunkEffect : MonoBehaviour
 {
-    [SerializeField] PostProcessVolume[] states;
+
+    [SerializeField] PostProcessVolume volume;
+    [SerializeField] Vector2 scaleRange;
+
+    LensDistortion lensDistortion;
+    DepthOfField depthOfField;
+
     [SerializeField] float startTime;
     [SerializeField] float blendTimeBetweenStates;
     [SerializeField] float duration;
-    [SerializeField] AnimationCurve statesBlendCurve;
+    [SerializeField] AnimationCurve focus;
 
-    public bool isPlaying;
+    struct BufferFloat
+    {
+        public float newValue;
+        public float oldValue;
+
+        public void SetNewValue(float value)
+        {
+            oldValue = newValue;
+            newValue = value;
+        }
+    }
+
+
+    float focusTimer;
+
+
+    BufferFloat centerX;
+    BufferFloat centerY;
+    BufferFloat scale;
+
+    bool isPlaying = false;
+
+    BeerParticles beerParticles;
+
+    private void Awake()
+    {
+        beerParticles = GetComponentInChildren<BeerParticles>();
+        volume.sharedProfile.TryGetSettings(out lensDistortion);
+        volume.sharedProfile.TryGetSettings(out depthOfField);
+    }
+
+
+    private void Update()
+    {
+        if (isPlaying)
+        {
+            focusTimer += Time.deltaTime;
+            depthOfField.focusDistance.value = focus.Evaluate(focusTimer);
+        }
+        else
+        {
+            focusTimer = 0;
+        }
+    }
 
     public void Play()
     {
-        StartCoroutine(PlayEffect());
+        if (!isPlaying)
+        {
+            isPlaying = true;
+            StartCoroutine(PlayEffect());
+        }
     }
 
     private IEnumerator PlayEffect()
     {
         float timer = 0;
-        PostProcessVolume newState = ExtensionMethods.RandomExtensions.PickRandomFrom(states);
-        PostProcessVolume oldState = newState;
 
+        PickNewValues();
+        LerpLens(1);
 
         yield return new WaitWhile(() =>
         {
             timer += Time.deltaTime;
-            newState.weight = timer / startTime;
+            volume.weight = Mathf.Lerp(0, 1, timer / startTime);
             return timer <= startTime;
         });
 
+        volume.weight = 1;
+        PickNewValues();
+
         timer = 0;
-        newState = PickDifferentState(oldState);
         float t = 0;
 
         yield return new WaitWhile(() =>
         {
             timer += Time.deltaTime;
+            t += Time.deltaTime / blendTimeBetweenStates;
 
-            if ((timer % blendTimeBetweenStates) == 0 && timer >= blendTimeBetweenStates)
+            if (t >= 1)
             {
-                oldState = newState;
-                newState = PickDifferentState(oldState);
+                PickNewValues();
+                t = 0;
             }
 
-            oldState.weight = Mathf.Lerp(1, 0, t);
-            newState.weight = Mathf.Lerp(0, 1, t);
-
+            LerpLens(t);
             return timer <= duration;
         });
+
+        timer = 0;
+        t = 0;
+
+        yield return new WaitWhile(() =>
+        {
+            t += Time.deltaTime / blendTimeBetweenStates;
+            volume.weight = Mathf.Lerp(1f, 0f, t);
+
+            return t <= 1;
+
+        });
+
+        timer = 0;
+        t = 0;
+
+        volume.weight = 0;
+        isPlaying = false;
     }
 
-    private PostProcessVolume PickDifferentState(PostProcessVolume oldState)
+    private void LerpLens(float t)
     {
-        PostProcessVolume newState = ExtensionMethods.RandomExtensions.PickRandomFrom(states);
-        if (newState == oldState) return PickDifferentState(oldState);
-        return newState;
+        lensDistortion.centerX.value = Mathf.Lerp(centerX.oldValue, centerX.newValue, t);
+        lensDistortion.centerY.value = Mathf.Lerp(centerY.oldValue, centerY.newValue, t);
+        lensDistortion.scale.value = Mathf.Lerp(scale.oldValue, scale.newValue, t);
     }
 
+    private void PickNewValues()
+    {
+        centerX.SetNewValue(centerX.oldValue == 0 ? 1 : centerX.oldValue * -1);
+        centerY.SetNewValue(Mathf.Sign(Random.Range(-1f, 1f)));
+        scale.SetNewValue(Random.Range(scaleRange.x, scaleRange.y));
+    }
 }

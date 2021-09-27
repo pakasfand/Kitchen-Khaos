@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5152839541156003657}
   - component: {fileID: 5152839541156003656}
   - component: {fileID: 5749611016356783536}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Drunk Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

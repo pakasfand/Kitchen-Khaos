@@ -29,6 +29,10 @@ public class GameLoop : MonoBehaviour
     [SerializeField] float waitTimeBetweenGoals;
     [SerializeField] TextMeshProUGUI breakTextUI;
 
+    [Header("Scenes")]
+    [SerializeField] int winningSceneIndex;
+    [SerializeField] int losingSceneIndex;
+
 
     [Serializable]
     public class SerializableEvent : UnityEvent { }
@@ -86,9 +90,8 @@ public class GameLoop : MonoBehaviour
         if (shiftTimer.RunOutOfTime())
         {
             outOfShift = true;
-            EndShift(false);
             EnablePlayer(false);
-            retryPanel.SetActive(true);
+            EndShift(false);
             return;
         }
     }
@@ -111,6 +114,12 @@ public class GameLoop : MonoBehaviour
 
     private void EndShift(bool completed)
     {
+        if (completed == false)
+        {
+            SceneManager.LoadScene(losingSceneIndex);
+            return;
+        }
+
         shiftTimer.gameObject.SetActive(false);
         DestroyGoals();
         spawner.DeactivateAllDishes();
@@ -203,10 +212,7 @@ public class GameLoop : MonoBehaviour
 
     private void WinGame()
     {
-        if (shiftTransition != null) StopCoroutine(shiftTransition);
-        EnablePlayer(false);
-        winPanel.SetActive(true);
-        return;
+        SceneManager.LoadScene(winningSceneIndex);
     }
 
     public void RestartGame()

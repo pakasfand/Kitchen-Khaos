@@ -10,6 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private LayerMask _interactionLayers;
     [SerializeField] private Animator _animator;
     [SerializeField] private ParticleSystem _fireFx;
+    [SerializeField] private ParticleSystem _trailFx;
     [SerializeField] private Transform _leftStackPosition;
     [SerializeField] private Transform _rightStackPosition;
     
@@ -74,6 +75,7 @@ public class PlayerInteraction : MonoBehaviour
         else
         {
             _isDisable = false;
+            _trailFx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
 
         if (_animator.GetFloat("Speed") == 0)
@@ -314,7 +316,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public void Ignite(float disabledTime)
     {
-        _fireFx.Play();    
+        _fireFx.Play();
+        _trailFx.Play();
         DropDishes();
         _animator.SetBool("Jump", true);
         _isDisable = true;

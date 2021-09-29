@@ -5,16 +5,20 @@ using Random = UnityEngine.Random;
 
 public class Cup : MonoBehaviour
 {
-    [SerializeField] GameObject[] puddlePrefabs;
+    [Header("Movement")]
     [SerializeField] float normalHopHeigth;
     [SerializeField] float spillingHopHeigth;
+    [SerializeField] float flipHeight;
+    [SerializeField] int jumpsBeforeTryingToSpill;
+    [SerializeField] Transform model;
+    [SerializeField] float gravity;
+    [Header("Spilling")]
+    [SerializeField] GameObject[] puddlePrefabs;
+    [SerializeField] ParticleSystem tryToSpillIndicator;
     [Range(0, 1f)] [SerializeField] float chanceToSpill;
     [Range(0, 1f)] [SerializeField] float chanceToSpillIncrement;
     [SerializeField] float timeToTryToSpill;
-    [SerializeField] int jumpsBeforeTryingToSpill;
     [SerializeField] float waitTimeAfterTrySpilling;
-    [SerializeField] Transform model;
-    [SerializeField] float gravity;
 
     AIBehaviour AI;
 
@@ -39,7 +43,9 @@ public class Cup : MonoBehaviour
     {
         if (tryToSpillCoroutine != null) return;
         if (hopCoroutine == null && !AI.IsStopped()) hopCoroutine = StartCoroutine(Hop(normalHopHeigth));
+
         tryToSpillTimer += Time.deltaTime;
+
         if (tryToSpillTimer >= timeToTryToSpill)
         {
             tryToSpillCoroutine = StartCoroutine(TryToSpill());
@@ -52,6 +58,7 @@ public class Cup : MonoBehaviour
         float hopTime = GetHopTime(hopHeigth);
         float hopVelocity = GetHopVelocity(hopHeigth);
         float initialY = model.localPosition.y;
+
         yield return new WaitUntil(() =>
         {
             time += Time.deltaTime;
@@ -84,16 +91,19 @@ public class Cup : MonoBehaviour
     private IEnumerator TryToSpill()
     {
         tryToSpillTimer = 0;
+
         yield return new WaitUntil(() =>
         {
             if (hopCoroutine == null) hopCoroutine = StartCoroutine(Hop(normalHopHeigth));
             return AI.HasReachedDestination();
         });
 
+        //End current hop
         yield return new WaitUntil(() =>
         {
             return hopCoroutine == null;
         });
+
 
         AI.enabled = false;
 
@@ -102,16 +112,49 @@ public class Cup : MonoBehaviour
             yield return StartCoroutine(Hop(spillingHopHeigth));
         }
 
+        yield return StartCoroutine(HopWithFlip(flipHeight, true));
+
         if (CanSpill())
         {
-            GameObject puddlePrefab = GetRandomPuddle();
-            if (puddlePrefab != null) Instantiate(puddlePrefab, transform.position, puddlePrefab.transform.rotation, null);
+            Spill();
         }
+
+        yield return StartCoroutine(HopWithFlip(flipHeight, true));
+
+
         yield return new WaitForSeconds(waitTimeAfterTrySpilling);
 
         AI.enabled = true;
         tryToSpillCoroutine = null;
+
     }
+
+
+    private IEnumerator HopWithFlip(float hopHeigth, bool clockwise)
+    {
+        hopCoroutine = StartCoroutine(Hop(hopHeigth));
+        float hopTime = GetHopTime(hopHeigth);
+        float targetAngle = 180 * (clockwise ? -1 : 1);
+        float originalAngle = model.localRotation.eulerAngles.x;
+        float angularSpeed = targetAngle / hopTime;
+
+        yield return new WaitUntil(() =>
+        {
+            float rotation = angularSpeed * Time.deltaTime;
+            model.Rotate(0, rotation, 0, Space.Self);
+            return hopCoroutine == null;
+        });
+
+
+        model.localRotation = Quaternion.Euler(originalAngle + targetAngle, model.localRotation.eulerAngles.y, model.localRotation.eulerAngles.z);
+    }
+
+    private void Spill()
+    {
+        GameObject puddlePrefab = GetRandomPuddle();
+        if (puddlePrefab != null) Instantiate(puddlePrefab, transform.position, puddlePrefab.transform.rotation, null);
+    }
+
 
     private GameObject GetRandomPuddle()
     {

@@ -21,6 +21,12 @@ ModelImporter:
   - first:
       74: -5427144949891451253
     second: Armature|Turn head back 2
+  - first:
+      74: -5728245447816431006
+    second: Armature|Sit back and spell
+  - first:
+      74: 1899021390599927250
+    second: Armature|Sit back back
   externalObjects:
   - first:
       type: UnityEngine:Material

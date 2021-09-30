@@ -44,7 +44,7 @@ public class Beer : MonoBehaviour
 
     private void SplatterBeer()
     {
-        AI.Stop();
+        AI.enabled = false;
         animator.SetTrigger("Attack");
     }
 

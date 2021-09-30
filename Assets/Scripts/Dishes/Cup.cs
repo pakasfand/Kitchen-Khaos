@@ -104,7 +104,6 @@ public class Cup : MonoBehaviour
             return hopCoroutine == null;
         });
 
-
         AI.enabled = false;
 
         for (int i = 0; i < jumpsBeforeTryingToSpill; i++)

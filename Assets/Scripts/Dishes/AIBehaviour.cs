@@ -28,6 +28,7 @@ public class AIBehaviour : MonoBehaviour
 
     private void OnDisable()
     {
+        if (agent.enabled && agent.isOnNavMesh) Stop();
         walkingDirection = new Vector3(Random.Range(0, 1f), 0, Random.Range(0, 1f));
         StopAllCoroutines();
         wandering = null;

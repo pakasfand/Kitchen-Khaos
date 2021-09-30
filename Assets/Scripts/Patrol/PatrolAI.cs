@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Cinemachine;
+using UnityEditor;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -15,9 +16,14 @@ namespace Patrol
 
         private Transform _currentWaypoint;
         private int _currentWaypointIndex;
+        private bool _active = false;
         
         private void Update()
         {
+            if(!_active) {return;}
+            
+            transform.LookAt(_currentWaypoint, Vector3.up);
+            
             transform.position = Vector3.MoveTowards(transform.position,
                 _currentWaypoint.position,
                 Time.deltaTime * _patrolSpeed);
@@ -35,5 +41,13 @@ namespace Patrol
                 _currentWaypoint = Waypoints[_currentWaypointIndex];
             }
         }
+        
+        public void BeginPatrol(List<Transform> waypoints)
+        {
+            _active = true;
+            Waypoints = waypoints;
+            _currentWaypoint = Waypoints[_currentWaypointIndex];
+        }
     }
+    
 }

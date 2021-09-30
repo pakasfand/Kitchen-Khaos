@@ -10,7 +10,10 @@ namespace Patrol
 
         private void Start()
         {
-            
+            foreach (var patrol in _patrols)
+            {
+                patrol.PatrolAI.BeginPatrol(patrol.PatrolPath.Waypoints);
+            }
         }
     }
 }

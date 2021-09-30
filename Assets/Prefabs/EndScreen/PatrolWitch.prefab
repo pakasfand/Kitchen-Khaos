@@ -76,6 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c21942641b542128e3eb79463194a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _patrolSpeed: 5
+  Waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &4966816768984556699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,10 +137,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 959a6903bdd89854090d5b662f4e147a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 959a6903bdd89854090d5b662f4e147a, type: 3}
-      propertyPath: VelocityModule.x.scalar
-      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 959a6903bdd89854090d5b662f4e147a, type: 3}
       propertyPath: VelocityModule.y.scalar

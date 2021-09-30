@@ -42,7 +42,6 @@ public class Pot : MonoBehaviour
 
         if (explosionTimer >= timeToExplode)
         {
-            AI.Stop();
             AI.enabled = false;
             anim.Play();
         }

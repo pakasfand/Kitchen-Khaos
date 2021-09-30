@@ -44,6 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalHopHeigth: 2
   spillingHopHeigth: 3
+  flipHeight: 5
   jumpsBeforeTryingToSpill: 3
   model: {fileID: 212512424569708415}
   gravity: 20

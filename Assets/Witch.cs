@@ -42,7 +42,10 @@ public class Witch : MonoBehaviour
     public IEnumerator StartMovement()
     {
         flying = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() =>
+        {
+            return animator.GetCurrentAnimatorStateInfo(0).IsTag("Flying");
+        });
         canMove = true;
     }
 

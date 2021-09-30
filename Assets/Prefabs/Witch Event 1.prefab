@@ -1994,13 +1994,23 @@ PrefabInstance:
     - target: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
         type: 3}
       propertyPath: speed
-      value: 10
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
+        type: 3}
+      propertyPath: throwAngle
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
         type: 3}
       propertyPath: pathCreator
       value: 
       objectReference: {fileID: 6976200432551784567}
+    - target: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
+        type: 3}
+      propertyPath: throwVelocity
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8918881210766668840, guid: 102e2db5a527f1047a007ed9711f82ec,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

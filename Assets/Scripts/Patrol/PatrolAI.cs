@@ -17,6 +17,8 @@ namespace Patrol
         private Transform _currentWaypoint;
         private int _currentWaypointIndex;
         private bool _active = false;
+
+        public static Action OnPatrolComplete;
         
         private void Update()
         {
@@ -36,6 +38,7 @@ namespace Patrol
                 if (_currentWaypointIndex >= Waypoints.Count)
                 {
                     _currentWaypointIndex = 0;
+                    OnPatrolComplete?.Invoke();
                 }
                 
                 _currentWaypoint = Waypoints[_currentWaypointIndex];
@@ -49,5 +52,4 @@ namespace Patrol
             _currentWaypoint = Waypoints[_currentWaypointIndex];
         }
     }
-    
 }

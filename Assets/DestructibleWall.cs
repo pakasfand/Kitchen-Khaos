@@ -25,6 +25,7 @@ public class DestructibleWall : MonoBehaviour
             {
                 ps.Play();
             }
+            GetComponent<Collider>().enabled = false;
             wall.SetActive(false);
         }
     }

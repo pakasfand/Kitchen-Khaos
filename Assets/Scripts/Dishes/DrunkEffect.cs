@@ -16,7 +16,9 @@ public class DrunkEffect : MonoBehaviour
     [SerializeField] float blendTimeBetweenStates;
     [SerializeField] float duration;
     [SerializeField] AnimationCurve focus;
-
+    [SerializeField] private AudioSource _musicAudioSource;
+    [SerializeField] private AnimationCurve _musicFocus;
+    
     struct BufferFloat
     {
         public float newValue;
@@ -55,10 +57,12 @@ public class DrunkEffect : MonoBehaviour
         {
             focusTimer += Time.deltaTime;
             depthOfField.focusDistance.value = focus.Evaluate(focusTimer);
+            _musicAudioSource.pitch = _musicFocus.Evaluate(focusTimer);
         }
         else
         {
             focusTimer = 0;
+            _musicAudioSource.pitch = 1;
         }
     }
 

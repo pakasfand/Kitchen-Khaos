@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde9782d840653e4890d4b0f9743f8df, type: 3}
   m_Name: Beer
   m_EditorClassIdentifier: 
-  UISprite: {fileID: 21300000, guid: 757067309399064448b4f3980ecfcabc, type: 3}
+  UISprite: {fileID: 21300000, guid: c86d303d0d65654419fe93a249c7d2fb, type: 3}
   prefab: {fileID: 6130837936577665617, guid: 990e5ed527e2ff646b432a468d6bd26b, type: 3}
-  collectedDish: {fileID: 8053386598095247441, guid: 942bdf0af7c6b0f48be05a6d76766a04,
+  collectedDish: {fileID: 1960285367192013957, guid: 06db2adaab28215439ae9e5deebb7d70,
     type: 3}

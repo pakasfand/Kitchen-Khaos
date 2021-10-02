@@ -44,6 +44,9 @@ public class GameLoop : MonoBehaviour
     PlayerInteraction _playerInteraction;
     bool outOfShift = true;
 
+    public int TotalShifts => shifts.Length;
+    public int CurrentShiftIndex => currentShiftIndex;
+        
     private void Awake()
     {
         if (instance != null) throw new Exception("More than one Game Manager");

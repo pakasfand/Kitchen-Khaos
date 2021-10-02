@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class DishesSpawner : MonoBehaviour
@@ -148,8 +149,17 @@ public class DishesSpawner : MonoBehaviour
     {
         GameObject dish = spawnInfoByDishType[dishType].pool.RequestSubject();
         dish.SetActive(true);
-        dish.transform.position = ExtensionMethods.RandomExtensions.PickRandomFrom(spawnPoints).position;
+        dish.GetComponent<NavMeshAgent>().enabled = false;
+        dish.transform.position = PickRandomLocation();
+        dish.GetComponent<NavMeshAgent>().enabled = true;
         return dish;
+    }
+
+    private Vector3 PickRandomLocation()
+    {
+        Transform chosen = ExtensionMethods.RandomExtensions.PickRandomFrom(spawnPoints);
+        if (chosen.gameObject.activeSelf == true) return chosen.position;
+        return PickRandomLocation();
     }
 
     private void SpawnFromNeeded()
@@ -262,5 +272,11 @@ public class DishesSpawner : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(spawnPoints[i].position, 1f);
         }
+    }
+
+
+    public void SetMaxNumberOfDishes(int number)
+    {
+        this.maxNumberOfDishes = number;
     }
 }

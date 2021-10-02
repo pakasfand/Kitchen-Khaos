@@ -12,6 +12,9 @@ using UnityEngine.UI;
 public class GameLoop : MonoBehaviour
 {
     public static GameLoop instance;
+    public static int currentShiftIndex = 0;
+    public static bool startFromBeginnig = true;
+
 
     [Header("Game Management")]
     [SerializeField] GameObject player;
@@ -39,34 +42,52 @@ public class GameLoop : MonoBehaviour
 
     public static Action<bool> OnShiftOver;
 
-    int currentShiftIndex = 0;
+
     Coroutine shiftTransition;
     PlayerInteraction _playerInteraction;
     bool outOfShift = true;
 
     public int TotalShifts => shifts.Length;
     public int CurrentShiftIndex => currentShiftIndex;
-        
+
     private void Awake()
     {
         if (instance != null) throw new Exception("More than one Game Manager");
         instance = this;
 
         _playerInteraction = player.GetComponent<PlayerInteraction>();
+    }
+
+    private void OnEnable()
+    {
         Sink.OnDishesCleaned += UpdateGoals;
+    }
+
+    private void OnDisable()
+    {
+        Sink.OnDishesCleaned -= UpdateGoals;
     }
 
 
     private void Start()
     {
-        instructionsPanel.SetActive(true);
-
-        for (int i = 0; i < shifts.Length; i++)
+        if (!startFromBeginnig)
         {
-            if (CheckForRepeatedGoals(shifts[i])) throw new Exception("Shift #" + (i + 1) + " has the same dish type for different goals");
-            if (!CheckProbabilitySum(shifts[i])) throw new Exception("Shift #" + (i + 1) + " does not have a sum of spawn probability equal to 1");
+            countdown.SetActive(true);
+            return;
         }
-        EnablePlayer(false);
+        else
+        {
+            instructionsPanel.SetActive(true);
+
+            for (int i = 0; i < shifts.Length; i++)
+            {
+                if (CheckForRepeatedGoals(shifts[i])) throw new Exception("Shift #" + (i + 1) + " has the same dish type for different goals");
+                if (!CheckProbabilitySum(shifts[i])) throw new Exception("Shift #" + (i + 1) + " does not have a sum of spawn probability equal to 1");
+            }
+            EnablePlayer(false);
+            startFromBeginnig = false;
+        }
     }
 
     private void Update()
@@ -216,6 +237,11 @@ public class GameLoop : MonoBehaviour
     private void WinGame()
     {
         SceneManager.LoadScene(winningSceneIndex);
+    }
+
+    public static void SetShiftIndex(int index)
+    {
+        currentShiftIndex = index;
     }
 
     public void RestartGame()

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Kitchen.unity
+    guid: 59478f481042a294b90a83a25d582de3
+  - enabled: 1
+    path: Assets/Scenes/Victory Screen.unity
+    guid: af5cdb8e767ba1240b8172e8d6af92ce
+  - enabled: 1
+    path: Assets/Scenes/Losing Screen.unity
+    guid: ac30cf1f709239746a8233c977976a9f
   m_configObjects: {}

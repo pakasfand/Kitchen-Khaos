@@ -45,7 +45,7 @@ public class StabilityCheck : MonoBehaviour
 
         _active = true;
         
-        _durationToFail = Mathf.Clamp(_durationToFailPerDish * dishesCount, 0.1f, 1);
+        _durationToFail = Mathf.Clamp(_durationToFailPerDish * dishesCount, 0.1f, 0.9f);
 
         var width = Mathf.Lerp(0f, 123f,  _durationToFail);
         _stabilityBar.rectTransform.sizeDelta = new Vector2(width, _stabilityBar.rectTransform.sizeDelta.y);

@@ -121,6 +121,8 @@ public class Sink : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
+            
+            cleanDish.offset = Vector3.zero;
         }
     }
 }

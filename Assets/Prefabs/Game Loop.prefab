@@ -2094,12 +2094,126 @@ MonoBehaviour:
   shifts:
   - goals:
     - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
-      totalAmount: 5
+      totalAmount: 10
       spawnProbability: 1
       goalGO: {fileID: 0}
       currentAmount: 0
-    shiftTime: 0
-    transitionTime: 0
+    shiftTime: 100
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.2
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.8
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 110
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
+      totalAmount: 3
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+      totalAmount: 3
+      spawnProbability: 0.5
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 120
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+      totalAmount: 2
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: c81e2f17fcd01f845b291b49880a30c5, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.5
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 120
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: c81e2f17fcd01f845b291b49880a30c5, type: 2}
+      totalAmount: 8
+      spawnProbability: 0.35
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.35
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 2
+      spawnProbability: 0.3
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 120
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
+      totalAmount: 8
+      spawnProbability: 0.35
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+      totalAmount: 5
+      spawnProbability: 0.35
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 2
+      spawnProbability: 0.3
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 120
+    transitionTime: 5
+    sequence: {fileID: 0}
+  - goals:
+    - dishType: {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
+      totalAmount: 7
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+      totalAmount: 7
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
+      totalAmount: 7
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    - dishType: {fileID: 11400000, guid: c81e2f17fcd01f845b291b49880a30c5, type: 2}
+      totalAmount: 7
+      spawnProbability: 0.25
+      goalGO: {fileID: 0}
+      currentAmount: 0
+    shiftTime: 120
+    transitionTime: 5
     sequence: {fileID: 0}
   shiftTimer: {fileID: 6013858619280397413}
   goalContainer: {fileID: 637862290934356274}
@@ -2111,6 +2225,8 @@ MonoBehaviour:
   instructionsPanel: {fileID: 6941070937788070357}
   waitTimeBetweenGoals: 0.2
   breakTextUI: {fileID: 2337688739740220865}
+  winningSceneIndex: 0
+  losingSceneIndex: 0
 --- !u!1 &8992046140025616517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RestartGame : MonoBehaviour
 {
@@ -8,5 +6,6 @@ public class RestartGame : MonoBehaviour
     {
         GameLoop.currentShiftIndex = 0;
         GameLoop.startFromBeginnig = true;
+        DestructibleWall.isDestroyed = false;
     }
 }

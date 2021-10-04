@@ -8,11 +8,21 @@ public class DestructibleWall : MonoBehaviour
     [SerializeField] GameObject explosionFX;
     [SerializeField] GameObject wall;
 
+    public static bool isDestroyed = false;
+
     private void Awake()
     {
         foreach (ParticleSystem ps in transform.GetComponentsInChildren<ParticleSystem>(true))
         {
             ps.Stop();
+        }
+    }
+
+    private void Start()
+    {
+        if (isDestroyed)
+        {
+            DeactivateWall();
         }
     }
 
@@ -25,8 +35,14 @@ public class DestructibleWall : MonoBehaviour
             {
                 ps.Play();
             }
-            GetComponent<Collider>().enabled = false;
-            wall.SetActive(false);
+            DeactivateWall();
+            isDestroyed = true;
         }
+    }
+
+    private void DeactivateWall()
+    {
+        GetComponent<Collider>().enabled = false;
+        wall.SetActive(false);
     }
 }

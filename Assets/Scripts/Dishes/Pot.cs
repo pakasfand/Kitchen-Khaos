@@ -82,5 +82,6 @@ public class Pot : MonoBehaviour
     {
 
         anim.Stop();
+        AI.enabled = true;
     }
 }

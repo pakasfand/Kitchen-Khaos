@@ -28,7 +28,11 @@ public class Beer : MonoBehaviour
     }
 
     private void OnEnable() => beerParticles.OnPlayerHit += drunkEffect.Play;
-    private void OnDisable() => beerParticles.OnPlayerHit -= drunkEffect.Play;
+    private void OnDisable()
+    {
+        beerParticles.OnPlayerHit -= drunkEffect.Play;
+        AI.enabled = true;
+    }
 
     private void Update()
     {

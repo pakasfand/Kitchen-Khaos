@@ -10,7 +10,7 @@ public class SkyboxController : MonoBehaviour
     private void OnEnable()
     {
         GameLoop.OnShiftOver += OnShiftOver;
-        _skyboxMat.SetFloat("_CubemapTransition", 0);
+        _skyboxMat.SetFloat("_CubemapTransition", ((float) _gameLoop.CurrentShiftIndex / _gameLoop.TotalShifts));
     }
 
     private void OnDisable()

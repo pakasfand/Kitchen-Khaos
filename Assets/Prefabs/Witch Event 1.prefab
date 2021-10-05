@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 982918129183729282}
   - component: {fileID: 982918129183729283}
   - component: {fileID: 982918129183729281}
-  - component: {fileID: 982918129183729280}
+  - component: {fileID: 3475298135477391001}
   m_Layer: 12
   m_Name: Destructible Wall
   m_TagString: Untagged
@@ -211,20 +211,23 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &982918129183729280
-BoxCollider:
+  m_CollisionDetection: 1
+--- !u!208 &3475298135477391001
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982918129183729292}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 58.714043, y: 13.504373, z: 2.8119946}
-  m_Center: {x: -7.049114, y: 6.2521863, z: -14.217034}
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 29.35702, y: 6.752185, z: 1.4059975}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -7.049114, y: 6.252186, z: -14.21703}
+  m_TimeToStationary: 0.5
 --- !u!1 &982918129670310152
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +488,7 @@ GameObject:
   - component: {fileID: 982918130281550418}
   - component: {fileID: 982918130281550416}
   - component: {fileID: 982918130281550417}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Witch Event 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +676,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1215533085267159681}
-  - component: {fileID: 1341198789689441718}
   m_Layer: 12
   m_Name: Wall
   m_TagString: Untagged
@@ -705,22 +707,6 @@ Transform:
   m_Father: {fileID: 982918129183729282}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &1341198789689441718
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4120422655996714671}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 29.35702, y: 6.752185, z: 1.4059975}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -7.049114, y: 6.252186, z: -14.21703}
-  m_TimeToStationary: 0.5
 --- !u!1 &6454581810251546245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,12 +2034,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 102e2db5a527f1047a007ed9711f82ec, type: 3}
---- !u!4 &8642955538034815258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6170037600165743100, guid: 102e2db5a527f1047a007ed9711f82ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 2472919045991676134}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6325065360399983192 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
@@ -2069,6 +2049,12 @@ MonoBehaviour:
 --- !u!4 &982918129483478300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3455831092253609466, guid: 102e2db5a527f1047a007ed9711f82ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2472919045991676134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8642955538034815258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6170037600165743100, guid: 102e2db5a527f1047a007ed9711f82ec,
     type: 3}
   m_PrefabInstance: {fileID: 2472919045991676134}
   m_PrefabAsset: {fileID: 0}

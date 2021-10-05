@@ -7,5 +7,6 @@ public class RestartGame : MonoBehaviour
         GameLoop.currentShiftIndex = 0;
         GameLoop.startFromBeginnig = true;
         DestructibleWall.isDestroyed = false;
+        WitchEvent.eventFinished = false;
     }
 }

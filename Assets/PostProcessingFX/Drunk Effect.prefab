@@ -65,7 +65,7 @@ MonoBehaviour:
   scaleRange: {x: 0.7, y: 1.3}
   startTime: 3
   blendTimeBetweenStates: 2
-  duration: 15
+  duration: 7
   focus:
     serializedVersion: 2
     m_Curve:
@@ -107,4 +107,11 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 1
+    m_RotationOrder: 4
+  _musicAudioSource: {fileID: 0}
+  _musicFocus:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 4

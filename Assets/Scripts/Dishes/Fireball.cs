@@ -7,7 +7,7 @@ public class Fireball : MonoBehaviour
     [SerializeField] Rigidbody rigidBody;
     [SerializeField] float maxLifetime;
     [SerializeField] float fireballSpeed;
-    [SerializeField] LayerMask[] collisionLayers;
+    [SerializeField] LayerMask collisionLayer;
     [SerializeField] float effectTimeOnPlayer;
     [SerializeField] float speedBoostOnPlayer;
 
@@ -63,14 +63,11 @@ public class Fireball : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < collisionLayers.Length; i++)
+        if (ExtensionMethods.LayerMaskExtensions.IsInLayerMask(collisionLayer, other.gameObject))
         {
-
-            if (ExtensionMethods.LayerMaskExtensions.IsInLayerMask(collisionLayers[i], other.gameObject))
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(false);
         }
+
     }
 
     private void IgnitePlayer(GameObject gameObject)

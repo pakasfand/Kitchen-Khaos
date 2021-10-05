@@ -45,8 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxNumberOfDishes: 18
   dishTypes:
-  - {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
   - {fileID: 11400000, guid: b69b9117ab6b0f344bfcd394535af032, type: 2}
+  - {fileID: 11400000, guid: 2c2978e55815ae342bbc00447bcf98b4, type: 2}
   - {fileID: 11400000, guid: f63a654e878ebe3419636e5ad58060fb, type: 2}
   - {fileID: 11400000, guid: c81e2f17fcd01f845b291b49880a30c5, type: 2}
   spawnRate: 2

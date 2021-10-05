@@ -49,7 +49,9 @@ MonoBehaviour:
   rigidBody: {fileID: 9144245351580919792}
   maxLifetime: 10
   fireballSpeed: 10
-  collisionLayers: []
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 12800
   effectTimeOnPlayer: 2
   speedBoostOnPlayer: 1.5
 --- !u!136 &1387113982510011094

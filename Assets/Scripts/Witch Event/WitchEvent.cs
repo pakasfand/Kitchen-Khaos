@@ -16,10 +16,17 @@ public class WitchEvent : MonoBehaviour
 
     public SerializableEvent OnEventFinished;
 
+    public static bool eventFinished = false;
+
 
     private void Awake()
     {
         playableDirector = GetComponent<PlayableDirector>();
+    }
+
+    private void Start()
+    {
+        if (eventFinished) OnEventFinished?.Invoke();
     }
 
     private void OnEnable()
@@ -38,6 +45,7 @@ public class WitchEvent : MonoBehaviour
     {
         witch.gameObject.SetActive(false);
         OnEventFinished?.Invoke();
+        eventFinished = true;
     }
 
     private void OnSequencePlayed(PlayableDirector pb)

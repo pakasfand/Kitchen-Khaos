@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 982918129183729283}
   - component: {fileID: 982918129183729281}
   - component: {fileID: 3475298135477391001}
+  - component: {fileID: 4883406078954408270}
   m_Layer: 12
   m_Name: Destructible Wall
   m_TagString: Untagged
@@ -228,6 +229,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -7.049114, y: 6.252186, z: -14.21703}
   m_TimeToStationary: 0.5
+--- !u!65 &4883406078954408270
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982918129183729292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 58.71404, y: 13.50437, z: 2.811995}
+  m_Center: {x: -7.049114, y: 6.252186, z: -14.21703}
 --- !u!1 &982918129670310152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,6 +2048,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 102e2db5a527f1047a007ed9711f82ec, type: 3}
+--- !u!4 &8642955538034815258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6170037600165743100, guid: 102e2db5a527f1047a007ed9711f82ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2472919045991676134}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6325065360399983192 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8473161690478107326, guid: 102e2db5a527f1047a007ed9711f82ec,
@@ -2049,12 +2069,6 @@ MonoBehaviour:
 --- !u!4 &982918129483478300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3455831092253609466, guid: 102e2db5a527f1047a007ed9711f82ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 2472919045991676134}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8642955538034815258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6170037600165743100, guid: 102e2db5a527f1047a007ed9711f82ec,
     type: 3}
   m_PrefabInstance: {fileID: 2472919045991676134}
   m_PrefabAsset: {fileID: 0}

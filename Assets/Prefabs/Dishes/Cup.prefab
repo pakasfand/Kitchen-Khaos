@@ -45,7 +45,7 @@ MonoBehaviour:
   normalHopHeigth: 2
   spillingHopHeigth: 3
   flipHeight: 5
-  jumpsBeforeTryingToSpill: 3
+  jumpsBeforeTryingToSpill: 2
   model: {fileID: 212512424569708415}
   gravity: 20
   puddlePrefabs:
@@ -57,8 +57,8 @@ MonoBehaviour:
   tryToSpillIndicator: {fileID: 4332632660693096247}
   chanceToSpill: 0.35
   chanceToSpillIncrement: 0.1
-  timeToTryToSpill: 10
-  waitTimeAfterTrySpilling: 3
+  timeToTryToSpill: 7
+  waitTimeAfterTrySpilling: 1
 --- !u!1 &8230801434913329666
 GameObject:
   m_ObjectHideFlags: 0

@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dishType: {fileID: 0}
-  walkingDistanceRange: {x: 10, y: 60}
+  walkingDistanceRange: {x: 10, y: 50}
   minTurningAngle: 30
   dwellingTime: 2
   maxDelayToReachDestination: 2
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888380afc233049ce9e618f9f36c8ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: dbd020b43dea55a41a1f290ea45d8fe4, type: 2}
+  profile: {fileID: 0}
   profileSync: 0
   previewInEditor: 0
   camerasLayerMask:

@@ -13,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private ParticleSystem _trailFx;
     [SerializeField] private Transform _leftStackPosition;
     [SerializeField] private Transform _rightStackPosition;
-    
+
     [Header("Stumble Parameters")]
     [SerializeField] private int _chanceToStumblePerDish;
     [SerializeField] private float _stumbleCheckRate;
@@ -291,26 +291,26 @@ public class PlayerInteraction : MonoBehaviour
 
         foreach (Transform child in _leftStackPosition)
         {
-            Destroy(child.gameObject); 
+            Destroy(child.gameObject);
         }
 
         foreach (Transform child in _rightStackPosition)
         {
-            Destroy(child.gameObject); 
+            Destroy(child.gameObject);
         }
-        
+
         OnDishesDropped?.Invoke();
     }
 
     public void Stumble()
     {
         _animator.SetBool("Stumble", true);
-        
+
         if (_dishesCollected.Count > 0)
         {
             OnPlayerStumble?.Invoke();
         }
-        
+
         DropDishes();
     }
 
@@ -334,7 +334,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         DropDishes();
     }
-    
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

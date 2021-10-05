@@ -26,10 +26,13 @@ public class Cup : MonoBehaviour
     float tryToSpillTimer = 0;
     Coroutine hopCoroutine;
     Coroutine tryToSpillCoroutine;
+    Pose modelStartPose;
 
     private void Awake()
     {
         AI = GetComponent<AIBehaviour>();
+        modelStartPose.position = model.position;
+        modelStartPose.rotation = model.rotation;
     }
 
     private void Start()
@@ -180,5 +183,8 @@ public class Cup : MonoBehaviour
         StopAllCoroutines();
         currentChanceToSpill = chanceToSpill;
         tryToSpillTimer = 0;
+        model.rotation = modelStartPose.rotation;
+        tryToSpillCoroutine = null;
+        hopCoroutine = null;
     }
 }

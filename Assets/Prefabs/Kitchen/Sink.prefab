@@ -163,13 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888380afc233049ce9e618f9f36c8ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 0}
+  profile: {fileID: 11400000, guid: 9d2b166f688710443ba1cc6944948156, type: 2}
   profileSync: 0
   previewInEditor: 0
   camerasLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  effectGroup: 1
+  effectGroup: 0
   effectGroupLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -190,24 +190,24 @@ MonoBehaviour:
   constantWidth: 1
   subMeshMask: -1
   overlay: 0
-  overlayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  overlayColor: {r: 1, g: 1, b: 1, a: 1}
   overlayAnimationSpeed: 1
   overlayMinIntensity: 0.5
-  overlayBlending: 1
-  outline: 1
+  overlayBlending: 0
+  outline: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 0.38
-  outlineQuality: 3
+  outlineWidth: 1.48
+  outlineQuality: 1
   outlineDownsampling: 2
   outlineVisibility: 0
   outlineOptimalBlit: 1
   outlineBlitDebug: 0
   outlineIndependent: 0
-  glow: 2.45
-  glowWidth: 0.54
+  glow: 1.57
+  glowWidth: 0.4
   glowQuality: 2
   glowDownsampling: 2
-  glowHQColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
+  glowHQColor: {r: 1, g: 1, b: 1, a: 1}
   glowDithering: 1
   glowMagicNumber1: 0.75
   glowMagicNumber2: 0.5
@@ -219,9 +219,18 @@ MonoBehaviour:
   glowPasses:
   - offset: 4
     alpha: 0.1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  innerGlow: 0
-  innerGlowWidth: 1
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 3
+    alpha: 0.2
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 2
+    alpha: 0.3
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  - offset: 1
+    alpha: 0.4
+    color: {r: 0.64, g: 1, b: 0, a: 1}
+  innerGlow: 2.52
+  innerGlowWidth: 1.2
   innerGlowColor: {r: 1, g: 1, b: 1, a: 1}
   innerGlowVisibility: 0
   targetFX: 0
@@ -252,7 +261,7 @@ MonoBehaviour:
   seeThroughBorderWidth: 0.45
   seeThroughNonOverlap: 0
   rmsCount: 1
-  hitFxInitialIntensity: 1
+  hitFxInitialIntensity: 0
   hitFxMode: 0
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}

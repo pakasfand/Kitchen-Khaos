@@ -33,6 +33,7 @@ public class BeerParticles : MonoBehaviour
 
     private void OnParticleTrigger()
     {
+        Debug.Log("Player entered particles");
         ParticlePhysicsExtensions.GetTriggerParticles(particleSys, ParticleSystemTriggerEventType.Enter, enterParticles);
         if (enterParticles.Count != 0) OnPlayerHit?.Invoke();
     }

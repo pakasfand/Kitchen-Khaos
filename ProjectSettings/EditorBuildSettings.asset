@@ -12,12 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Cutscene.unity
     guid: 02e0d8ac901ec3a4ea673e78ce384286
   - enabled: 1
+    path: Assets/Scenes/Loading Scene.unity
+    guid: 3dba054f6f2dff24b9276a0667c17b2e
+  - enabled: 1
     path: Assets/Scenes/Kitchen.unity
     guid: 59478f481042a294b90a83a25d582de3
   - enabled: 1
-    path: Assets/Scenes/Victory Screen.unity
-    guid: af5cdb8e767ba1240b8172e8d6af92ce
-  - enabled: 1
     path: Assets/Scenes/Losing Screen.unity
     guid: ac30cf1f709239746a8233c977976a9f
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/Victory Screen.unity
+    guid: af5cdb8e767ba1240b8172e8d6af92ce
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: d48a6c302cafb81459ecebba2c6e1af0,
+      type: 2}

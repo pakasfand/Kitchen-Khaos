@@ -9,20 +9,20 @@ public class SkyboxController : MonoBehaviour
     [SerializeField] private Material _skyboxMat;
     private void OnEnable()
     {
-        GameLoop.OnShiftOver += OnShiftOver;
-        _skyboxMat.SetFloat("_CubemapTransition", ((float) _gameLoop.CurrentShiftIndex / _gameLoop.TotalShifts));
+        // GameLoop.OnShiftOver += OnShiftOver;
+        _skyboxMat.SetFloat("_CubemapTransition", 0f);
     }
-
-    private void OnDisable()
-    {
-        GameLoop.OnShiftOver += OnShiftOver;
-    }
-
-    private void OnShiftOver(bool status)
-    {
-        if (status)
-        {
-            _skyboxMat.SetFloat("_CubemapTransition", ((float) _gameLoop.CurrentShiftIndex / _gameLoop.TotalShifts));
-        }
-    }
+    
+    // private void OnDisable()
+    // {
+    //     GameLoop.OnShiftOver -= OnShiftOver;
+    // }
+    //
+    // private void OnShiftOver(bool status)
+    // {
+    //     if (status)
+    //     {
+    //         // _skyboxMat.SetFloat("_CubemapTransition", ((float) _gameLoop.CurrentShiftIndex / _gameLoop.TotalShifts));
+    //     }
+    // }
 }

@@ -63,6 +63,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToSplatterBeer: 5
   beerParticles: {fileID: 1264369155298128433}
+--- !u!1 &2946048337676680561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9201342867896664364}
+  - component: {fileID: 5975700424679030393}
+  m_Layer: 0
+  m_Name: Collider 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9201342867896664364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946048337676680561}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 2.0408158, y: 2.0408165, z: 2.0408158}
+  m_Children: []
+  m_Father: {fileID: 6658346037596679361}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5975700424679030393
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946048337676680561}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3299668335111006745
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +299,7 @@ Transform:
   - {fileID: 564989027517600027}
   - {fileID: 463380898164070907}
   - {fileID: 1135339975062804857}
+  - {fileID: 9201342867896664364}
   m_Father: {fileID: 6130837936577665450}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -3859,7 +3904,8 @@ ParticleSystem:
     interiorCollisions: 0
   TriggerModule:
     enabled: 1
-    collisionShape0: {fileID: 0}
+    collisionShape0: {fileID: 4694782094774542678, guid: 19f93391a10cc564aa46b37f59cd44f8,
+      type: 3}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}

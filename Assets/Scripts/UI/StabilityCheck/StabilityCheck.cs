@@ -47,7 +47,7 @@ public class StabilityCheck : MonoBehaviour
         
         _durationToFail = Mathf.Clamp(_durationToFailPerDish * dishesCount, 0.1f, 0.9f);
 
-        var width = Mathf.Lerp(0f, 123f,  _durationToFail);
+        var width = Mathf.Lerp(0f, 236f,  _durationToFail);
         _stabilityBar.rectTransform.sizeDelta = new Vector2(width, _stabilityBar.rectTransform.sizeDelta.y);
     }
 
@@ -76,6 +76,8 @@ public class StabilityCheck : MonoBehaviour
                 CompleteStabilityCheck();
             }
         }
+        
+        Debug.Log(_cursor.GetComponent<RectTransform>().anchoredPosition.x);
     }
 
     public void OnStability(InputAction.CallbackContext value)
@@ -106,7 +108,7 @@ public class StabilityCheck : MonoBehaviour
 
     private void UpdateStabilityBar()
     {
-        float cursorPosition = Mathf.Lerp(0f, 107f, _stabilityTimer / _durationToStabilityFull);
+        float cursorPosition = Mathf.Lerp(-29f, 197f, _stabilityTimer / _durationToStabilityFull);
         
         var anchoredPosition = _cursor.GetComponent<RectTransform>().anchoredPosition;
         anchoredPosition = new Vector3(cursorPosition, anchoredPosition.y);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32131258, g: 0.21189922, b: 0.40463266, a: 1}
+  m_IndirectSpecularColor: {r: 0.13897243, g: 0.07475776, b: 0.17645878, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15207,7 +15207,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -27785,7 +27785,7 @@ PrefabInstance:
     - target: {fileID: 2484276936280702811, guid: d8b0f62d425e55b459b1075008e37c2c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2484276937252344472, guid: d8b0f62d425e55b459b1075008e37c2c,
         type: 3}

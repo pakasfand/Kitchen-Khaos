@@ -38,7 +38,7 @@ public class PlayerInteraction : MonoBehaviour
     public static Action<int> OnStabilityCheckBegin;
     public static Action OnPlayerStumble;
     public static Action OnDishPickedUp;
-    public static Action OnDishesDropped;
+    public static Action<int> OnDishesDropped;
     public static Action OnChefIgnited;
 
     public bool IsInteracting => _isCleaning;
@@ -59,6 +59,7 @@ public class PlayerInteraction : MonoBehaviour
         Sink.OnDishesCleaned -= OnDishesCleaned;
         StabilityCheck.OnStabilityCompleted -= OnStabilityCompleted;
         GameLoop.OnShiftOver -= OnShiftOver;
+
     }
 
     private void Awake()
@@ -284,8 +285,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void DropDishes()
     {
-        _dishesCollected.Clear();
-
         _leftStackOffset = new Vector3(0f, 0.1f, 0f);
         _rightStackOffset = new Vector3(0f, 0.1f, 0f);
 
@@ -299,7 +298,10 @@ public class PlayerInteraction : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        OnDishesDropped?.Invoke();
+        OnDishesDropped?.Invoke(_dishesCollected.Count);
+        _dishesCollected.Clear();
+
+
     }
 
     public void Stumble()

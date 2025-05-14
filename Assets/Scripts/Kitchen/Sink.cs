@@ -21,7 +21,7 @@ public class Sink : MonoBehaviour
     [SerializeField] private float _cleaningTime;
     [SerializeField] private List<CleanDish> _cleanDishes;
     [SerializeField] private HighlightEffect _highlightFx;
-    
+
     private bool _active;
     private float _activeTimer;
     private List<DishType> _dishesBeingCleaned;
@@ -46,7 +46,7 @@ public class Sink : MonoBehaviour
         GameLoop.OnShiftOver -= OnShiftOver;
     }
 
-    private void OnDishesDropped()
+    private void OnDishesDropped(int amount)
     {
         _highlightFx.highlighted = false;
     }
@@ -112,7 +112,7 @@ public class Sink : MonoBehaviour
         _active = false;
         _activeTimer = 0f;
     }
-    
+
     private void OnShiftOver(bool completed)
     {
         foreach (var cleanDish in _cleanDishes)
@@ -121,7 +121,7 @@ public class Sink : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-            
+
             cleanDish.offset = Vector3.zero;
         }
     }

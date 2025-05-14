@@ -18,7 +18,7 @@ public class GameLoop : MonoBehaviour
 
     [Header("Game Management")]
     [SerializeField] GameObject player;
-    [SerializeField] DishesSpawner spawner;
+    [SerializeField] DishSpawner spawner;
     [SerializeField] Shift[] shifts;
 
     [Header("UI")]
@@ -130,7 +130,7 @@ public class GameLoop : MonoBehaviour
         shiftTimer.maxTime = shifts[currentShiftIndex].shiftTime;
         shiftTimer.gameObject.SetActive(true);
 
-        spawner.shift = shifts[currentShiftIndex];
+        spawner.SetShift(shifts[currentShiftIndex]);
         spawner.enabled = true;
 
         outOfShift = false;
@@ -212,8 +212,6 @@ public class GameLoop : MonoBehaviour
         {
             shifts[currentShiftIndex].TryDecrementGoalAmount(dish);
         }
-
-        _playerInteraction.DishesCollected.Clear();
     }
 
     private void DestroyGoals()
@@ -289,12 +287,8 @@ public class Shift
     public List<Goal> goals;
     public float shiftTime;
     public float transitionTime;
+    public int maxNumberOfActiveDishes;
     public PlayableDirector sequence;
-
-    private float currentNumberOfGoals;
-    private PlayerInteraction _playerInteraction;
-    private Coroutine flickerCoroutine;
-
 
     public bool GoalsCompleted()
     {
